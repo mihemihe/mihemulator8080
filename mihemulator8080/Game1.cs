@@ -27,6 +27,7 @@ namespace mihemulator8080
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
 
 
 
