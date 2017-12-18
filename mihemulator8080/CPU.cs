@@ -17,10 +17,9 @@ namespace mihemulator8080
             return "";
         }
 
-        public static String Disassemble(string pathByteCode)
+        public static List<String> Disassemble(string pathByteCode)
         {
-            BytesROM bytesROM;
-            string assemblyCode;
+            BytesROM bytesROM;            
             List<string> assemblyLines = new List<string>();
             List<string> noOPCode = new List<string>();
 
@@ -227,7 +226,7 @@ namespace mihemulator8080
             }
 
 
-            return "";
+            return assemblyLines;
         }
     }
 }

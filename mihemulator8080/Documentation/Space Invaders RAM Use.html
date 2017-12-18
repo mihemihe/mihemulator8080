@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<!-- saved from url=(0062)http://computerarcheology.com/Arcade/SpaceInvaders/RAMUse.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Space Invaders RAM Use</title>
+		
+	
+		<link rel="stylesheet" href="./Space Invaders RAM Use_files/bootstrap.min.css">
+	    <link rel="stylesheet" href="./Space Invaders RAM Use_files/bootstrap-theme.min.css">
+	    <link rel="stylesheet" href="./Space Invaders RAM Use_files/ca.css">        
+	
+	    <script src="./Space Invaders RAM Use_files/jquery-1.11.0.min.js.download"></script>
+	    <script src="./Space Invaders RAM Use_files/bootstrap.min.js.download"></script>
+	    <script src="./Space Invaders RAM Use_files/ca.js.download"></script>
+	    
+	    <!-- %%ADDITIONAL_HEAD%% -->   
+	    	
+	</head>
+
+<body>
+<div class="cont">
+
+  <div class="top">
+    <div id="help">
+      <ul class="nav navbar-nav">
+        <li><a href="http://computerarcheology.com/Contact/">Contact</a></li>       
+      </ul>
+    </div>
+    <div id="banner">
+      <img src="./Space Invaders RAM Use_files/logo.png">
+      <img id="pageImage" src="./Space Invaders RAM Use_files/SpaceInvaders.jpg">       
+    </div>
+    <div id="crumbs">
+      <ol class="breadcrumb">		
+	    <li><a href="http://computerarcheology.com/">Home</a></li><li><a href="http://computerarcheology.com/Arcade/">Arcade</a></li><li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/">Space Invaders</a></li><li><span>RAM Usage</span></li>			
+	  </ol> 
+    </div>  
+  </div>
+  
+  <div class="content">
+  
+    <div id="left">    
+      <div id="tabs">
+	    <ul class="nav nav-tabs">
+		  <li id="siteTab" role="presentation" class="active" onclick="switchToSiteTab();"><a>Site</a></li>
+		  <li id="pageTab" role="presentation" onclick="switchToPageTab();"><a>Page</a></li>
+		</ul>
+      </div>
+    
+      <div>
+        <ul id="siteTree">
+          <li><a href="http://computerarcheology.com/">Home</a></li>
+<li class="collapsed"><a href="http://computerarcheology.com/Amiga/">Amiga</a>
+<ul hidden="hidden">
+<li class="collapsed"><a href="http://computerarcheology.com/Amiga/Rainbow/">Rainbow Islands</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Amiga/Rainbow/1loader_dec.html">1loader_dec</a></li>
+<li><a href="http://computerarcheology.com/Amiga/Rainbow/1loader.html">1loader</a></li>
+<li><a href="http://computerarcheology.com/Amiga/Rainbow/boot.html">boot</a></li>
+<li><a href="http://computerarcheology.com/Amiga/Rainbow/orig_boot.html">orig_boot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed expanded"><a href="http://computerarcheology.com/Arcade/" class="selectedPagePath">Arcade</a>
+<ul>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/Asteroids/">Asteroids</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/Asteroids/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Asteroids/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Asteroids/Code.html">Code</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Asteroids/VectorROM.html">Vector ROM</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/Asteroids/DVG.html">DVG</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/CrazyClimber/">Crazy Climber</a>
+<ul hidden="hidden">
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/Defender/">Defender</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/Defender/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/Bank1.html">Bank 1</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/Bank2.html">Bank 2</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/Bank3.html">Bank 3</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/Bank7.html">Bank 7</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/BankFixed.html">Fixed Bank</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/Defender/SoundRAMUse.html">Sound RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/SoundHardware.html">Sound Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Defender/SoundCode.html">Sound Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/Frogger/">Frogger</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/Frogger/SoundRAMUse.html">Sound RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/SoundHardware.html">Sound Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/SoundCode.html">Sound Code</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/Main.html">Main Board</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/GFX.html">GFX</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Frogger/RAMUse.html">RAM Use</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/Galaga/">Galaga</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/Galaga/CPU1.html">CPU1</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Galaga/CPU2.html">CPU2</a></li>
+<li><a href="http://computerarcheology.com/Arcade/Galaga/CPU3.html">CPU3</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/MoonPatrol/">Moon Patrol</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/Code.html">Code</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/MoonPatrol/MoonPatrolSound.html">Moon Patrol Sound</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/SoundRAMUse.html">Sound RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/SoundHardware.html">Sound Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/SoundCode.html">Sound Code</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/MoonPatrol/GFX1.html">GFX1</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/GFX2.html">GFX2</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/GFX3.html">GFX3</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/GFX4.html">GFX4</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/GFX5.html">GFX5</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/ImageBackgroundColors.html">Background Colors</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/SpriteColors.html">Sprite Colors</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/SpriteColorSets.html">Sprite Color Sets</a></li>
+<li><a href="http://computerarcheology.com/Arcade/MoonPatrol/TextColors.html">Text Colors</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/OmegaRace/">Omega Race</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/MainBoard.html">Main Board</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/OmegaRace/VectorROM.html">Vector ROM</a></li>
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/DVGPROM.html">DVG PROM</a></li>
+<li><hr class="navSeparator"></li><li><a href="http://computerarcheology.com/Arcade/OmegaRace/SoundHardware.html">Sound Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/SoundRAMUse.html">Sound RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/OmegaRace/SoundBoard.html">Sound Code</a></li>
+</ul>
+</li>
+<li class="collapsed expanded"><a href="http://computerarcheology.com/Arcade/SpaceInvaders/" class="selectedPagePath">Space Invaders</a>
+<ul>
+<li><span class="selectedPage">RAM Usage</span></li>
+<li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/Hardware.html">Hardware</a></li>
+<li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Arcade/TimePilot/">Time Pilot</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/Code.html">Main Code</a></li>
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/Hardware.html">Hardware Info</a></li>
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/SoundCode.html">Sound Code</a></li>
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/SoundRAMUse.html">Sound RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Arcade/TimePilot/SoundHardware.html">Sound Hardware Info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/">Atari 2600</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/Stella.html">Stella</a></li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/Asteroids/">Asteroids</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/Asteroids/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/Asteroids/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/BattleZone/">BattleZone</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/BattleZone/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/BattleZone/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/Chess/">Chess</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/Chess/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/Chess/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/Combat/">Combat</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/Combat/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/Combat/Code.html">Code NTSC</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/Combat/CodePAL.html">Code PAL</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/ET/">ET</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/ET/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/ET/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/MissileCommand/">Missile Command</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/MissileCommand/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Atari2600/MissileCommand/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Atari2600/DoubleGap/">Double Gap</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Atari2600/DoubleGap/Code.html">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/">CoCo</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/Hardware.html">Hardware</a></li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/EarlyWork/">My Early Work</a>
+<ul hidden="hidden">
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/MadnessMinotaur/">Madness &amp; Minotaur</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/MadnessMinotaur/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/CoCo/MadnessMinotaur/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/Pyramid/">Pyramid</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/Pyramid/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/CoCo/Pyramid/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/RaakaTu/">Raaka Tu</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/RaakaTu/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/CoCo/RaakaTu/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/Bedlam/">Bedlam</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/Bedlam/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/CoCo/Bedlam/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/CoCo/Daggorath/">Daggorath</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/CoCo/Daggorath/levels.html">Level Maps</a></li>
+<li><a href="http://computerarcheology.com/CoCo/Daggorath/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/CoCo/Daggorath/Code.html">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Gameboy/">Gameboy</a>
+<ul hidden="hidden">
+<li class="collapsed"><a href="http://computerarcheology.com/Gameboy/Zelda/">Zelda</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Hardware.html">Hardware Info</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank00.html">Bank00</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank01.html">Bank01</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank02.html">Bank02</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank03.html">Bank03</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank04.html">Bank04</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank05.html">Bank05</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank06.html">Bank06</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank07.html">Bank07</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank08.html">Bank08</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank09.html">Bank09</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0A.html">Bank0A</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0B.html">Bank0B</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0C.html">Bank0C</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0D.html">Bank0D</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0E.html">Bank0E</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank0F.html">Bank0F</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank10.html">Bank10</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank11.html">Bank11</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank12.html">Bank12</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank13.html">Bank13</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank14.html">Bank14</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank15.html">Bank15</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank16.html">Bank16</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank17.html">Bank17</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank18.html">Bank18</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank19.html">Bank19</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1A.html">Bank1A</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1B.html">Bank1B</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1C.html">Bank1C</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1D.html">Bank1D</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1E.html">Bank1E</a></li>
+<li><a href="http://computerarcheology.com/Gameboy/Zelda/Bank1F.html">Bank1F</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/NES/">Nintendo NES</a>
+<ul hidden="hidden">
+<li class="collapsed"><a href="http://computerarcheology.com/NES/Zelda/">Zelda</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/NES/Zelda/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Hardware.html">Hardware Info</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank0.html">Bank0</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank1.html">Bank1</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank2.html">Bank2</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank3.html">Bank3</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank4.html">Bank4</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank5.html">Bank5</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank6.html">Bank6</a></li>
+<li><a href="http://computerarcheology.com/NES/Zelda/Bank7.html">Bank7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/TRS80/">TRS80</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/TRS80/Hardware.html">Hardware</a></li>
+<li class="collapsed"><a href="http://computerarcheology.com/TRS80/HauntedHouse/">HauntedHouse</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/TRS80/HauntedHouse/Code1.html">Code1</a></li>
+<li><a href="http://computerarcheology.com/TRS80/HauntedHouse/RAMUse1.html">RAM Use (1st)</a></li>
+<li><a href="http://computerarcheology.com/TRS80/HauntedHouse/Code2.html">Code2</a></li>
+<li><a href="http://computerarcheology.com/TRS80/HauntedHouse/RAMUse2.html">RAM Use (2nd)</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/TRS80/Pyramid/">Pyramid</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/TRS80/Pyramid/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/TRS80/Pyramid/Code.html">Code</a></li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/TRS80/Xenos/">Xenos</a>
+<ul hidden="hidden">
+<li><a href="http://computerarcheology.com/TRS80/Xenos/RAMUse.html">RAM Use</a></li>
+<li><a href="http://computerarcheology.com/TRS80/Xenos/Code.html">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Virus/">Viruses</a>
+<ul hidden="hidden">
+<li class="collapsed"><a href="http://computerarcheology.com/Virus/MorrisWorm/">Morris Worm</a>
+<ul hidden="hidden">
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Virus/Stoned/">Stoned</a>
+<ul hidden="hidden">
+</ul>
+</li>
+</ul>
+</li>
+<li class="collapsed"><a href="http://computerarcheology.com/Tools/">Tools</a>
+<ul hidden="hidden">
+<li class="collapsed"><a href="http://computerarcheology.com/Tools/Blend/">Blend</a>
+<ul hidden="hidden">
+</ul>
+</li>
+</ul>
+</li>
+
+        </ul>
+      </div>
+    
+      <div id="pageTree" class="hidden">
+        <ul>
+          <li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/RAMUse.html#GeneralVars">General Vars</a>
+<ul>
+</ul>
+</li>
+<li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/RAMUse.html#Player1specificdata">Player 1 specific data</a>
+<ul>
+</ul>
+</li>
+<li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/RAMUse.html#Player2specificdata">Player 2 specific data</a>
+<ul>
+</ul>
+</li>
+<li><a href="http://computerarcheology.com/Arcade/SpaceInvaders/RAMUse.html#Stack">Stack</a>
+<ul>
+</ul>
+</li>
+
+        </ul>
+      </div>     
+    </div>
+    
+    <div id="right">
+    
+      <h1 class="page-header">
+        Space Invaders RAM Use
+      </h1>
+    
+      
+
+<h2 id="GeneralVars">General Vars</h2>
+
+
+<table class="memoryMapTable table table-condensed">
+<tbody><tr><th>Address</th><th>Name</th><th>Description</th></tr>
+<tr id="addr_waitOnDraw"><td>2000</td><td>waitOnDraw</td><td>Cleared by alien-draw and set by next-alien. This ensures no alien gets missed while drawing.</td></tr>
+<tr id="addr_"><td>2001</td><td></td><td></td></tr>
+<tr id="addr_alienIsExploding"><td>2002</td><td>alienIsExploding</td><td>Not-0 if an alien is exploding, 0 if not exploting</td></tr>
+<tr id="addr_expAlienTimer"><td>2003</td><td>expAlienTimer</td><td>Time (ISR ticks) left in alien-explosion</td></tr>
+<tr id="addr_alienRow"><td>2004</td><td>alienRow</td><td>Row number of current alien (cursor)</td></tr>
+<tr id="addr_alienFrame"><td>2005</td><td>alienFrame</td><td>Animation frame number (0 or 1) for current alien (cursor)</td></tr>
+<tr id="addr_alienCurIndex"><td>2006</td><td>alienCurIndex</td><td>Alien cursor index (from 0 to 54)</td></tr>
+<tr id="addr_refAlienDYr"><td>2007</td><td>refAlienDYr</td><td>Reference alien delta Yr</td></tr>
+<tr id="addr_refAlienDXr"><td>2008</td><td>refAlienDXr</td><td>Reference alien deltaXr</td></tr>
+<tr id="addr_refAlienYr"><td>2009</td><td>refAlienYr</td><td>Reference alien Yr coordinate</td></tr>
+<tr id="addr_refAlienXr"><td>200A</td><td>refAlienXr</td><td>Reference alien Xr coordinate</td></tr>
+<tr id="addr_alienPosLSB"><td>200B</td><td>alienPosLSB</td><td>Alien cursor bit pos (LSB)</td></tr>
+<tr id="addr_alienPosMSB"><td>200C</td><td>alienPosMSB</td><td>Alien cursor bit pos (MSB)</td></tr>
+<tr id="addr_rackDirection"><td>200D</td><td>rackDirection</td><td>Value 0 if rack is moving right or 1 if rack is moving left</td></tr>
+<tr id="addr_rackDownDelta"><td>200E</td><td>rackDownDelta</td><td>Constant value of alien rack dropping after bumping screen edge</td></tr>
+<tr id="addr_"><td>200F</td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''GameObject0 (Move/draw the player)'''</td></tr>
+<tr id="addr_obj0TimerMSB"><td>2010</td><td>obj0TimerMSB</td><td></td></tr>
+<tr id="addr_obj0TimerLSB"><td>2011</td><td>obj0TimerLSB</td><td>Wait 128 interrupts (about 2 secs) before player task starts</td></tr>
+<tr id="addr_obj0TimerExtra"><td>2012</td><td>obj0TimerExtra</td><td></td></tr>
+<tr id="addr_obj0HanlderLSB"><td>2013</td><td>obj0HanlderLSB</td><td></td></tr>
+<tr id="addr_oBJ0HanlderMSB"><td>2014</td><td>oBJ0HanlderMSB</td><td>Player handler code at 028E</td></tr>
+<tr id="addr_playerAlive"><td>2015</td><td>playerAlive</td><td>Player is alive (FF=alive). Toggles between 0 and 1 for blow-up images.</td></tr>
+<tr id="addr_expAnimateTimer"><td>2016</td><td>expAnimateTimer</td><td>Time till next blow-up sprite change (reloaded to 5)</td></tr>
+<tr id="addr_expAnimateCnt"><td>2017</td><td>expAnimateCnt</td><td>Number of changes left in blow-up sequence</td></tr>
+<tr id="addr_plyrSprPicL"><td>2018</td><td>plyrSprPicL</td><td>Player sprite descriptor ... picture LSB</td></tr>
+<tr id="addr_plyrSprPicM"><td>2019</td><td>plyrSprPicM</td><td>Player sprite descriptor ... picture MSB</td></tr>
+<tr id="addr_playerYr"><td>201A</td><td>playerYr</td><td>Player sprite descriptor ... location LSB</td></tr>
+<tr id="addr_playerXr"><td>201B</td><td>playerXr</td><td>Player sprite descriptor ... location MSB</td></tr>
+<tr id="addr_plyrSprSiz"><td>201C</td><td>plyrSprSiz</td><td>Player sprite descriptor ... size of sprite</td></tr>
+<tr id="addr_nextDemoCmd"><td>201D</td><td>nextDemoCmd</td><td>Next movement command for demo</td></tr>
+<tr id="addr_hidMessSeq"><td>201E</td><td>hidMessSeq</td><td>Set to 1 after 1st of 2 sequences are entered for hidden-message display</td></tr>
+<tr id="addr_"><td>201F</td><td></td><td>Appears to be unused</td></tr>
+<tr id="addr_obj1TimerMSB"><td>2020</td><td>obj1TimerMSB</td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''GameObject1 (Move/draw the player shot)'''</td></tr>
+<tr id="addr_obj1TimerLSB"><td>2021</td><td>obj1TimerLSB</td><td></td></tr>
+<tr id="addr_obj1TimerExtra"><td>2022</td><td>obj1TimerExtra</td><td>All 0's ... run immediately</td></tr>
+<tr id="addr_obj1HandlerLSB"><td>2023</td><td>obj1HandlerLSB</td><td></td></tr>
+<tr id="addr_obj1HandlerMSB"><td>2024</td><td>obj1HandlerMSB</td><td>Shot handler code at 03BB</td></tr>
+<tr id="addr_plyrShotStatus"><td>2025</td><td>plyrShotStatus</td><td>0 if available, 1 if just initiated, 2 moving normally, 3 hit something besides alien, 5 if alien explosion is in progress, 4 if alien has exploded (remove from active duty)</td></tr>
+<tr id="addr_blowUpTimer"><td>2026</td><td>blowUpTimer</td><td>Sprite blow-up timer</td></tr>
+<tr id="addr_obj1ImageLSB"><td>2027</td><td>obj1ImageLSB</td><td></td></tr>
+<tr id="addr_obj1ImageMSB"><td>2028</td><td>obj1ImageMSB</td><td>Sprite image at 1C90 (just one byte)</td></tr>
+<tr id="addr_obj1CoorYr"><td>2029</td><td>obj1CoorYr</td><td>Player shot Y coordinate</td></tr>
+<tr id="addr_obj1CoorXr"><td>202A</td><td>obj1CoorXr</td><td>Player shot X coordinate</td></tr>
+<tr id="addr_obj1ImageSize"><td>202B</td><td>obj1ImageSize</td><td>Size of shot image (just one byte)</td></tr>
+<tr id="addr_shotDeltaX"><td>202C</td><td>shotDeltaX</td><td>Shot's delta X</td></tr>
+<tr id="addr_fireBounce"><td>202D</td><td>fireBounce</td><td>1 if button has been handled but remains down</td></tr>
+<tr id="addr_"><td>202E</td><td></td><td></td></tr>
+<tr id="addr_"><td>202F</td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''GameObject2 (Alien rolling-shot)'''</td></tr>
+<tr id="addr_obj2TimerMSB"><td>2030</td><td>obj2TimerMSB</td><td></td></tr>
+<tr id="addr_obj2TimerLSB"><td>2031</td><td>obj2TimerLSB</td><td></td></tr>
+<tr id="addr_obj2TimerExtra"><td>2032</td><td>obj2TimerExtra</td><td>GO-3 runs when this is 1. GO-4 runs when this is 2. (copied to 2080 in game loop)</td></tr>
+<tr id="addr_obj2HandlerLSB"><td>2033</td><td>obj2HandlerLSB</td><td></td></tr>
+<tr id="addr_obj2HandlerMSB"><td>2034</td><td>obj2HandlerMSB</td><td>Handler code at 0476</td></tr>
+<tr id="addr_rolShotStatus"><td>2035</td><td>rolShotStatus</td><td></td></tr>
+<tr id="addr_rolShotStepCnt"><td>2036</td><td>rolShotStepCnt</td><td></td></tr>
+<tr id="addr_rolShotTrack"><td>2037</td><td>rolShotTrack</td><td>A 0 means this shot tracks the player</td></tr>
+<tr id="addr_rolShotCFirLSB"><td>2038</td><td>rolShotCFirLSB</td><td>Pointer to column-firing table LSB (not used for targeting)</td></tr>
+<tr id="addr_rolShotCFirMSB"><td>2039</td><td>rolShotCFirMSB</td><td>Pointer to column-firing table MSB (not used for MSB counter</td></tr>
+<tr id="addr_rolShotBlowCnt"><td>203A</td><td>rolShotBlowCnt</td><td></td></tr>
+<tr id="addr_rolShotImageLSB"><td>203B</td><td>rolShotImageLSB</td><td></td></tr>
+<tr id="addr_rolShotImageMSB"><td>203C</td><td>rolShotImageMSB</td><td></td></tr>
+<tr id="addr_rolShotYr"><td>203D</td><td>rolShotYr</td><td></td></tr>
+<tr id="addr_rolShotXr"><td>203E</td><td>rolShotXr</td><td></td></tr>
+<tr id="addr_rolShotSize"><td>203F</td><td>rolShotSize</td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''GameObject3 (Alien plunger-shot)'''</td></tr>
+<tr id="addr_obj3TimerMSB"><td>2040</td><td>obj3TimerMSB</td><td></td></tr>
+<tr id="addr_obj3TimerLSB"><td>2041</td><td>obj3TimerLSB</td><td></td></tr>
+<tr id="addr_obj3TimerExtra"><td>2042</td><td>obj3TimerExtra</td><td></td></tr>
+<tr id="addr_obj3HandlerLSB"><td>2043</td><td>obj3HandlerLSB</td><td></td></tr>
+<tr id="addr_obj3HandlerMSB"><td>2044</td><td>obj3HandlerMSB</td><td>Handler code at 04B6</td></tr>
+<tr id="addr_pluShotStatus"><td>2045</td><td>pluShotStatus</td><td></td></tr>
+<tr id="addr_pluShotStepCnt"><td>2046</td><td>pluShotStepCnt</td><td></td></tr>
+<tr id="addr_pluShotTrack"><td>2047</td><td>pluShotTrack</td><td>A 1 means this shot does not track the player</td></tr>
+<tr id="addr_pluShotCFirLSB"><td>2048</td><td>pluShotCFirLSB</td><td>Pointer to column-firing table LSB</td></tr>
+<tr id="addr_pluShotCFirMSB"><td>2049</td><td>pluShotCFirMSB</td><td>Pointer to column-firing table MSB</td></tr>
+<tr id="addr_pluShotBlowCnt"><td>204A</td><td>pluShotBlowCnt</td><td></td></tr>
+<tr id="addr_pluShotImageLSB"><td>204B</td><td>pluShotImageLSB</td><td></td></tr>
+<tr id="addr_pluShotImageMSB"><td>204C</td><td>pluShotImageMSB</td><td></td></tr>
+<tr id="addr_pluShotYr"><td>204D</td><td>pluShotYr</td><td></td></tr>
+<tr id="addr_pluSHotXr"><td>204E</td><td>pluSHotXr</td><td></td></tr>
+<tr id="addr_pluShotSize"><td>204F</td><td>pluShotSize</td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''GameObject4 (Flying saucer OR alien squiggly shot)'''</td></tr>
+<tr id="addr_obj4TimerMSB"><td>2050</td><td>obj4TimerMSB</td><td></td></tr>
+<tr id="addr_obj4TimerLSB"><td>2051</td><td>obj4TimerLSB</td><td></td></tr>
+<tr id="addr_obj4TimerExtra"><td>2052</td><td>obj4TimerExtra</td><td></td></tr>
+<tr id="addr_obj4HandlerLSB"><td>2053</td><td>obj4HandlerLSB</td><td></td></tr>
+<tr id="addr_obj4HandlerMSB"><td>2054</td><td>obj4HandlerMSB</td><td>Handler code at 0682</td></tr>
+<tr id="addr_squShotStatus"><td>2055</td><td>squShotStatus</td><td></td></tr>
+<tr id="addr_squShotStepCnt"><td>2056</td><td>squShotStepCnt</td><td></td></tr>
+<tr id="addr_squShotTrack"><td>2057</td><td>squShotTrack</td><td>A 1 means this shot does not track the player</td></tr>
+<tr id="addr_squShotCFirLSB"><td>2058</td><td>squShotCFirLSB</td><td>Pointer to column-firing table LSB</td></tr>
+<tr id="addr_squShotCFirMSB"><td>2059</td><td>squShotCFirMSB</td><td>Pointer to column-firing table MSB</td></tr>
+<tr id="addr_squSHotBlowCnt"><td>205A</td><td>squSHotBlowCnt</td><td></td></tr>
+<tr id="addr_squShotImageLSB"><td>205B</td><td>squShotImageLSB</td><td></td></tr>
+<tr id="addr_squShotImageMSB"><td>205C</td><td>squShotImageMSB</td><td></td></tr>
+<tr id="addr_squShotYr"><td>205D</td><td>squShotYr</td><td></td></tr>
+<tr id="addr_squShotXr"><td>205E</td><td>squShotXr</td><td></td></tr>
+<tr id="addr_squShotSize"><td>205F</td><td>squShotSize</td><td></td></tr>
+<tr id="addr_endOfTasks"><td>2060</td><td>endOfTasks</td><td>FF marks the end of the tasks list</td></tr>
+<tr id="addr_collision"><td>2061</td><td>collision</td><td>Set to 1 if sprite-draw detects collision</td></tr>
+<tr id="addr_expAlienLSB"><td>2062</td><td>expAlienLSB</td><td></td></tr>
+<tr id="addr_expAlienMSB"><td>2063</td><td>expAlienMSB</td><td>Exploding alien picture 1CC0</td></tr>
+<tr id="addr_expAlienYr"><td>2064</td><td>expAlienYr</td><td>Y coordinate of exploding alien</td></tr>
+<tr id="addr_expAlienXr"><td>2065</td><td>expAlienXr</td><td>X coordinate of exploding alien</td></tr>
+<tr id="addr_expAlienSize"><td>2066</td><td>expAlienSize</td><td>Size of exploding alien sprite (16 bytes)</td></tr>
+<tr id="addr_playerDataMSB"><td>2067</td><td>playerDataMSB</td><td>Current player's data-pointer MSB (21xx or 22xx)</td></tr>
+<tr id="addr_playerOK"><td>2068</td><td>playerOK</td><td>1 means OK, 0 means blowing up</td></tr>
+<tr id="addr_enableAlienFire"><td>2069</td><td>enableAlienFire</td><td>1 means aliens can fire, 0 means not</td></tr>
+<tr id="addr_alienFireDelay"><td>206A</td><td>alienFireDelay</td><td>Count down till aliens can fire (2069 flag is then set)</td></tr>
+<tr id="addr_oneAlien"><td>206B</td><td>oneAlien</td><td>1 when only one alien is on screen</td></tr>
+<tr id="addr_temp206C"><td>206C</td><td>temp206C</td><td>Holds the value ten ... number of characters in each "=xx POINTS" string but gets set to 18 in mem copy before game.</td></tr>
+<tr id="addr_invaded"><td>206D</td><td>invaded</td><td>Set to 1 when player blows up because rack has reached bottom</td></tr>
+<tr id="addr_skipPlunger"><td>206E</td><td>skipPlunger</td><td>When there is only one alien left this goes to 1 to disable the plunger-shot when it ends</td></tr>
+<tr id="addr_"><td>206F</td><td></td><td></td></tr>
+<tr id="addr_otherShot1"><td>2070</td><td>otherShot1</td><td>When processing a shot, this holds one of the other shot's info</td></tr>
+<tr id="addr_otherShot2"><td>2071</td><td>otherShot2</td><td>When processing a shot, this holds one of the other shot's info</td></tr>
+<tr id="addr_vblankStatus"><td>2072</td><td>vblankStatus</td><td>80=screen is being drawn (don't touch), 0=blanking in progress (ok to change)</td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''Alien shot information (copied from the 3 actual structures when processed)'''</td></tr>
+<tr id="addr_aShotStatus"><td>2073</td><td>aShotStatus</td><td>Bit 0 set if shot is blowing up, bit 7 set if active</td></tr>
+<tr id="addr_aShotStepCnt"><td>2074</td><td>aShotStepCnt</td><td>Count of steps made by shot (used for fire reload rate)</td></tr>
+<tr id="addr_aShotTrack"><td>2075</td><td>aShotTrack</td><td>0 if shot tracks player or 1 if it uses the column-fire table</td></tr>
+<tr id="addr_aShotCFirLSB"><td>2076</td><td>aShotCFirLSB</td><td>Pointer to column-firing table LSB</td></tr>
+<tr id="addr_aShotCFirMSB"><td>2077</td><td>aShotCFirMSB</td><td>Pointer to column-firing table MSB</td></tr>
+<tr id="addr_aShotBlowCnt"><td>2078</td><td>aShotBlowCnt</td><td>Alen shot blow up counter. At 3 the explosion is drawn. At 0 it is done.</td></tr>
+<tr id="addr_aShotImageLSB"><td>2079</td><td>aShotImageLSB</td><td>Alien shot image LSB</td></tr>
+<tr id="addr_aShotImageMSB"><td>207A</td><td>aShotImageMSB</td><td>Alien shot image MSB</td></tr>
+<tr id="addr_alienShotYr"><td>207B</td><td>alienShotYr</td><td>Alien shot delta Y</td></tr>
+<tr id="addr_alienShotXr"><td>207C</td><td>alienShotXr</td><td>Alien shot delta X</td></tr>
+<tr id="addr_alienShotSize"><td>207D</td><td>alienShotSize</td><td>Alien shot size</td></tr>
+<tr id="addr_alienShotDelta"><td>207E</td><td>alienShotDelta</td><td>Alien shot speed. Normally -1 but set to -4 with less than 9 aliens</td></tr>
+<tr id="addr_shotPicEnd"><td>207F</td><td>shotPicEnd</td><td>the last picture in the current alien shot animation</td></tr>
+<tr id="addr_shotSync"><td>2080</td><td>shotSync</td><td>All 3 shots are synchronized to the GO-2 timer. This is copied from timer in the game loop</td></tr>
+<tr id="addr_tmp2081"><td>2081</td><td>tmp2081</td><td>Used to hold the remember/restore flag in shield-copy routine</td></tr>
+<tr id="addr_numAliens"><td>2082</td><td>numAliens</td><td>Number of aliens on screen</td></tr>
+<tr id="addr_saucerStart"><td>2083</td><td>saucerStart</td><td>Flag to start saucer (set to 1 when 2091:2092 counts down to 0)</td></tr>
+<tr id="addr_saucerActive"><td>2084</td><td>saucerActive</td><td>Saucer is on screen (1 means yes)</td></tr>
+<tr id="addr_saucerHit"><td>2085</td><td>saucerHit</td><td>Saucer has been hit (1 means draw it but don't move it)</td></tr>
+<tr id="addr_saucerHitTime"><td>2086</td><td>saucerHitTime</td><td>Hit-sequence timer (explosion drawn at 1F, score drawn at 18)</td></tr>
+<tr id="addr_saucerPriLocLSB"><td>2087</td><td>saucerPriLocLSB</td><td>Mystery ship print descriptor ... coordinate LSB</td></tr>
+<tr id="addr_saucerPriLocMSB"><td>2088</td><td>saucerPriLocMSB</td><td>Mystery ship print descriptor ... coordinate MSB</td></tr>
+<tr id="addr_saucerPriPicLSB"><td>2089</td><td>saucerPriPicLSB</td><td>Mystery ship print descriptor ... message LSB</td></tr>
+<tr id="addr_saucerPriPicMSB"><td>208A</td><td>saucerPriPicMSB</td><td>Mystery ship print descriptor ... message MSB</td></tr>
+<tr id="addr_saucerPriSize"><td>208B</td><td>saucerPriSize</td><td>Mystery ship print descriptor ... number of characters</td></tr>
+<tr id="addr_saucerDeltaY"><td>208C</td><td>saucerDeltaY</td><td>Mystery ship delta Y</td></tr>
+<tr id="addr_sauScoreLSB"><td>208D</td><td>sauScoreLSB</td><td>Pointer into mystery-ship score table (MSB)</td></tr>
+<tr id="addr_sauScoreMSB"><td>208E</td><td>sauScoreMSB</td><td>Pointer into mystery-ship score table (LSB)</td></tr>
+<tr id="addr_shotCountLSB"><td>208F</td><td>shotCountLSB</td><td>Bumped every shot-removal. Saucer's direction is bit 0. (0=2/29, 1=-2/E0)</td></tr>
+<tr id="addr_shotCountMSB"><td>2090</td><td>shotCountMSB</td><td>Read as two-bytes with 208F, but never used as such.</td></tr>
+<tr id="addr_tillSaucerLSB"><td>2091</td><td>tillSaucerLSB</td><td></td></tr>
+<tr id="addr_tillSaucerMSB"><td>2092</td><td>tillSaucerMSB</td><td>Count down every game loop. When it reaches 0 saucer is triggerd. Reset to 600.</td></tr>
+<tr id="addr_waitStartLoop"><td>2093</td><td>waitStartLoop</td><td>1=in wait-for-start loop, 0=in splash screens</td></tr>
+<tr id="addr_soundPort3"><td>2094</td><td>soundPort3</td><td>Current status of sound port (out $03)</td></tr>
+<tr id="addr_changeFleetSnd"><td>2095</td><td>changeFleetSnd</td><td>Set to 1 in ISR if time to change the fleet sound</td></tr>
+<tr id="addr_fleetSndCnt"><td>2096</td><td>fleetSndCnt</td><td>Delay until next fleet movement tone</td></tr>
+<tr id="addr_fleetSndReload"><td>2097</td><td>fleetSndReload</td><td>Reload value for fleet sound counter</td></tr>
+<tr id="addr_soundPort5"><td>2098</td><td>soundPort5</td><td>Current status of sound port (out $05)</td></tr>
+<tr id="addr_extraHold"><td>2099</td><td>extraHold</td><td>Duration counter for extra-ship sound</td></tr>
+<tr id="addr_tilt"><td>209A</td><td>tilt</td><td>1 if tilt handling is in progress</td></tr>
+<tr id="addr_fleetSndHold"><td>209B</td><td>fleetSndHold</td><td>Time to hold fleet-sound at each change</td></tr>
+<tr id="addr_"><td>209C</td><td></td><td></td></tr>
+<tr id="addr_"><td>209D</td><td></td><td></td></tr>
+<tr id="addr_"><td>209E</td><td></td><td></td></tr>
+<tr id="addr_"><td>209F</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A0</td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>'''In the ROM mirror copied to RAM this is the image of the alien sprite pulling the upside down Y. The code expects it to be 0030 below the second animation picture at 1BD0. This RAM area must be unused. The copy is wasted. '''</td></tr>
+<tr id="addr_"><td>20A1</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A2</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A3</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A4</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A5</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A6</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A7</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A8</td><td></td><td></td></tr>
+<tr id="addr_"><td>20A9</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AA</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AB</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AC</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AD</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AE</td><td></td><td></td></tr>
+<tr id="addr_"><td>20AF</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B0</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B1</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B2</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B3</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B4</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B5</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B6</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B7</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B8</td><td></td><td></td></tr>
+<tr id="addr_"><td>20B9</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BA</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BB</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BC</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BD</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BE</td><td></td><td></td></tr>
+<tr id="addr_"><td>20BF</td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>''' End of inialization copy from ROM mirror'''</td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>''' These are copied once from ROM at startup (01E6)'''</td></tr>
+<tr id="addr_"><td></td><td></td><td></td></tr>
+<tr id="addr_"><td></td><td></td><td>''' Splash screen animation structure '''</td></tr>
+<tr id="addr_isrDelay"><td>20C0</td><td>isrDelay</td><td>Delay counter decremented in ISR</td></tr>
+<tr id="addr_isrSplashTask"><td>20C1</td><td>isrSplashTask</td><td>1=In demo, 2=Little-alien and Y, 4=shooting extra 'C'</td></tr>
+<tr id="addr_splashAnForm"><td>20C2</td><td>splashAnForm</td><td>Image form (increments each draw)</td></tr>
+<tr id="addr_splashDeltaX"><td>20C3</td><td>splashDeltaX</td><td>Delta X</td></tr>
+<tr id="addr_splashDeltaY"><td>20C4</td><td>splashDeltaY</td><td>Delta Y</td></tr>
+<tr id="addr_splashYr"><td>20C5</td><td>splashYr</td><td>Y coordinate</td></tr>
+<tr id="addr_splashXr"><td>20C6</td><td>splashXr</td><td>X coordinate</td></tr>
+<tr id="addr_splashImageLSB"><td>20C7</td><td>splashImageLSB</td><td></td></tr>
+<tr id="addr_splashImageMSB"><td>20C8</td><td>splashImageMSB</td><td>Base image 1BA0 (small alien with upside down Y)</td></tr>
+<tr id="addr_splashImageSize"><td>20C9</td><td>splashImageSize</td><td>Size of image (16 bytes)</td></tr>
+<tr id="addr_splashTargetY"><td>20CA</td><td>splashTargetY</td><td>Target Y coordinate</td></tr>
+<tr id="addr_splashReached"><td>20CB</td><td>splashReached</td><td>Reached target Y flag (1 when reached)</td></tr>
+<tr id="addr_splashImRestLSB"><td>20CC</td><td>splashImRestLSB</td><td>Base image for restore 1BA0 is small alien with upside down Y</td></tr>
+<tr id="addr_splashImRestMSB"><td>20CD</td><td>splashImRestMSB</td><td></td></tr>
+<tr id="addr_twoPlayers"><td>20CE</td><td>twoPlayers</td><td>1 for yes, 0 means 1 player</td></tr>
+<tr id="addr_aShotReloadRate"><td>20CF</td><td>aShotReloadRate</td><td>Based on the MSB of the player's score ... how fast the aliens reload their shots</td></tr>
+<tr id="addr_"><td>20D0</td><td></td><td>; This is where the alien-sprite-carying-the-Y ...</td></tr>
+<tr id="addr_"><td>20D1</td><td></td><td>; ... lives in ROM</td></tr>
+<tr id="addr_"><td>20D2</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D3</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D4</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D5</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D6</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D7</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D8</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20D9</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DA</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DB</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DC</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DD</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DE</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20DF</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20E0</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20E1</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20E2</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20E3</td><td></td><td></td><td></td></tr>
+<tr id="addr_"><td>20E4</td><td></td><td></td><td></td></tr>
+<tr id="addr_player1Ex"><td>20E5</td><td>player1Ex</td><td>Extra ship has been awarded = 0</td></tr>
+<tr id="addr_player2Ex"><td>20E6</td><td>player2Ex</td><td>Extra ship has been awarded = 0</td></tr>
+<tr id="addr_player1Alive"><td>20E7</td><td>player1Alive</td><td>1 if player is alive, 0 if dead (after last man)</td></tr>
+<tr id="addr_player2Alive"><td>20E8</td><td>player2Alive</td><td>1 if player is alive, 0 if dead (after last man)</td></tr>
+<tr id="addr_suspendPlay"><td>20E9</td><td>suspendPlay</td><td>1=game things are moving, 0=game things are suspended</td></tr>
+<tr id="addr_coinSwitch"><td>20EA</td><td>coinSwitch</td><td>1=switch down, 0=switch up (used to debounce coin switch)</td></tr>
+<tr id="addr_numCoins"><td>20EB</td><td>numCoins</td><td>number of coin credits in BCD format (99 max)</td></tr>
+<tr id="addr_splashAnimate"><td>20EC</td><td>splashAnimate</td><td>0 for animation during splash and 1 for not. This alternates after every cycle.</td></tr>
+<tr id="addr_demoCmdPtrLSB"><td>20ED</td><td>demoCmdPtrLSB</td><td>pointer to demo commands LSB 1663</td></tr>
+<tr id="addr_demoCmdPtrMSB"><td>20EE</td><td>demoCmdPtrMSB</td><td>pointer to demo commands MSB</td></tr>
+<tr id="addr_gameMode"><td>20EF</td><td>gameMode</td><td>1=game running, 0=demo or splash screens</td></tr>
+<tr id="addr_"><td>20F0</td><td></td><td></td><td></td></tr>
+<tr id="addr_adjustScore"><td>20F1</td><td>adjustScore</td><td>Set to 1 if score needs adjusting</td></tr>
+<tr id="addr_scoreDeltaLSB"><td>20F2</td><td>scoreDeltaLSB</td><td>Score adjustment (LSB)</td></tr>
+<tr id="addr_scoreDeltaMSB"><td>20F3</td><td>scoreDeltaMSB</td><td>Score adjustment (MSB)</td></tr>
+<tr id="addr_HiScorL"><td>20F4</td><td>HiScorL</td><td>Hi-score descriptor ... value LSB</td></tr>
+<tr id="addr_HiScorM"><td>20F5</td><td>HiScorM</td><td>Hi-score descriptor ... value MSB</td></tr>
+<tr id="addr_HiScorLoL"><td>20F6</td><td>HiScorLoL</td><td>Hi-score descriptor ... location LSB</td></tr>
+<tr id="addr_HiScorLoM"><td>20F7</td><td>HiScorLoM</td><td>Hi-score descriptor ... location MSB</td></tr>
+<tr id="addr_P1ScorL"><td>20F8</td><td>P1ScorL</td><td>Hi-score descriptor ... value LSB</td></tr>
+<tr id="addr_P1ScorM"><td>20F9</td><td>P1ScorM</td><td>Hi-score descriptor ... value MSB</td></tr>
+<tr id="addr_P1ScorLoL"><td>20FA</td><td>P1ScorLoL</td><td>Hi-score descriptor ... location LSB</td></tr>
+<tr id="addr_P1ScorLoM"><td>20FB</td><td>P1ScorLoM</td><td>Hi-score descriptor ... location MSB</td></tr>
+<tr id="addr_P2ScorL"><td>20FC</td><td>P2ScorL</td><td>Hi-score descriptor ... value LSB</td></tr>
+<tr id="addr_P2ScorM"><td>20FD</td><td>P2ScorM</td><td>Hi-score descriptor ... value MSB</td></tr>
+<tr id="addr_P2ScorLoL"><td>20FE</td><td>P2ScorLoL</td><td>Hi-score descriptor ... location LSB</td></tr>
+<tr id="addr_P2ScorLoM"><td>20FF</td><td>P2ScorLoM</td><td>Hi-score descriptor ... location MSB</td></tr>
+</tbody></table>
+
+<h2 id="Player1specificdata">Player 1 specific data</h2>
+
+<table class="memoryMapTable table table-condensed">
+<tbody><tr id="addr_"><td>2100:2136</td><td></td><td>Player 1 alien ship indicators (0=dead) 11*5 = 55</td></tr>
+<tr id="addr_"><td>2137:2141</td><td></td><td>Unused 11 bytes (room for another row of aliens?)</td></tr>
+<tr id="addr_"><td>2142:21F1</td><td></td><td>Player 1 shields remembered between rounds 44 bytes * 4 shields ($B0 bytes)</td></tr>
+<tr id="addr_"><td>21F2:21FA</td><td></td><td>Unused 9 bytes</td></tr>
+<tr id="addr_p1RefAlienDX"><td>21FB</td><td>p1RefAlienDX</td><td>Player 1 reference-alien delta X</td></tr>
+<tr id="addr_p1RefAlienY"><td>21FC</td><td>p1RefAlienY</td><td>Player 1 reference-alien Y coordinate</td></tr>
+<tr id="addr_p1RefAlienX"><td>21FD</td><td>p1RefAlienX</td><td>Player 1 reference-alien X coordiante</td></tr>
+<tr id="addr_p1RackCnt"><td>21FE</td><td>p1RackCnt</td><td>Player 1 rack-count (starts at 0 but get incremented to 1-8)</td></tr>
+<tr id="addr_p1ShipsRem"><td>21FF</td><td>p1ShipsRem</td><td>Ships remaining after current dies</td></tr>
+</tbody></table>
+
+<h2 id="Player2specificdata">Player 2 specific data</h2>
+
+<table class="memoryMapTable table table-condensed">
+<tbody><tr id="addr_"><td>2200:2236</td><td></td><td>Player 2 alien ship indicators (0=dead) 11*5 = 55</td></tr>
+<tr id="addr_"><td>2237:2241</td><td></td><td>Unused 11 bytes (room for another row of aliens?)</td></tr>
+<tr id="addr_"><td>2242:22F1</td><td></td><td>Player 2 shields remembered between rounds 44 bytes * 4 shields ($B0 bytes)</td></tr>
+<tr id="addr_"><td>22F2:22FA</td><td></td><td>Unused 9 bytes</td></tr>
+<tr id="addr_p2RefAlienDX"><td>22FB</td><td>p2RefAlienDX</td><td>Player 2 reference-alien delta X</td></tr>
+<tr id="addr_p2RefAlienYr"><td>22FC</td><td>p2RefAlienYr</td><td>Player 2 reference-alien Y coordinate</td></tr>
+<tr id="addr_p2RefAlienXr"><td>22FD</td><td>p2RefAlienXr</td><td>Player 2 reference-alien X coordinate</td></tr>
+<tr id="addr_p2RackCnt"><td>22FE</td><td>p2RackCnt</td><td>Player 2 rack-count (starts at 0 but get incremented to 1-8)</td></tr>
+<tr id="addr_p2ShipsRem"><td>22FF</td><td>p2ShipsRem</td><td>Ships remaining after current dies</td></tr>
+</tbody></table>
+
+<h2 id="Stack">Stack</h2>
+
+<table class="memoryMapTable table table-condensed">
+<tbody><tr id="addr_"><td>2300:23DD</td><td></td><td>Unused (stack space)</td></tr>
+<tr id="addr_"><td>23DE:23FF</td><td></td><td>In the emulator the stack consumes this area (roughly 16 levels)</td></tr>
+</tbody></table>
+
+<p>
+
+    </p></div>
+    
+  </div>
+  
+</div>
+
+
+
+
+</body></html>

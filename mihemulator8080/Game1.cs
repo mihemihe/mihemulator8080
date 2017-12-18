@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.IO;
 
 namespace mihemulator8080
 {
@@ -9,8 +11,8 @@ namespace mihemulator8080
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -26,10 +28,19 @@ namespace mihemulator8080
         /// </summary>
         protected override void Initialize()
         {
+            List<string> spaceInvadersAsm = new List<string>();
+
             // TODO: Add your initialization logic here
-            CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
+            spaceInvadersAsm = CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
+            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-G.json"));
+            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-F.json"));
+            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-E.json"));
 
+            string SpaceInvadersAsmPath = @"..\..\..\..\Misc\OutputFiles\SpaceInvaders.8080asm";
 
+            if (File.Exists(SpaceInvadersAsmPath)) File.Delete(SpaceInvadersAsmPath);
+            
+            File.WriteAllLines(SpaceInvadersAsmPath, spaceInvadersAsm);
 
             base.Initialize();
         }

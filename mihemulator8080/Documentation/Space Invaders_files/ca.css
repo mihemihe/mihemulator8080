@@ -1,0 +1,171 @@
+body {
+  margin: 0;
+  
+}
+body,
+html,
+.cont {
+  height: 100%;
+}
+.cont,
+.content {
+  display: flex;  
+}
+.cont {
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
+.content div {
+  overflow: auto;
+}
+
+#left {	
+	flex: 1;
+	background-color: #f5f5f5;
+	margin-right: 10px;
+	padding-left: 10px;
+}
+
+#right {
+	flex:5;
+	padding-right: 10px;
+}
+
+#help {
+	width:200px;
+	float:right;
+	padding-top:20px;
+}
+#banner {
+	padding-left:4px;
+}
+#pageImage {
+	height: 90px;
+	padding-left:40px;
+	margin-top:4px;
+	margin-bottom:4px;
+}
+
+#siteTree, #siteTree ul, #siteTree li {
+	padding: 0;
+}
+
+#tabs {
+	padding-left: 0px;
+	padding-right: 20px;
+}
+
+#pageTree, #pageTree ul, #pageTree li {
+	padding: 0;
+}
+#pageTree ul {
+	list-style: none;	
+}
+
+#pageTree li {
+	padding-left: 12px;
+}
+
+#siteTree, #pageTree {
+	margin-top: 16px;
+}
+
+.selectedPage {
+	font-weight: bold;	
+}
+.selectedPagePath {
+	font-style: italic;
+}
+
+#crumbs li.active {
+	font-weight: bold;
+}
+
+#siteTree li {    
+    background-position: 0px 0.4em;
+    padding-left: 12px;
+    background-repeat: no-repeat;  
+    list-style-type: none;    
+}
+
+/* Collapsed state for list element */
+#siteTree .collapsed {
+    background-image: url(/img/plusbox.gif);
+}
+/* Expanded state for list element
+/* NOTE: This class must be located UNDER the collapsed one */
+#siteTree .expanded {
+    background-image: url(/img/minusbox.gif);
+}
+
+.playMe {
+	background-color: #dff0d8;
+}
+
+.tourGuide {
+	 background-color: #adc9f7;
+}
+
+.playMe, .tourGuide {
+	border: 1px solid;
+    border-radius: 10px;    
+}
+
+.playMe div, .tourGuide div {
+	padding-left: 20px;
+}
+
+.playMe h2, .tourGuide h2 {
+	margin-top:8px;
+}
+
+.codePreStyle {
+	background-color: #FFFFFF;
+	border: 0px solid;
+}
+
+.cocoScreen {
+	background: #00FF01; 
+	color: #000; 
+	font-family: 'Courier New', Courier, monospace; 
+	font-size: 12px; 
+	width: 32ch;
+}
+
+.addr_code {
+	color: #337ab7;
+	font-weight: bold;
+}
+
+.addr_ram {
+	color: #00C000;
+	font-weight: bold;
+}
+
+.addr_hard {
+	color: #00C0C0;
+	font-weight: bold;
+}
+
+.page-header {
+	margin-top: 0px;
+}
+
+.pageNav_visual {
+	color: green;
+}
+
+.block_plainCode {
+	background-color: #FFFFFF;
+	border: 0px solid;
+}
+
+.navSeparator {
+	margin: 4px;
+	border-color: #505050;
+	width: 50%;
+}
+
+
