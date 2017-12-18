@@ -220,6 +220,13 @@ namespace mihemulator8080
                 }
                 
             }
+
+            foreach (string line in assemblyLines)
+            {
+                Debug.WriteLine(line);
+            }
+
+
             return "";
         }
     }
