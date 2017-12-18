@@ -62,6 +62,11 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.config" />
     <None Include="app.manifest" />
+    <None Include="ROM\SpaceInvaders1978\INVADERS-E.json" />
+    <None Include="ROM\SpaceInvaders1978\INVADERS-F.json" />
+    <None Include="ROM\SpaceInvaders1978\INVADERS-G.json" />
+    <None Include="ROM\SpaceInvaders1978\INVADERS-H.json" />
+    <None Include="ROM\SpaceInvaders1978\invaders.rom" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
