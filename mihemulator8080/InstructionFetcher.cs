@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +18,11 @@ namespace mihemulator8080
 
     public class InstructionFetcher
     {
+        private struct BytesROM
+        {
+            public byte[] Bytes { get; set; }
+        }
+
         public List<string> AssemblyLines { get; set; }
         private string SourceCode { get; set; }
         private SourceFileFormat SourceCodeFormat { get; set; }
@@ -28,6 +32,7 @@ namespace mihemulator8080
         public InstructionFetcher()
         {
             iterator = -1;
+            AssemblyLines = new List<string>();
         }
 
         public string FetchNext()
@@ -45,17 +50,21 @@ namespace mihemulator8080
 
         public int LoadSourceFile(string pathByteCode, SourceFileFormat format)
         {
+            BytesROM bytesROM;
             SourceCodeFormat = format;
+
             if (format == SourceFileFormat.JSON_HEX)
             {
                 using (StreamReader file = File.OpenText(pathByteCode))
                 {
-                    
                     JsonSerializer serializer = new JsonSerializer();
-                    Bytes = (byte[])serializer.Deserialize(file, typeof(byte[]));
+                    bytesROM = (BytesROM)serializer.Deserialize(file, typeof(BytesROM));
+                    Bytes = bytesROM.Bytes;
                 }
             }
             //TODO: add other formats from the enum
+
+            this.ParseFile();
 
             return 0;
         }
@@ -81,7 +90,10 @@ namespace mihemulator8080
                     }
                 }
 
-                AssemblyLines.Add(DisassembleInstruction(new InstructionOpcodes(currentByte, byte2, byte3), out size));
+                InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
+                string decoded = DisassembleInstruction(nextInstruction, out size);
+
+                AssemblyLines.Add(decoded);
 
                 position = position + size;
             }
