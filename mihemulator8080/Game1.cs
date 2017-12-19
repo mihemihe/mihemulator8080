@@ -28,19 +28,24 @@ namespace mihemulator8080
         /// </summary>
         protected override void Initialize()
         {
+            CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
+
             List<string> spaceInvadersAsm = new List<string>();
 
             // TODO: Add your initialization logic here
-            spaceInvadersAsm = CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
-            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-G.json"));
-            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-F.json"));
-            spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-E.json"));
+            //spaceInvadersAsm = CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
+            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-G.json"));
+            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-F.json"));
+            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-E.json"));
 
             string SpaceInvadersAsmPath = @"..\..\..\..\Misc\OutputFiles\SpaceInvaders.8080asm";
 
-            if (File.Exists(SpaceInvadersAsmPath)) File.Delete(SpaceInvadersAsmPath);
-            
-            File.WriteAllLines(SpaceInvadersAsmPath, spaceInvadersAsm);
+            if (File.Exists(SpaceInvadersAsmPath))
+            {
+                File.Delete(SpaceInvadersAsmPath);
+            }
+
+            File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.AssemblyLines);
 
             base.Initialize();
         }

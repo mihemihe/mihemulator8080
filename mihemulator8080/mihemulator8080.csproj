@@ -43,9 +43,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="bytesROM.cs" />
     <Compile Include="CPU.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="InstructionFetcher.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
