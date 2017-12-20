@@ -2198,14 +2198,14 @@ CALL   $09CA
 INX    H
 MOV    A,M
 CMP    B
-D8 not found ************************
+RC
 CALL   $092E
 INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-24 not found ************************
-24 not found ************************
+INR    h
+INR    h
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -2224,10 +2224,10 @@ MVI    B,#$10
 JMP    $18FA
 LXI    H,#$1DA0
 CPI    #$02
-D8 not found ************************
+RC
 INX    H
 CPI    #$04
-D8 not found ************************
+RC
 INX    H
 RET
 CALL   $09CA
@@ -2278,7 +2278,7 @@ JMP    $08FF
 LDA    $2067
 RRC
 LXI    H,#$20F8
-D8 not found ************************
+RC
 LXI    H,#$20FC
 RET
 LXI    H,#$2402
@@ -4725,14 +4725,14 @@ CALL   $09CA
 INX    H
 MOV    A,M
 CMP    B
-D8 not found ************************
+RC
 CALL   $092E
 INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-24 not found ************************
-24 not found ************************
+INR    h
+INR    h
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -4751,10 +4751,10 @@ MVI    B,#$10
 JMP    $18FA
 LXI    H,#$1DA0
 CPI    #$02
-D8 not found ************************
+RC
 INX    H
 CPI    #$04
-D8 not found ************************
+RC
 INX    H
 RET
 CALL   $09CA
@@ -4805,7 +4805,7 @@ JMP    $08FF
 LDA    $2067
 RRC
 LXI    H,#$20F8
-D8 not found ************************
+RC
 LXI    H,#$20FC
 RET
 LXI    H,#$2402
@@ -8836,14 +8836,14 @@ CALL   $09CA
 INX    H
 MOV    A,M
 CMP    B
-D8 not found ************************
+RC
 CALL   $092E
 INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-24 not found ************************
-24 not found ************************
+INR    h
+INR    h
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -8862,10 +8862,10 @@ MVI    B,#$10
 JMP    $18FA
 LXI    H,#$1DA0
 CPI    #$02
-D8 not found ************************
+RC
 INX    H
 CPI    #$04
-D8 not found ************************
+RC
 INX    H
 RET
 CALL   $09CA
@@ -8916,7 +8916,7 @@ JMP    $08FF
 LDA    $2067
 RRC
 LXI    H,#$20F8
-D8 not found ************************
+RC
 LXI    H,#$20FC
 RET
 LXI    H,#$2402
@@ -11794,7 +11794,7 @@ JMP    $1828
 CALL   $0AB1
 LXI    B,#$1DCF
 CALL   $1856
-D8 not found ************************
+RC
 CALL   $184C
 JMP    $183A
 PUSH   B
@@ -11903,7 +11903,7 @@ JMP    $1597
 LXI    H,#$20E7
 LDA    $2067
 RRC
-D8 not found ************************
+RC
 INX    H
 RET
 MVI    C,#$1C
@@ -12180,7 +12180,7 @@ MVI    H,#$26
 STAX   B
 MVI    C,#$11
 INR    B
-24 not found ************************
+INR    h
 1B not found ************************
 25 not found ************************
 MVI    H,#$07
@@ -12194,7 +12194,7 @@ MVI    H,#$12
 STAX   B
 MVI    C,#$11
 INR    B
-24 not found ************************
+INR    h
 1C not found ************************
 25 not found ************************
 MVI    H,#$01
@@ -12625,7 +12625,7 @@ FC not found ************************
 ADD    B
 NOP
 CPI    #$00
-24 not found ************************
+INR    h
 CPI    #$12
 NOP
 CPI    #$00
@@ -12861,9 +12861,9 @@ NOP
 NOP
 NOP
 1F not found ************************
-24 not found ************************
+INR    h
 44 not found ************************
-24 not found ************************
+INR    h
 1F not found ************************
 NOP
 NOP
@@ -13070,7 +13070,7 @@ NOP
 NOP
 0C not found ************************
 INR    D
-24 not found ************************
+INR    h
 MOV    A,A
 INR    B
 NOP
@@ -13151,7 +13151,7 @@ INR    B
 INX    B
 NOP
 NOP
-24 not found ************************
+INR    h
 1B not found ************************
 MVI    H,#$0E
 LXI    D,#$1C26

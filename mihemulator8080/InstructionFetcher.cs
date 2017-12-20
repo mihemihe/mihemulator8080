@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace mihemulator8080
@@ -18,23 +19,30 @@ namespace mihemulator8080
 
     public class InstructionFetcher
     {
-        public List<string> AssemblyLines { get; set; }
+        public List<Tuple<string,int>> AssemblyLines { get; set; }
         private List<byte> Bytes { get; set; }
         private int iterator { get; set; }
         private string SourceCode { get; set; }
+        private int listAddressPointer;
 
         private SourceFileFormat SourceCodeFormat { get; set; }
 
         public InstructionFetcher()
         {
             iterator = -1;
-            AssemblyLines = new List<string>();
+            AssemblyLines = new List<Tuple<string, int>>();
             Bytes = new List<byte>();
+            listAddressPointer = 0;
         }
 
         public List<string> FetchAllCodeLines()
         {
-            return AssemblyLines;
+            List<string> lines = new List<string>();
+            foreach (Tuple<string,int> line in AssemblyLines)
+            {
+                lines.Add(line.Item1);
+            }
+            return lines;
         }
 
         public List<byte> FetchAllCodeBytes()
@@ -42,11 +50,11 @@ namespace mihemulator8080
             return Bytes;
         }
 
-        public string FetchNextInstruction()
+        public Tuple<string,int> FetchNextInstruction()
         {
             if (iterator >= AssemblyLines.Count)
             {
-                return "EOF";
+                return Tuple.Create("EOF",-1);
             }
             else
             {
@@ -114,6 +122,7 @@ namespace mihemulator8080
                 case 0x21: size = 3; return $"LXI    H,#${byte3}{byte2}";
                 case 0x22: size = 3; return $"SHLD   ${byte3}{byte2}";
                 case 0x23: return $"INX    H";
+                case 0x24: return $"INR    h";
                 case 0x26: size = 2; return $"MVI    H,#${byte2}";
                 case 0x27: return $"DAA";
                 case 0x29: return $"DAD    H";
@@ -185,6 +194,7 @@ namespace mihemulator8080
 
                 case 0x80: return $"ADD    B";
                 case 0x82: return $"ADD    D";
+                case 0x83: return $"ADD    E";
                 case 0x85: return $"ADD    L";
                 case 0x86: return $"ADD    M";
                 case 0x87: return $"ADD    A";
@@ -228,6 +238,7 @@ namespace mihemulator8080
                 case 0xD4: size = 3; return $"CNC    ${byte3}{byte2}";
                 case 0xD5: return $"PUSH   D";
                 case 0xD6: size = 2; return $"SUI    #${byte2}";
+                case 0xD8: return $"RC";
                 case 0xDA: size = 3; return $"JC     ${byte3}{byte2}";
                 case 0xDB: size = 2; return $"IN     #${byte2}";
                 case 0xDE: size = 2; return $"SBI    #${byte2}";
@@ -247,6 +258,7 @@ namespace mihemulator8080
                 case 0xFE: size = 2; return $"CPI    #${byte2}";
 
                 default:
+                    Debug.Write(BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************");
                     return BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************";
             }
         }
@@ -275,9 +287,12 @@ namespace mihemulator8080
                 InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
                 string decoded = DisassembleInstruction(nextInstruction, out size);
 
-                AssemblyLines.Add(decoded);
+                AssemblyLines.Add(Tuple.Create(decoded,size));
 
-                position = position + size;
+                
+                //Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
+                position = position + size; // to iterate the byte array in an individual file
+                listAddressPointer = listAddressPointer + size; // to count the meory line
             }
 
             //        List<string> noOPCode = new List<string>();

@@ -42,7 +42,7 @@ namespace mihemulator8080
             {
                 File.Delete(SpaceInvadersAsmPath);
             }
-            File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.AssemblyLines);
+            File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.FetchAllCodeLines());
 
             int memoryPointer = 0;
             foreach (byte _byte in CPU.instructionFecther.FetchAllCodeBytes())
@@ -54,7 +54,7 @@ namespace mihemulator8080
             do
             {
                 ticks++;
-                string instruction = CPU.instructionFecther.FetchNextInstruction();
+                //string instruction = CPU.instructionFecther.FetchNextInstruction().Item1;
 
             } while (true);
 
