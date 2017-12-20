@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mihemulator8080
 {
-    class Memory
+    public static class Memory
     {
-        Byte[] RAMMemory = new byte[65536];
-
-
+        static public Byte[] RAMMemory = new byte[65536];
     }
 }

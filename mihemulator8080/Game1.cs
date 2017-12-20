@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.IO;
 
+
 namespace mihemulator8080
 {
     /// <summary>
@@ -13,6 +14,7 @@ namespace mihemulator8080
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        int ticks = 0;
 
         public Game1()
         {
@@ -29,23 +31,34 @@ namespace mihemulator8080
         protected override void Initialize()
         {
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
+            CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-G.json", SourceFileFormat.JSON_HEX);
+            CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-f.json", SourceFileFormat.JSON_HEX);
+            CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-E.json", SourceFileFormat.JSON_HEX);
+
 
             List<string> spaceInvadersAsm = new List<string>();
-
-            // TODO: Add your initialization logic here
-            //spaceInvadersAsm = CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-H.json");
-            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-G.json"));
-            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-F.json"));
-            //spaceInvadersAsm.AddRange(CPU.Disassemble(@".\ROM\SpaceInvaders1978\INVADERS-E.json"));
-
             string SpaceInvadersAsmPath = @"..\..\..\..\Misc\OutputFiles\SpaceInvaders.8080asm";
-
             if (File.Exists(SpaceInvadersAsmPath))
             {
                 File.Delete(SpaceInvadersAsmPath);
             }
-
             File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.AssemblyLines);
+
+            int memoryPointer = 0;
+            foreach (byte _byte in CPU.instructionFecther.FetchAllCodeBytes())
+            {
+                Memory.RAMMemory[memoryPointer] = _byte;
+                memoryPointer++;
+            }
+
+            do
+            {
+                ticks++;
+                string instruction = CPU.instructionFecther.FetchNextInstruction();
+
+            } while (true);
+
+
 
             base.Initialize();
         }

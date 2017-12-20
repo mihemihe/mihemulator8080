@@ -18,24 +18,31 @@ namespace mihemulator8080
 
     public class InstructionFetcher
     {
-        private struct BytesROM
-        {
-            public byte[] Bytes { get; set; }
-        }
-
         public List<string> AssemblyLines { get; set; }
-        private string SourceCode { get; set; }
-        private SourceFileFormat SourceCodeFormat { get; set; }
-        private byte[] Bytes { get; set; }
+        private List<byte> Bytes { get; set; }
         private int iterator { get; set; }
+        private string SourceCode { get; set; }
+
+        private SourceFileFormat SourceCodeFormat { get; set; }
 
         public InstructionFetcher()
         {
             iterator = -1;
             AssemblyLines = new List<string>();
+            Bytes = new List<byte>();
         }
 
-        public string FetchNext()
+        public List<string> FetchAllCodeLines()
+        {
+            return AssemblyLines;
+        }
+
+        public List<byte> FetchAllCodeBytes()
+        {
+            return Bytes;
+        }
+
+        public string FetchNextInstruction()
         {
             if (iterator >= AssemblyLines.Count)
             {
@@ -59,7 +66,11 @@ namespace mihemulator8080
                 {
                     JsonSerializer serializer = new JsonSerializer();
                     bytesROM = (BytesROM)serializer.Deserialize(file, typeof(BytesROM));
-                    Bytes = bytesROM.Bytes;
+
+                    for (int i = 0; i < bytesROM.Bytes.Length; i++)
+                    {
+                        Bytes.Add(bytesROM.Bytes[i]);
+                    }
                 }
             }
             //TODO: add other formats from the enum
@@ -67,52 +78,6 @@ namespace mihemulator8080
             this.ParseFile();
 
             return 0;
-        }
-
-        private void ParseFile()
-        {
-            int size = 0;
-            int codeLengthInBytes = Bytes.Length;
-
-            for (int position = 0; position < codeLengthInBytes;)
-            {
-                byte currentByte = Bytes[position];
-                byte byte2 = 0x00;
-                byte byte3 = 0x00;
-
-                if (position < codeLengthInBytes - 1)
-                {
-                    byte2 = Bytes[position + 1]; //out of bound at the endfix
-
-                    if (position < codeLengthInBytes - 2)
-                    {
-                        byte3 = Bytes[position + 2];
-                    }
-                }
-
-                InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
-                string decoded = DisassembleInstruction(nextInstruction, out size);
-
-                AssemblyLines.Add(decoded);
-
-                position = position + size;
-            }
-
-            //        List<string> noOPCode = new List<string>();
-        }
-
-        private readonly struct InstructionOpcodes
-        {
-            public byte Byte1 { get; }
-            public byte Byte2 { get; }
-            public byte Byte3 { get; }
-
-            public InstructionOpcodes(byte opcode1, byte opcode2, byte opcode3)
-            {
-                Byte1 = opcode1;
-                Byte2 = opcode2;
-                Byte3 = opcode3;
-            }
         }
 
         private static string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
@@ -284,6 +249,57 @@ namespace mihemulator8080
                 default:
                     return BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************";
             }
+        }
+
+        private void ParseFile()
+        {
+            int size = 0;
+            int codeLengthInBytes = Bytes.Count;
+
+            for (int position = 0; position < codeLengthInBytes;)
+            {
+                byte currentByte = Bytes[position];
+                byte byte2 = 0x00;
+                byte byte3 = 0x00;
+
+                if (position < codeLengthInBytes - 1)
+                {
+                    byte2 = Bytes[position + 1]; //out of bound at the endfix
+
+                    if (position < codeLengthInBytes - 2)
+                    {
+                        byte3 = Bytes[position + 2];
+                    }
+                }
+
+                InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
+                string decoded = DisassembleInstruction(nextInstruction, out size);
+
+                AssemblyLines.Add(decoded);
+
+                position = position + size;
+            }
+
+            //        List<string> noOPCode = new List<string>();
+        }
+
+        private struct BytesROM
+        {
+            public byte[] Bytes { get; set; }
+        }
+
+        private readonly struct InstructionOpcodes
+        {
+            public InstructionOpcodes(byte opcode1, byte opcode2, byte opcode3)
+            {
+                Byte1 = opcode1;
+                Byte2 = opcode2;
+                Byte3 = opcode3;
+            }
+
+            public byte Byte1 { get; }
+            public byte Byte2 { get; }
+            public byte Byte3 { get; }
         }
     }
 }
