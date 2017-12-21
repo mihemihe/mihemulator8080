@@ -20,7 +20,7 @@ namespace mihemulator8080
     public class InstructionFetcher
     {
         public List<Tuple<string,int>> AssemblyLines { get; set; }
-        private List<byte> Bytes { get; set; }
+        public List<byte> Bytes { get; set; }
         private int iterator { get; set; }
         private string SourceCode { get; set; }
         private int listAddressPointer;
@@ -384,11 +384,11 @@ namespace mihemulator8080
 
                 InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
                 string decoded = DisassembleInstruction(nextInstruction, out size);
-                Debug.Write(nextInstruction.Byte1 + "\t" + nextInstruction.Byte2 + "\t" + nextInstruction.Byte3 + "\t\n");
+                //Debug.Write(nextInstruction.Byte1 + "\t" + nextInstruction.Byte2 + "\t" + nextInstruction.Byte3 + "\t\n");
                 AssemblyLines.Add(Tuple.Create(decoded,size));
 
-                Debug.Write("Position: ", position.ToString());
-                Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
+                //Debug.Write("Position: ", position.ToString());
+                //Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
                 position = position + size; // to iterate the byte array in an individual file
                 listAddressPointer = listAddressPointer + size; // to count the meory line
             }

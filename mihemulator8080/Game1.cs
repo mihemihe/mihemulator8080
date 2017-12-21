@@ -48,6 +48,9 @@ namespace mihemulator8080
             }
             File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.FetchAllCodeLines());
 
+
+            Memory.RAM2File();
+            Memory.RAM2FileHTML();
             int memoryPointer = 0;
             foreach (byte _byte in CPU.instructionFecther.FetchAllCodeBytes())
             {
