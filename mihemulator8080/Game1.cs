@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 
@@ -31,10 +32,13 @@ namespace mihemulator8080
         protected override void Initialize()
         {
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
+            Debug.Write("Next file2\n");
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-G.json", SourceFileFormat.JSON_HEX);
+            Debug.Write("Next file3\n");
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-f.json", SourceFileFormat.JSON_HEX);
+            Debug.Write("Next file4\n");
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-E.json", SourceFileFormat.JSON_HEX);
-
+            CPU.instructionFecther.ParseCurrentContent();
 
             List<string> spaceInvadersAsm = new List<string>();
             string SpaceInvadersAsmPath = @"..\..\..\..\Misc\OutputFiles\SpaceInvaders.8080asm";
@@ -54,6 +58,7 @@ namespace mihemulator8080
             do
             {
                 ticks++;
+
                 //string instruction = CPU.instructionFecther.FetchNextInstruction().Item1;
 
             } while (true);

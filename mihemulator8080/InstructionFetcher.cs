@@ -24,6 +24,7 @@ namespace mihemulator8080
         private int iterator { get; set; }
         private string SourceCode { get; set; }
         private int listAddressPointer;
+        private int ops;//delete
 
         private SourceFileFormat SourceCodeFormat { get; set; }
 
@@ -83,12 +84,18 @@ namespace mihemulator8080
             }
             //TODO: add other formats from the enum
 
-            this.ParseFile();
+
 
             return 0;
         }
 
-        private static string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
+        public int ParseCurrentContent()
+        {
+            this.ParseFile();
+            return 0;
+        }
+            
+        private string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
         {
             size = 1;
             string byte3 = BitConverter.ToString(new byte[] { instruction.Byte3 });
@@ -106,44 +113,77 @@ namespace mihemulator8080
                 case 0x05: return $"DCR    B";
                 case 0x06: size = 2; return $"MVI    B,#${byte2}";
                 case 0x07: return $"RLC";
+                case 0x08: return $"NOP";
+                case 0x09: return $"DAD    B";
+                case 0x0A: return $"LDAX   B";
+                case 0x0B: return $"DCX    B";
+                case 0x0C: return $"INR    C";
                 case 0x0D: return $"DCR    C";
                 case 0x0E: size = 2; return $"MVI    C,#${byte2}";
                 case 0x0F: return $"RRC";
 
+                case 0x10: return $"NOP";
                 case 0x11: size = 3; return $"LXI    D,#${byte3}{byte2}";
+                case 0x12: return $"STAX   D";
                 case 0x13: return $"INX    D";
                 case 0x14: return $"INR    D";
                 case 0x15: return $"DCR    D";
-                case 0x16: size = 2; return $"MIV    D,#${byte2}";
+                case 0x16: size = 2; return $"MVI    D,#${byte2}";
+                case 0x18: return $"NOP";
                 case 0x19: return $"DAD    D";
-                case 0x1A: size = 2; return $"LDAX   #${byte2}";
+                case 0x1A: return $"LDAX   D";
+                case 0x1B: return $"DCX    D";
+                case 0x1C: return $"INR    E";
+                case 0x1D: return $"DCR    E";
+                case 0x1E: size = 2; return $"MVI    E,#${byte2}";
+                case 0x1F: return $"RAR";
 
                 case 0x20: return $"RIM";
                 case 0x21: size = 3; return $"LXI    H,#${byte3}{byte2}";
                 case 0x22: size = 3; return $"SHLD   ${byte3}{byte2}";
                 case 0x23: return $"INX    H";
-                case 0x24: return $"INR    h";
+                case 0x24: return $"INR    H";
+                case 0x25: return $"DCR    H";
                 case 0x26: size = 2; return $"MVI    H,#${byte2}";
                 case 0x27: return $"DAA";
+                case 0x28: return $"NOP";
                 case 0x29: return $"DAD    H";
                 case 0x2A: size = 3; return $"LHLD   ${byte3}{byte2}";
                 case 0x2B: return $"DCX    H";
                 case 0x2C: return $"INR    L";
                 case 0x2E: size = 2; return $"MVI    L,#${byte2}";
+                case 0x2F: return $"CMA";
 
+                case 0x30: return $"SIM";
                 case 0x31: size = 3; return $"LXI    SP,#${byte3}{byte2}";
                 case 0x32: size = 3; return $"STA    ${byte3}{byte2}";
                 case 0x34: return $"INR    M";
                 case 0x35: return $"DCR    M";
                 case 0x36: size = 2; return $"MVI    M,#${byte2}";
                 case 0x37: return $"STC";
+                case 0x38: return $"NOP";
+                case 0x39: return $"DAD    SP";
                 case 0x3A: size = 3; return $"LDA    ${byte3}{byte2}";
                 case 0x3C: return $"INR    A";
                 case 0x3D: return $"DCR    A";
                 case 0x3E: size = 2; return $"MVI    A,#${byte2}"; // is byte2 or byte3?
+                case 0x3F: return $"CMC";
 
+
+                case 0x40: return $"MOV    B,B";
+                case 0x41: return $"MOV    B,C";
+                case 0x42: return $"MOV    B,D";
+                case 0x43: return $"MOV    B,E";
+                case 0x44: return $"MOV    B,H";
+                case 0x45: return $"MOV    B,L";
                 case 0x46: return $"MOV    B,M";
                 case 0x47: return $"MOV    B,A";
+                case 0x48: return $"MOV    C,B";
+                case 0x49: return $"MOV    C,C";
+                case 0x4A: return $"MOV    C,D";
+                case 0x4B: return $"MOV    C,E";
+                case 0x4C: return $"MOV    C,H";
+                case 0x4D: return $"MOV    C,L"; 
                 case 0x4E: return $"MOV    C,M";
                 case 0x4F: return $"MOV    C,A";
 
@@ -154,11 +194,15 @@ namespace mihemulator8080
                 case 0x54: return $"MOV    D,H";
                 case 0x55: return $"MOV    D,L";
                 case 0x56: return $"MOV    D,M";
+                case 0x57: return $"MOV    D,A";
 
+                case 0x59: return $"MOV    E,C";
+                case 0x5B: return $"MOV    E,E";
                 case 0x5D: return $"MOV    E,L";
                 case 0x5E: return $"MOV    E,M";
                 case 0x5F: return $"MOV    E,A";
 
+                case 0x60: return $"MOV    H,B";
                 case 0x61: return $"MOV    H,C";
                 case 0x62: return $"MOV    H,D";
                 case 0x63: return $"MOV    H,E";
@@ -193,8 +237,10 @@ namespace mihemulator8080
                 case 0x7F: return $"MOV    A,A";
 
                 case 0x80: return $"ADD    B";
+                case 0x81: return $"ADD    C";
                 case 0x82: return $"ADD    D";
                 case 0x83: return $"ADD    E";
+                case 0x84: return $"ADD    H";
                 case 0x85: return $"ADD    L";
                 case 0x86: return $"ADD    M";
                 case 0x87: return $"ADD    A";
@@ -207,15 +253,56 @@ namespace mihemulator8080
                 case 0x8E: return $"ADC    M";
                 case 0x8F: return $"ADC    A";
 
-                case 0x97: return $"DUB    A";
+
+
+
+                case 0x90: return $"SUB    B";
+                case 0x91: return $"SUB    C";
+                case 0x92: return $"SUB    D";
+                case 0x93: return $"SUB    E";
+                case 0x94: return $"SUB    H";
+                case 0x95: return $"SUB    L";
+                case 0x96: return $"SUB    M";
+                case 0x97: return $"SUB    A";
+                case 0x98: return $"SBB    B";
+                case 0x99: return $"SBB    C";
+                case 0x9A: return $"SBB    D";
+                case 0x9B: return $"SBB    E";
+                case 0x9C: return $"SBB    H";
+                case 0x9D: return $"SBB    L";
+                case 0x9E: return $"SBB    M";
+                case 0x9F: return $"SBB    A";
+
 
                 case 0xB0: return $"ORA    B";
+                case 0xB1: return $"ORA    C";
+                case 0xB2: return $"ORA    D";
+                case 0xB3: return $"ORA    E";
                 case 0xB4: return $"ORA    H";
+                case 0xB5: return $"ORA    L";
+                case 0xB6: return $"ORA    M";
+                case 0xB7: return $"ORA    A";
                 case 0xB8: return $"CMP    B";
+                case 0xB9: return $"CMP    C";
+                case 0xBA: return $"CMP    D";
+                case 0xBB: return $"CMP    E";
+                case 0xBC: return $"CMP    H";
+                case 0xBD: return $"CMP    L";
                 case 0xBE: return $"CMP    M";
+                case 0xBF: return $"CMP    A";
 
                 case 0xA0: return $"ANA    B";
+
+
+                case 0xA1: return $"ANA    C";
+                case 0xA2: return $"ANA    D";
+                case 0xA3: return $"ANA    E";
+                case 0xA4: return $"ANA    H";
+                case 0xA5: return $"ANA    L";
+                case 0xA6: return $"ANA    M";
                 case 0xA7: return $"ANA    A";
+                case 0xA8: return $"XRA    B";
+                case 0xAA: return $"XRA    C";
                 case 0xAF: return $"XRA    A";
 
                 case 0xC0: return $"RNZ";
@@ -243,22 +330,33 @@ namespace mihemulator8080
                 case 0xDB: size = 2; return $"IN     #${byte2}";
                 case 0xDE: size = 2; return $"SBI    #${byte2}";
 
+                case 0xE0: return $"RPO";
                 case 0xE1: return $"POP    H";
+                case 0xE2: size = 3; return $"JPO    ${byte3}{byte2}";
                 case 0xE3: return $"XTHL";
                 case 0xE5: return $"PUSH   H";
                 case 0xE6: size = 2; return $"ANI    #${byte2}";
                 case 0xE9: return $"PCHL";
                 case 0xEB: return $"XCHG";
+                case 0xEC: size = 3; return $"CPE    ${byte3}{byte2}";
+                case 0xEE: size = 2; return $"XRI    #${byte2}";
 
+                case 0xF0: return $"RP";
                 case 0xF1: return $"POP    PSW";
+                case 0xF2: size = 3; return $"JP     ${byte3}{byte2}";
+                case 0xF3: return $"DI";
                 case 0xF5: return $"PUSH   PSW";
                 case 0xF6: size = 2; return $"ORI    #${byte2}";
+                case 0xF8: return $"RM";
                 case 0xFA: size = 3; return $"JM     ${byte3}{byte2}";
                 case 0xFB: return $"EI";
+                case 0xFC: size = 3; return $"CM     ${byte3}{byte2}";
                 case 0xFE: size = 2; return $"CPI    #${byte2}";
+                case 0xFF: return $"RST   7"; // I dont understand this one
 
                 default:
-                    Debug.Write(BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************");
+                    Debug.Write(BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************\n");
+                    ops++;
                     return BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************";
             }
         }
@@ -286,11 +384,11 @@ namespace mihemulator8080
 
                 InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
                 string decoded = DisassembleInstruction(nextInstruction, out size);
-
+                Debug.Write(nextInstruction.Byte1 + "\t" + nextInstruction.Byte2 + "\t" + nextInstruction.Byte3 + "\t\n");
                 AssemblyLines.Add(Tuple.Create(decoded,size));
 
-                
-                //Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
+                Debug.Write("Position: ", position.ToString());
+                Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
                 position = position + size; // to iterate the byte array in an individual file
                 listAddressPointer = listAddressPointer + size; // to count the meory line
             }

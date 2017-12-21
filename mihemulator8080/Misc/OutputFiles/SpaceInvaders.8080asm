@@ -162,7 +162,7 @@ RLC
 RLC
 RLC
 MOV    E,A
-MIV    D,#$00
+MVI    D,#$00
 LXI    H,#$1C00
 DAD    D
 XCHG
@@ -188,7 +188,7 @@ RNZ
 LDA    $2067
 MOV    H,A
 LDA    $2006
-MIV    D,#$02
+MVI    D,#$02
 INR    A
 CPI    #$37
 CZ     $01A1
@@ -208,7 +208,7 @@ STA    $2004
 MVI    A,#$01
 STA    $2000
 RET
-MIV    D,#$00
+MVI    D,#$00
 MOV    A,L
 LXI    H,#$2009
 MOV    B,M
@@ -794,7 +794,7 @@ JC     $0612
 CPI    #$27
 NOP
 JNZ    $0612
-DUB    A
+SUB    A
 STA    $2015
 LDA    $2073
 ORI    #$01
@@ -813,7 +813,7 @@ DCR    C
 LDA    $2067
 MOV    H,A
 MOV    L,C
-MIV    D,#$05
+MVI    D,#$05
 MOV    A,M
 ANA    A
 STC
@@ -928,7 +928,8 @@ MOV    B,M
 MVI    C,#$04
 LXI    H,#$1D50
 LXI    D,#$1D4C
-LDAX   #$B8
+LDAX   D
+CMP    B
 JZ     $0728
 INX    H
 INX    D
@@ -1184,7 +1185,7 @@ RLC
 RLC
 RLC
 MOV    E,A
-MIV    D,#$00
+MVI    D,#$00
 LXI    H,#$1C00
 DAD    D
 XCHG
@@ -1210,7 +1211,7 @@ RNZ
 LDA    $2067
 MOV    H,A
 LDA    $2006
-MIV    D,#$02
+MVI    D,#$02
 INR    A
 CPI    #$37
 CZ     $01A1
@@ -1230,7 +1231,7 @@ STA    $2004
 MVI    A,#$01
 STA    $2000
 RET
-MIV    D,#$00
+MVI    D,#$00
 MOV    A,L
 LXI    H,#$2009
 MOV    B,M
@@ -1816,7 +1817,7 @@ JC     $0612
 CPI    #$27
 NOP
 JNZ    $0612
-DUB    A
+SUB    A
 STA    $2015
 LDA    $2073
 ORI    #$01
@@ -1835,7 +1836,7 @@ DCR    C
 LDA    $2067
 MOV    H,A
 MOV    L,C
-MIV    D,#$05
+MVI    D,#$05
 MOV    A,M
 ANA    A
 STC
@@ -1950,7 +1951,8 @@ MOV    B,M
 MVI    C,#$04
 LXI    H,#$1D50
 LXI    D,#$1D4C
-LDAX   #$B8
+LDAX   D
+CMP    B
 JZ     $0728
 INX    H
 INX    D
@@ -2146,7 +2148,8 @@ LXI    H,#$391C
 MVI    B,#$20
 JMP    $14CB
 MVI    C,#$03
-LDAX   #$D5
+LDAX   D
+PUSH   D
 CALL   $08FF
 POP    D
 INX    D
@@ -2204,8 +2207,8 @@ INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-INR    h
-INR    h
+INR    H
+INR    H
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -2241,7 +2244,7 @@ LHLD   $20F2
 XCHG
 POP    H
 MOV    A,M
-83 not found ************************
+ADD    E
 DAA
 MOV    M,A
 MOV    E,A
@@ -2250,7 +2253,7 @@ MOV    A,M
 ADC    D
 DAA
 MOV    M,A
-57 not found ************************
+MOV    D,A
 INX    H
 MOV    A,M
 INX    H
@@ -2350,10 +2353,10 @@ RET
 LDA    $20EF
 ANA    A
 JZ     $0A7C
-48 not found ************************
+MOV    C,B
 MVI    B,#$08
 CALL   $18FA
-41 not found ************************
+MOV    B,C
 MOV    A,B
 CALL   $097C
 MOV    A,M
@@ -2375,9 +2378,8 @@ XRA    A
 STA    $20C1
 RET
 PUSH   D
-LDAX   #$CD
-FF not found ************************
-08 not found ************************
+LDAX   D
+CALL   $08FF
 POP    D
 MVI    A,#$07
 STA    $20C0
@@ -2518,7 +2520,7 @@ CALL   $190A
 JMP    $199A
 INX    D
 NOP
-08 not found ************************
+NOP
 INX    D
 MVI    C,#$26
 STAX   B
@@ -3711,7 +3713,7 @@ RLC
 RLC
 RLC
 MOV    E,A
-MIV    D,#$00
+MVI    D,#$00
 LXI    H,#$1C00
 DAD    D
 XCHG
@@ -3737,7 +3739,7 @@ RNZ
 LDA    $2067
 MOV    H,A
 LDA    $2006
-MIV    D,#$02
+MVI    D,#$02
 INR    A
 CPI    #$37
 CZ     $01A1
@@ -3757,7 +3759,7 @@ STA    $2004
 MVI    A,#$01
 STA    $2000
 RET
-MIV    D,#$00
+MVI    D,#$00
 MOV    A,L
 LXI    H,#$2009
 MOV    B,M
@@ -4343,7 +4345,7 @@ JC     $0612
 CPI    #$27
 NOP
 JNZ    $0612
-DUB    A
+SUB    A
 STA    $2015
 LDA    $2073
 ORI    #$01
@@ -4362,7 +4364,7 @@ DCR    C
 LDA    $2067
 MOV    H,A
 MOV    L,C
-MIV    D,#$05
+MVI    D,#$05
 MOV    A,M
 ANA    A
 STC
@@ -4477,7 +4479,8 @@ MOV    B,M
 MVI    C,#$04
 LXI    H,#$1D50
 LXI    D,#$1D4C
-LDAX   #$B8
+LDAX   D
+CMP    B
 JZ     $0728
 INX    H
 INX    D
@@ -4673,7 +4676,8 @@ LXI    H,#$391C
 MVI    B,#$20
 JMP    $14CB
 MVI    C,#$03
-LDAX   #$D5
+LDAX   D
+PUSH   D
 CALL   $08FF
 POP    D
 INX    D
@@ -4731,8 +4735,8 @@ INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-INR    h
-INR    h
+INR    H
+INR    H
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -4768,7 +4772,7 @@ LHLD   $20F2
 XCHG
 POP    H
 MOV    A,M
-83 not found ************************
+ADD    E
 DAA
 MOV    M,A
 MOV    E,A
@@ -4777,7 +4781,7 @@ MOV    A,M
 ADC    D
 DAA
 MOV    M,A
-57 not found ************************
+MOV    D,A
 INX    H
 MOV    A,M
 INX    H
@@ -4877,10 +4881,10 @@ RET
 LDA    $20EF
 ANA    A
 JZ     $0A7C
-48 not found ************************
+MOV    C,B
 MVI    B,#$08
 CALL   $18FA
-41 not found ************************
+MOV    B,C
 MOV    A,B
 CALL   $097C
 MOV    A,M
@@ -4902,9 +4906,8 @@ XRA    A
 STA    $20C1
 RET
 PUSH   D
-LDAX   #$CD
-FF not found ************************
-08 not found ************************
+LDAX   D
+CALL   $08FF
 POP    D
 MVI    A,#$07
 STA    $20C0
@@ -5045,7 +5048,7 @@ CALL   $190A
 JMP    $199A
 INX    D
 NOP
-08 not found ************************
+NOP
 INX    D
 MVI    C,#$26
 STAX   B
@@ -7103,21 +7106,21 @@ CALL   $1474
 NOP
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
-B6 not found ************************
+ORA    M
 MOV    M,A
 INX    H
 INX    D
 XRA    A
 OUT    #$04
 IN     #$03
-B6 not found ************************
+ORA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1405
@@ -7134,16 +7137,17 @@ MOV    M,A
 INX    H
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1427
 RET
 PUSH   B
-LDAX   #$77
+LDAX   D
+MOV    M,A
 INX    D
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1439
@@ -7162,23 +7166,23 @@ NOP
 CALL   $1474
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
-2F not found ************************
-A6 not found ************************
+CMA
+ANA    M
 MOV    M,A
 INX    H
 INX    D
 XRA    A
 OUT    #$04
 IN     #$03
-2F not found ************************
-A6 not found ************************
+CMA
+ANA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1455
@@ -7190,14 +7194,14 @@ JMP    $1A47
 PUSH   B
 PUSH   H
 MOV    A,M
-12 not found ************************
+STAX   D
 INX    D
 INX    H
 DCR    C
 JNZ    $147E
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $147C
@@ -7207,16 +7211,16 @@ XRA    A
 STA    $2061
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
 PUSH   PSW
-A6 not found ************************
+ANA    M
 JZ     $14A9
 MVI    A,#$01
 STA    $2061
 POP    PSW
-B6 not found ************************
+ORA    M
 MOV    M,A
 INX    H
 INX    D
@@ -7224,16 +7228,16 @@ XRA    A
 OUT    #$04
 IN     #$03
 PUSH   PSW
-A6 not found ************************
+ANA    M
 JZ     $14BD
 MVI    A,#$01
 STA    $2061
 POP    PSW
-B6 not found ************************
+ORA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1498
@@ -7242,7 +7246,7 @@ XRA    A
 PUSH   B
 MOV    M,A
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $14CC
@@ -7305,17 +7309,17 @@ MVI    B,#$F7
 JMP    $19DC
 NOP
 MVI    C,#$00
-BC not found ************************
+CMP    H
 CNC    $1590
-BC not found ************************
+CMP    H
 RNC
 ADI    #$10
-0C not found ************************
+INR    C
 JMP    $155A
 LDA    $2009
 MOV    H,L
 CALL   $1554
-41 not found ************************
+MOV    B,C
 DCR    B
 SBI    #$10
 MOV    L,A
@@ -7335,13 +7339,13 @@ RLC
 ADD    B
 ADD    B
 ADD    B
-81 not found ************************
+ADD    C
 DCR    A
 MOV    L,A
 LDA    $2067
 MOV    H,A
 RET
-0C not found ************************
+INR    C
 ADI    #$10
 JM     $1590
 RET
@@ -7378,8 +7382,8 @@ CALL   $1474
 PUSH   H
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
 MOV    M,A
 INX    H
@@ -7390,7 +7394,7 @@ IN     #$03
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $15D7
@@ -7401,7 +7405,7 @@ LXI    B,#$3700
 MOV    A,M
 ANA    A
 JZ     $15FF
-0C not found ************************
+INR    C
 INX    H
 DCR    B
 JNZ    $15F9
@@ -7467,23 +7471,22 @@ MVI    M,#$00
 CALL   $09CA
 INX    H
 LXI    D,#$20F5
-LDAX   #$BE
-1B not found ************************
+LDAX   D
+CMP    M
+DCX    D
 DCX    H
-LDAX   #$CA
-ADC    E
-MIV    D,#$D2
-98 not found ************************
-MIV    D,#$C3
-ADC    A
-MIV    D,#$BE
+LDAX   D
+JZ     $168B
+JNZ    $1698
+JMP    $168F
+CMP    M
 JNZ    $1698
 MOV    A,M
-12 not found ************************
+STAX   D
 INX    D
 INX    H
 MOV    A,M
-12 not found ************************
+STAX   D
 CALL   $1950
 LDA    $20CE
 ANA    A
@@ -7492,8 +7495,8 @@ LXI    H,#$2803
 LXI    D,#$1AA6
 MVI    C,#$14
 CALL   $0A93
-25 not found ************************
-25 not found ************************
+DCR    H
+DCR    H
 MVI    B,#$1B
 LDA    $2067
 RRC
@@ -7541,7 +7544,8 @@ LXI    D,#$1CB8
 LXI    H,#$1AA1
 MVI    C,#$04
 MOV    B,A
-LDAX   #$B8
+LDAX   D
+CMP    B
 JNZ    $1727
 INX    H
 INX    D
@@ -7598,9 +7602,8 @@ JNZ    $178E
 INX    H
 INX    D
 JMP    $1785
-LDAX   #$32
-DUB    A
-RIM
+LDAX   D
+STA    $2097
 LXI    H,#$2098
 MOV    A,M
 ANI    #$30
@@ -7822,7 +7825,7 @@ RLC
 RLC
 RLC
 MOV    E,A
-MIV    D,#$00
+MVI    D,#$00
 LXI    H,#$1C00
 DAD    D
 XCHG
@@ -7848,7 +7851,7 @@ RNZ
 LDA    $2067
 MOV    H,A
 LDA    $2006
-MIV    D,#$02
+MVI    D,#$02
 INR    A
 CPI    #$37
 CZ     $01A1
@@ -7868,7 +7871,7 @@ STA    $2004
 MVI    A,#$01
 STA    $2000
 RET
-MIV    D,#$00
+MVI    D,#$00
 MOV    A,L
 LXI    H,#$2009
 MOV    B,M
@@ -8454,7 +8457,7 @@ JC     $0612
 CPI    #$27
 NOP
 JNZ    $0612
-DUB    A
+SUB    A
 STA    $2015
 LDA    $2073
 ORI    #$01
@@ -8473,7 +8476,7 @@ DCR    C
 LDA    $2067
 MOV    H,A
 MOV    L,C
-MIV    D,#$05
+MVI    D,#$05
 MOV    A,M
 ANA    A
 STC
@@ -8588,7 +8591,8 @@ MOV    B,M
 MVI    C,#$04
 LXI    H,#$1D50
 LXI    D,#$1D4C
-LDAX   #$B8
+LDAX   D
+CMP    B
 JZ     $0728
 INX    H
 INX    D
@@ -8784,7 +8788,8 @@ LXI    H,#$391C
 MVI    B,#$20
 JMP    $14CB
 MVI    C,#$03
-LDAX   #$D5
+LDAX   D
+PUSH   D
 CALL   $08FF
 POP    D
 INX    D
@@ -8842,8 +8847,8 @@ INR    M
 MOV    A,M
 PUSH   PSW
 LXI    H,#$2501
-INR    h
-INR    h
+INR    H
+INR    H
 DCR    A
 JNZ    $0958
 MVI    B,#$10
@@ -8879,7 +8884,7 @@ LHLD   $20F2
 XCHG
 POP    H
 MOV    A,M
-83 not found ************************
+ADD    E
 DAA
 MOV    M,A
 MOV    E,A
@@ -8888,7 +8893,7 @@ MOV    A,M
 ADC    D
 DAA
 MOV    M,A
-57 not found ************************
+MOV    D,A
 INX    H
 MOV    A,M
 INX    H
@@ -8988,10 +8993,10 @@ RET
 LDA    $20EF
 ANA    A
 JZ     $0A7C
-48 not found ************************
+MOV    C,B
 MVI    B,#$08
 CALL   $18FA
-41 not found ************************
+MOV    B,C
 MOV    A,B
 CALL   $097C
 MOV    A,M
@@ -9013,9 +9018,8 @@ XRA    A
 STA    $20C1
 RET
 PUSH   D
-LDAX   #$CD
-FF not found ************************
-08 not found ************************
+LDAX   D
+CALL   $08FF
 POP    D
 MVI    A,#$07
 STA    $20C0
@@ -9156,7 +9160,7 @@ CALL   $190A
 JMP    $199A
 INX    D
 NOP
-08 not found ************************
+NOP
 INX    D
 MVI    C,#$26
 STAX   B
@@ -11214,21 +11218,21 @@ CALL   $1474
 NOP
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
-B6 not found ************************
+ORA    M
 MOV    M,A
 INX    H
 INX    D
 XRA    A
 OUT    #$04
 IN     #$03
-B6 not found ************************
+ORA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1405
@@ -11245,16 +11249,17 @@ MOV    M,A
 INX    H
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1427
 RET
 PUSH   B
-LDAX   #$77
+LDAX   D
+MOV    M,A
 INX    D
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1439
@@ -11273,23 +11278,23 @@ NOP
 CALL   $1474
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
-2F not found ************************
-A6 not found ************************
+CMA
+ANA    M
 MOV    M,A
 INX    H
 INX    D
 XRA    A
 OUT    #$04
 IN     #$03
-2F not found ************************
-A6 not found ************************
+CMA
+ANA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1455
@@ -11301,14 +11306,14 @@ JMP    $1A47
 PUSH   B
 PUSH   H
 MOV    A,M
-12 not found ************************
+STAX   D
 INX    D
 INX    H
 DCR    C
 JNZ    $147E
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $147C
@@ -11318,16 +11323,16 @@ XRA    A
 STA    $2061
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
 PUSH   PSW
-A6 not found ************************
+ANA    M
 JZ     $14A9
 MVI    A,#$01
 STA    $2061
 POP    PSW
-B6 not found ************************
+ORA    M
 MOV    M,A
 INX    H
 INX    D
@@ -11335,16 +11340,16 @@ XRA    A
 OUT    #$04
 IN     #$03
 PUSH   PSW
-A6 not found ************************
+ANA    M
 JZ     $14BD
 MVI    A,#$01
 STA    $2061
 POP    PSW
-B6 not found ************************
+ORA    M
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1498
@@ -11353,7 +11358,7 @@ XRA    A
 PUSH   B
 MOV    M,A
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $14CC
@@ -11416,17 +11421,17 @@ MVI    B,#$F7
 JMP    $19DC
 NOP
 MVI    C,#$00
-BC not found ************************
+CMP    H
 CNC    $1590
-BC not found ************************
+CMP    H
 RNC
 ADI    #$10
-0C not found ************************
+INR    C
 JMP    $155A
 LDA    $2009
 MOV    H,L
 CALL   $1554
-41 not found ************************
+MOV    B,C
 DCR    B
 SBI    #$10
 MOV    L,A
@@ -11446,13 +11451,13 @@ RLC
 ADD    B
 ADD    B
 ADD    B
-81 not found ************************
+ADD    C
 DCR    A
 MOV    L,A
 LDA    $2067
 MOV    H,A
 RET
-0C not found ************************
+INR    C
 ADI    #$10
 JM     $1590
 RET
@@ -11489,8 +11494,8 @@ CALL   $1474
 PUSH   H
 PUSH   B
 PUSH   H
-LDAX   #$D3
-INR    B
+LDAX   D
+OUT    #$04
 IN     #$03
 MOV    M,A
 INX    H
@@ -11501,7 +11506,7 @@ IN     #$03
 MOV    M,A
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $15D7
@@ -11512,7 +11517,7 @@ LXI    B,#$3700
 MOV    A,M
 ANA    A
 JZ     $15FF
-0C not found ************************
+INR    C
 INX    H
 DCR    B
 JNZ    $15F9
@@ -11578,23 +11583,22 @@ MVI    M,#$00
 CALL   $09CA
 INX    H
 LXI    D,#$20F5
-LDAX   #$BE
-1B not found ************************
+LDAX   D
+CMP    M
+DCX    D
 DCX    H
-LDAX   #$CA
-ADC    E
-MIV    D,#$D2
-98 not found ************************
-MIV    D,#$C3
-ADC    A
-MIV    D,#$BE
+LDAX   D
+JZ     $168B
+JNZ    $1698
+JMP    $168F
+CMP    M
 JNZ    $1698
 MOV    A,M
-12 not found ************************
+STAX   D
 INX    D
 INX    H
 MOV    A,M
-12 not found ************************
+STAX   D
 CALL   $1950
 LDA    $20CE
 ANA    A
@@ -11603,8 +11607,8 @@ LXI    H,#$2803
 LXI    D,#$1AA6
 MVI    C,#$14
 CALL   $0A93
-25 not found ************************
-25 not found ************************
+DCR    H
+DCR    H
 MVI    B,#$1B
 LDA    $2067
 RRC
@@ -11652,7 +11656,8 @@ LXI    D,#$1CB8
 LXI    H,#$1AA1
 MVI    C,#$04
 MOV    B,A
-LDAX   #$B8
+LDAX   D
+CMP    B
 JNZ    $1727
 INX    H
 INX    D
@@ -11709,9 +11714,8 @@ JNZ    $178E
 INX    H
 INX    D
 JMP    $1785
-LDAX   #$32
-DUB    A
-RIM
+LDAX   D
+STA    $2097
 LXI    H,#$2098
 MOV    A,M
 ANI    #$30
@@ -11808,20 +11812,20 @@ MOV    C,A
 CALL   $0A93
 POP    B
 RET
-0A not found ************************
+LDAX   B
 CPI    #$FF
 STC
 RZ
 MOV    L,A
 INX    B
-0A not found ************************
+LDAX   B
 MOV    H,A
 INX    B
-0A not found ************************
+LDAX   B
 MOV    E,A
 INX    B
-0A not found ************************
-57 not found ************************
+LDAX   B
+MOV    D,A
 INX    B
 ANA    A
 RET
@@ -11977,10 +11981,10 @@ LXI    H,#$2E1B
 LXI    D,#$0BF7
 MVI    C,#$09
 JMP    $08F3
-28 not found ************************
+NOP
 INX    D
 NOP
-08 not found ************************
+NOP
 INX    D
 MVI    C,#$26
 STAX   B
@@ -11989,9 +11993,9 @@ RRC
 MVI    C,#$11
 NOP
 INX    D
-08 not found ************************
+NOP
 MVI    C,#$0D
-28 not found ************************
+NOP
 MVI    A,#$01
 STA    $20E9
 RET
@@ -12020,18 +12024,18 @@ JNZ    $19FA
 RET
 LXI    H,#$2072
 MOV    B,M
-LDAX   #$E6
-ADD    B
-A8 not found ************************
+LDAX   D
+ANI    #$80
+XRA    B
 RNZ
 STC
 RET
 STA    $242B
-1C not found ************************
-MIV    D,#$11
+INR    E
+MVI    D,#$11
 DCR    C
-0A not found ************************
-08 not found ************************
+LDAX   B
+NOP
 RLC
 MVI    B,#$05
 INR    B
@@ -12042,15 +12046,16 @@ DAA
 SHLD   $181C
 DCR    D
 INX    D
-10 not found ************************
+NOP
 MVI    C,#$0D
-0C not found ************************
-0B not found ************************
-09 not found ************************
+INR    C
+DCX    B
+DAD    B
 RLC
 DCR    B
-FF not found ************************
-LDAX   #$77
+RST   7
+LDAX   D
+MOV    M,A
 INX    H
 INX    D
 DCR    B
@@ -12071,10 +12076,10 @@ RET
 PUSH   B
 MVI    B,#$03
 MOV    A,H
-1F not found ************************
+RAR
 MOV    H,A
 MOV    A,L
-1F not found ************************
+RAR
 MOV    L,A
 DCR    B
 JNZ    $1A4A
@@ -12093,7 +12098,8 @@ JNZ    $1A5F
 RET
 PUSH   B
 PUSH   H
-LDAX   #$B6
+LDAX   D
+ORA    M
 MOV    M,A
 INX    D
 INX    H
@@ -12101,7 +12107,7 @@ DCR    C
 JNZ    $1A6B
 POP    H
 LXI    B,#$0020
-09 not found ************************
+DAD    B
 POP    B
 DCR    B
 JNZ    $1A69
@@ -12121,41 +12127,41 @@ NOP
 NOP
 NOP
 NOP
-FF not found ************************
+RST   7
 CMP    B
 CPI    #$20
-1C not found ************************
-10 not found ************************
-9E not found ************************
+INR    E
+NOP
+SBB    M
 NOP
 RIM
-1C not found ************************
-30 not found ************************
-10 not found ************************
-0B not found ************************
-08 not found ************************
+INR    E
+SIM
+NOP
+DCX    B
+NOP
 RLC
 MVI    B,#$00
-0C not found ************************
+INR    C
 INR    B
 MVI    H,#$0E
 DCR    D
 INR    B
 LXI    D,#$2626
 RRC
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 INR    B
 LXI    D,#$2624
-25 not found ************************
-1B not found ************************
+DCR    H
+DCX    D
 MVI    H,#$0E
 LXI    D,#$1C26
 RRC
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 INR    B
 LXI    D,#$2612
 LXI    B,#$1314
@@ -12163,30 +12169,30 @@ INX    D
 MVI    C,#$0D
 MVI    H,#$0E
 DCR    C
-0B not found ************************
-18 not found ************************
+DCX    B
+NOP
 MVI    H,#$1B
 RRC
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 INR    B
 LXI    D,#$2626
 LXI    B,#$1314
 INX    D
 MVI    C,#$0D
 MVI    H,#$26
-12 not found ************************
+STAX   D
 STAX   B
 MVI    C,#$11
 INR    B
-INR    h
-1B not found ************************
-25 not found ************************
+INR    H
+DCX    D
+DCR    H
 MVI    H,#$07
-08 not found ************************
-3F not found ************************
-12 not found ************************
+NOP
+CMC
+STAX   D
 STAX   B
 MVI    C,#$11
 INR    B
@@ -12194,53 +12200,53 @@ MVI    H,#$12
 STAX   B
 MVI    C,#$11
 INR    B
-INR    h
-1C not found ************************
-25 not found ************************
+INR    H
+INR    E
+DCR    H
 MVI    H,#$01
 NOP
 NOP
-10 not found ************************
+NOP
 NOP
 NOP
 NOP
 NOP
 STAX   B
 MOV    A,B
-38 not found ************************
-MOV    A,B
-38 not found ************************
 NOP
-F8 not found ************************
+MOV    A,B
+NOP
+NOP
+RM
 NOP
 NOP
 ADD    B
 NOP
 ADC    M
 STAX   B
-FF not found ************************
+RST   7
 DCR    B
-0C not found ************************
-60 not found ************************
-1C not found ************************
+INR    C
+MOV    H,B
+INR    E
 RIM
-30 not found ************************
-10 not found ************************
+SIM
+NOP
 LXI    B,#$0000
 NOP
 NOP
 NOP
-BB not found ************************
+CMP    E
 INX    B
 NOP
-10 not found ************************
-90 not found ************************
-1C not found ************************
-28 not found ************************
-30 not found ************************
+NOP
+SUB    B
+INR    E
+NOP
+SIM
 LXI    B,#$0004
-FF not found ************************
-FF not found ************************
+RST   7
+RST   7
 NOP
 NOP
 STAX   B
@@ -12252,23 +12258,20 @@ NOP
 NOP
 NOP
 INR    B
-EE not found ************************
-1C not found ************************
+XRI    #$1C
 NOP
 NOP
 INX    B
 NOP
 NOP
 NOP
-B6 not found ************************
+ORA    M
 INR    B
 NOP
 NOP
 LXI    B,#$1D00
 INR    B
-E2 not found ************************
-1C not found ************************
-NOP
+JPO    $001C
 NOP
 INX    B
 NOP
@@ -12280,92 +12283,92 @@ NOP
 LXI    B,#$1D06
 INR    B
 RNC
-1C not found ************************
+INR    E
 NOP
 NOP
 INX    B
-FF not found ************************
+RST   7
 NOP
 RNZ
-1C not found ************************
+INR    E
 NOP
 NOP
-10 not found ************************
+NOP
 LXI    H,#$0001
-30 not found ************************
+SIM
 NOP
-12 not found ************************
+STAX   D
 NOP
 NOP
 NOP
 RRC
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 MVI    H,#$0F
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 INR    B
 LXI    D,#$1B24
-25 not found ************************
-FC not found ************************
-NOP
-LXI    B,#$FFFF
+DCR    H
+CM     $0100
+RST   7
+RST   7
 NOP
 NOP
 NOP
 RIM
 MOV    H,H
-1D not found ************************
+DCR    E
 RNC
 DAD    H
-18 not found ************************
+NOP
 STAX   B
 MOV    D,H
-1D not found ************************
+DCR    E
 NOP
-08 not found ************************
+NOP
 NOP
 MVI    B,#$00
 NOP
 LXI    B,#$0040
 LXI    B,#$0000
-10 not found ************************
-9E not found ************************
+NOP
+SBB    M
 NOP
 RIM
-1C not found ************************
+INR    E
 NOP
 INX    B
 INR    B
 MOV    A,B
 INR    D
 INX    D
-08 not found ************************
-LDAX   #$3D
-MOV    L,B
-FC not found ************************
-FC not found ************************
-MOV    L,B
+NOP
+LDAX   D
 DCR    A
-LDAX   #$00
+MOV    L,B
+CM     $68FC
+DCR    A
+LDAX   D
+NOP
 NOP
 NOP
 LXI    B,#$98B8
 ANA    B
-1B not found ************************
-10 not found ************************
-FF not found ************************
+DCX    D
+NOP
+RST   7
 NOP
 ANA    B
-1B not found ************************
+DCX    D
 NOP
 NOP
 NOP
 NOP
 NOP
-10 not found ************************
+NOP
 NOP
 MVI    C,#$05
 NOP
@@ -12375,9 +12378,9 @@ NOP
 NOP
 RLC
 RNC
-1C not found ************************
+INR    E
 RZ
-9B not found ************************
+SBB    E
 INX    B
 NOP
 NOP
@@ -12385,7 +12388,7 @@ INX    B
 INR    B
 MOV    A,B
 INR    D
-0B not found ************************
+DCX    B
 DAD    D
 LDA    $FA6D
 JM     $3A6D
@@ -12409,35 +12412,33 @@ NOP
 NOP
 NOP
 NOP
-1C not found ************************
-2F not found ************************
+INR    E
+CMA
 NOP
 NOP
-1C not found ************************
+INR    E
 DAA
 NOP
 NOP
-1C not found ************************
-39 not found ************************
+INR    E
+DAD    SP
 NOP
 NOP
-39 not found ************************
+DAD    SP
 MOV    A,C
 MOV    A,D
 MOV    L,M
-EC not found ************************
-JM     $ECFA
-MOV    L,M
-MOV    A,D
+CPE    $FAFA
+CPE    $7A6E
 MOV    A,C
-39 not found ************************
+DAD    SP
 NOP
 NOP
 NOP
 NOP
 NOP
 MOV    A,B
-1D not found ************************
+DCR    E
 CMP    M
 MOV    L,H
 INR    A
@@ -12445,7 +12446,7 @@ INR    A
 INR    A
 MOV    L,H
 CMP    M
-1D not found ************************
+DCR    E
 MOV    A,B
 NOP
 NOP
@@ -12463,16 +12464,14 @@ NOP
 NOP
 NOP
 NOP
-38 not found ************************
+NOP
 MOV    A,D
 MOV    A,A
 MOV    L,L
-EC not found ************************
-JM     $ECFA
-MOV    L,L
-MOV    A,A
+CPE    $FAFA
+CPE    $7F6D
 MOV    A,D
-38 not found ************************
+NOP
 NOP
 NOP
 NOP
@@ -12486,83 +12485,83 @@ INR    A
 DCR    A
 MOV    L,L
 CMP    M
-18 not found ************************
+NOP
 MVI    C,#$00
 NOP
 NOP
 NOP
 NOP
 NOP
-LDAX   #$3D
-MOV    L,B
-FC not found ************************
-FC not found ************************
-MOV    L,B
+LDAX   D
 DCR    A
-LDAX   #$00
+MOV    L,B
+CM     $68FC
+DCR    A
+LDAX   D
+NOP
 NOP
 NOP
 NOP
 NOP
 NOP
 RRC
-1F not found ************************
-1F not found ************************
-1F not found ************************
-1F not found ************************
+RAR
+RAR
+RAR
+RAR
 MOV    A,A
-FF not found ************************
+RST   7
 MOV    A,A
-1F not found ************************
-1F not found ************************
-1F not found ************************
-1F not found ************************
+RAR
+RAR
+RAR
+RAR
 RRC
 NOP
 NOP
 INR    B
 LXI    B,#$0313
 RLC
-B3 not found ************************
+ORA    E
 RRC
-2F not found ************************
+CMA
 INX    B
-2F not found ************************
-49 not found ************************
+CMA
+MOV    C,C
 INR    B
 INX    B
 NOP
 LXI    B,#$0840
 DCR    B
-A3 not found ************************
-0A not found ************************
+ANA    E
+LDAX   B
 INX    B
-5B not found ************************
+MOV    E,E
 RRC
 DAA
 DAA
-0B not found ************************
-4B not found ************************
-40 not found ************************
-84 not found ************************
+DCX    B
+MOV    C,E
+MOV    B,B
+ADD    H
 LXI    D,#$0F48
-99 not found ************************
+SBB    C
 INR    A
 MOV    A,M
 DCR    A
-BC not found ************************
+CMP    H
 MVI    A,#$7C
-99 not found ************************
+SBB    C
 DAA
-1B not found ************************
-LDAX   #$26
-RRC
+DCX    D
+LDAX   D
+MVI    H,#$0F
 MVI    C,#$08
 DCR    C
 INX    D
-12 not found ************************
-28 not found ************************
-12 not found ************************
+STAX   D
+NOP
+STAX   D
 STAX   B
 MVI    C,#$11
 INR    B
@@ -12576,165 +12575,152 @@ INR    B
 MVI    H,#$13
 NOP
 LXI    B,#$040B
-28 not found ************************
+NOP
 STAX   B
-10 not found ************************
+NOP
 RIM
-30 not found ************************
-INX    D
-08 not found ************************
-0B not found ************************
+SIM
 INX    D
 NOP
-08 not found ************************
-49 not found ************************
+DCX    B
+INX    D
+NOP
+NOP
+MOV    C,C
 SHLD   $8114
-42 not found ************************
+MOV    B,D
 NOP
-42 not found ************************
-81 not found ************************
+MOV    B,D
+ADD    C
 INR    D
 SHLD   $0849
 NOP
 NOP
-44 not found ************************
-AA not found ************************
-10 not found ************************
+MOV    B,H
+XRA    C
+NOP
 ADC    B
 MOV    D,H
 SHLD   $AA10
-44 not found ************************
+MOV    B,H
 SHLD   $8854
-4A not found ************************
+MOV    C,D
 DCR    D
 CMP    M
-3F not found ************************
+CMC
 MOV    E,M
-25 not found ************************
+DCR    H
 INR    B
-FC not found ************************
-INR    B
-10 not found ************************
-FC not found ************************
-10 not found ************************
-RIM
-FC not found ************************
-RIM
-ADD    B
-FC not found ************************
-ADD    B
-NOP
+CM     $1004
+CM     $2010
+CM     $8020
+CM     $0080
 CPI    #$00
-INR    h
+INR    H
 CPI    #$12
 NOP
 CPI    #$00
-48 not found ************************
+MOV    C,B
 CPI    #$90
 RRC
-0B not found ************************
+DCX    B
 NOP
 DAD    H
 NOP
 NOP
 LXI    B,#$0107
 LXI    B,#$0401
-0B not found ************************
+DCX    B
 LXI    B,#$0306
 LXI    B,#$0B01
-09 not found ************************
+DAD    B
 STAX   B
-08 not found ************************
+NOP
 STAX   B
-0B not found ************************
+DCX    B
 INR    B
 RLC
-0A not found ************************
+LDAX   B
 DCR    B
 STAX   B
 DCR    B
 INR    B
 MVI    B,#$07
-08 not found ************************
-0A not found ************************
+NOP
+LDAX   B
 MVI    B,#$0A
 INX    B
-FF not found ************************
+RST   7
 RRC
-FF not found ************************
-1F not found ************************
-FF not found ************************
-3F not found ************************
-FF not found ************************
+RST   7
+RAR
+RST   7
+CMC
+RST   7
 MOV    A,A
-FF not found ************************
-FF not found ************************
-FC not found ************************
-FF not found ************************
-F8 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F0 not found ************************
-FF not found ************************
-F8 not found ************************
-FF not found ************************
-FC not found ************************
-FF not found ************************
-FF not found ************************
-FF not found ************************
-FF not found ************************
-FF not found ************************
-FF not found ************************
+RST   7
+RST   7
+CM     $F8FF
+RST   7
+RP
+RST   7
+RP
+RST   7
+RP
+RST   7
+RP
+RST   7
+RP
+RST   7
+RP
+RST   7
+RP
+RST   7
+RM
+RST   7
+CM     $FFFF
+RST   7
+RST   7
+RST   7
+RST   7
 MOV    A,A
-FF not found ************************
-3F not found ************************
-FF not found ************************
-1F not found ************************
-FF not found ************************
+RST   7
+CMC
+RST   7
+RAR
+RST   7
 RRC
 DCR    B
-10 not found ************************
+NOP
 DCR    D
-30 not found ************************
-94 not found ************************
-DUB    A
-9A not found ************************
-9D not found ************************
-10 not found ************************
+SIM
+SUB    H
+SUB    A
+SBB    D
+SBB    L
+NOP
 DCR    B
 DCR    B
-10 not found ************************
+NOP
 DCR    D
-10 not found ************************
-10 not found ************************
+NOP
+NOP
 DCR    B
-30 not found ************************
-10 not found ************************
-10 not found ************************
-10 not found ************************
+SIM
+NOP
+NOP
+NOP
 DCR    B
 DCR    D
-10 not found ************************
+NOP
 DCR    B
 NOP
 NOP
 NOP
 NOP
 INR    B
-0C not found ************************
-1E not found ************************
-STC
+INR    C
+MVI    E,#$37
 MVI    A,#$7C
 MOV    M,H
 MOV    A,M
@@ -12742,8 +12728,7 @@ MOV    A,M
 MOV    M,H
 MOV    A,H
 MVI    A,#$37
-1E not found ************************
-0C not found ************************
+MVI    E,#$0C
 INR    B
 NOP
 NOP
@@ -12751,54 +12736,58 @@ NOP
 NOP
 NOP
 SHLD   $A500
-40 not found ************************
-08 not found ************************
-98 not found ************************
+MOV    B,B
+NOP
+SBB    B
 DCR    A
-B6 not found ************************
+ORA    M
 INR    A
 MVI    M,#$1D
-10 not found ************************
-48 not found ************************
+NOP
+MOV    C,B
 MOV    H,D
-B6 not found ************************
-1D not found ************************
-98 not found ************************
-08 not found ************************
-42 not found ************************
-90 not found ************************
-08 not found ************************
+ORA    M
+DCR    E
+SBB    B
+NOP
+MOV    B,D
+SUB    B
+NOP
 NOP
 NOP
 MVI    H,#$1F
-LDAX   #$1B
-LDAX   #$1A
-1B not found ************************
-1F not found ************************
-LDAX   #$1D
-LDAX   #$1A
-10 not found ************************
-RIM
-30 not found ************************
-60 not found ************************
-MOV    D,B
-48 not found ************************
-48 not found ************************
-48 not found ************************
-40 not found ************************
-40 not found ************************
-40 not found ************************
-RRC
-0B not found ************************
+LDAX   D
+DCX    D
+LDAX   D
+LDAX   D
+DCX    D
+RAR
+LDAX   D
+DCR    E
+LDAX   D
+LDAX   D
 NOP
-18 not found ************************
-12 not found ************************
+RIM
+SIM
+MOV    H,B
+MOV    D,B
+MOV    C,B
+MOV    C,B
+MOV    C,B
+MOV    B,B
+MOV    B,B
+MOV    B,B
+RRC
+DCX    B
+NOP
+NOP
+STAX   D
 RRC
 NOP
 STAX   B
 INR    B
 MVI    H,#$26
-08 not found ************************
+NOP
 DCR    C
 DCR    D
 NOP
@@ -12807,121 +12796,121 @@ INR    B
 LXI    D,#$0E12
 INR    L
 MOV    L,B
-1D not found ************************
-0C not found ************************
+DCR    E
+INR    C
 INR    L
 RIM
-1C not found ************************
-0A not found ************************
+INR    E
+LDAX   B
 INR    L
-40 not found ************************
-1C not found ************************
-08 not found ************************
+MOV    B,B
+INR    E
+NOP
 INR    L
 NOP
-1C not found ************************
-FF not found ************************
+INR    E
+RST   7
 MVI    C,#$2E
-E0 not found ************************
-1D not found ************************
-0C not found ************************
+RPO
+DCR    E
+INR    C
 MVI    L,#$EA
-1D not found ************************
-0A not found ************************
+DCR    E
+LDAX   B
 MVI    L,#$F4
-1D not found ************************
-08 not found ************************
+DCR    E
+NOP
 MVI    L,#$99
-1C not found ************************
-FF not found ************************
+INR    E
+RST   7
 DAA
-38 not found ************************
+NOP
 MVI    H,#$0C
-18 not found ************************
-12 not found ************************
+NOP
+STAX   D
 INX    D
 INR    B
 LXI    D,#$2718
-1D not found ************************
-LDAX   #$26
-RRC
+DCR    E
+LDAX   D
+MVI    H,#$0F
 MVI    C,#$08
 DCR    C
 INX    D
-12 not found ************************
+STAX   D
 DAA
-1C not found ************************
-LDAX   #$26
-RRC
+INR    E
+LDAX   D
+MVI    H,#$0F
 MVI    C,#$08
 DCR    C
 INX    D
-12 not found ************************
+STAX   D
 NOP
 NOP
 NOP
-1F not found ************************
-INR    h
-44 not found ************************
-INR    h
-1F not found ************************
+RAR
+INR    H
+MOV    B,H
+INR    H
+RAR
 NOP
 NOP
 NOP
 MOV    A,A
-49 not found ************************
-49 not found ************************
-49 not found ************************
+MOV    C,C
+MOV    C,C
+MOV    C,C
 MVI    M,#$00
 NOP
 NOP
 MVI    A,#$41
-41 not found ************************
-41 not found ************************
+MOV    B,C
+MOV    B,C
 SHLD   $0000
 NOP
 MOV    A,A
-41 not found ************************
-41 not found ************************
-41 not found ************************
+MOV    B,C
+MOV    B,C
+MOV    B,C
 MVI    A,#$00
 NOP
 NOP
 MOV    A,A
-49 not found ************************
-49 not found ************************
-49 not found ************************
-41 not found ************************
+MOV    C,C
+MOV    C,C
+MOV    C,C
+MOV    B,C
 NOP
 NOP
 NOP
 MOV    A,A
-48 not found ************************
-48 not found ************************
-48 not found ************************
-40 not found ************************
+MOV    C,B
+MOV    C,B
+MOV    C,B
+MOV    B,B
 NOP
 NOP
 NOP
 MVI    A,#$41
-41 not found ************************
-45 not found ************************
+MOV    B,C
+MOV    B,L
 MOV    B,A
 NOP
 NOP
 NOP
 MOV    A,A
-08 not found ************************
-08 not found ************************
-08 not found ************************
+NOP
+NOP
+NOP
 MOV    A,A
 NOP
 NOP
 NOP
 NOP
-41 not found ************************
+MOV    B,C
 MOV    A,A
-41 not found ************************
+MOV    B,C
 NOP
 NOP
 NOP
@@ -12933,7 +12922,7 @@ NOP
 NOP
 NOP
 MOV    A,A
-08 not found ************************
+NOP
 INR    D
 SHLD   $0041
 NOP
@@ -12944,57 +12933,57 @@ LXI    B,#$0000
 NOP
 MOV    A,A
 RIM
-18 not found ************************
+NOP
 RIM
 MOV    A,A
 NOP
 NOP
 NOP
 MOV    A,A
-10 not found ************************
-08 not found ************************
+NOP
+NOP
 INR    B
 MOV    A,A
 NOP
 NOP
 NOP
 MVI    A,#$41
-41 not found ************************
-41 not found ************************
+MOV    B,C
+MOV    B,C
 MVI    A,#$00
 NOP
 NOP
 MOV    A,A
-48 not found ************************
-48 not found ************************
-48 not found ************************
-30 not found ************************
+MOV    C,B
+MOV    C,B
+MOV    C,B
+SIM
 NOP
 NOP
 NOP
 MVI    A,#$41
-45 not found ************************
-42 not found ************************
+MOV    B,L
+MOV    B,D
 DCR    A
 NOP
 NOP
 NOP
 MOV    A,A
-48 not found ************************
-4C not found ************************
-4A not found ************************
+MOV    C,B
+MOV    C,H
+MOV    C,D
 LXI    SP,#$0000
 NOP
 STA    $4949
-49 not found ************************
+MOV    C,C
 MVI    H,#$00
 NOP
 NOP
-40 not found ************************
-40 not found ************************
+MOV    B,B
+MOV    B,B
 MOV    A,A
-40 not found ************************
-40 not found ************************
+MOV    B,B
+MOV    B,B
 NOP
 NOP
 NOP
@@ -13012,7 +13001,7 @@ NOP
 NOP
 MOV    A,A
 STAX   B
-0C not found ************************
+INR    C
 STAX   B
 MOV    A,A
 NOP
@@ -13020,30 +13009,30 @@ NOP
 NOP
 MOV    H,E
 INR    D
-08 not found ************************
+NOP
 INR    D
 MOV    H,E
 NOP
 NOP
 NOP
-60 not found ************************
-10 not found ************************
+MOV    H,B
+NOP
 RRC
-10 not found ************************
-60 not found ************************
+NOP
+MOV    H,B
 NOP
 NOP
 NOP
-43 not found ************************
-45 not found ************************
-49 not found ************************
+MOV    B,E
+MOV    B,L
+MOV    C,C
 MOV    D,C
 MOV    H,C
 NOP
 NOP
 NOP
 MVI    A,#$45
-49 not found ************************
+MOV    C,C
 MOV    D,C
 MVI    A,#$00
 NOP
@@ -13055,22 +13044,22 @@ NOP
 NOP
 NOP
 INX    H
-45 not found ************************
-49 not found ************************
-49 not found ************************
+MOV    B,L
+MOV    C,C
+MOV    C,C
 LXI    SP,#$0000
 NOP
-42 not found ************************
-41 not found ************************
-49 not found ************************
-59 not found ************************
+MOV    B,D
+MOV    B,C
+MOV    C,C
+MOV    E,C
 MOV    H,M
 NOP
 NOP
 NOP
-0C not found ************************
+INR    C
 INR    D
-INR    h
+INR    H
 MOV    A,A
 INR    B
 NOP
@@ -13084,42 +13073,41 @@ MOV    C,M
 NOP
 NOP
 NOP
-1E not found ************************
-DAD    H
-49 not found ************************
-49 not found ************************
+MVI    E,#$29
+MOV    C,C
+MOV    C,C
 MOV    B,M
 NOP
 NOP
 NOP
-40 not found ************************
+MOV    B,B
 MOV    B,A
-48 not found ************************
+MOV    C,B
 MOV    D,B
-60 not found ************************
+MOV    H,B
 NOP
 NOP
 NOP
 MVI    M,#$49
-49 not found ************************
-49 not found ************************
+MOV    C,C
+MOV    C,C
 MVI    M,#$00
 NOP
 NOP
 LXI    SP,#$4949
-4A not found ************************
+MOV    C,D
 INR    A
 NOP
 NOP
 NOP
-08 not found ************************
+NOP
 INR    D
 SHLD   $0041
 NOP
 NOP
 NOP
 NOP
-41 not found ************************
+MOV    B,C
 SHLD   $0814
 NOP
 NOP
@@ -13151,26 +13139,26 @@ INR    B
 INX    B
 NOP
 NOP
-INR    h
-1B not found ************************
+INR    H
+DCX    D
 MVI    H,#$0E
 LXI    D,#$1C26
 MVI    H,#$0F
-0B not found ************************
+DCX    B
 NOP
-18 not found ************************
+NOP
 INR    B
 LXI    D,#$2512
 MVI    H,#$26
-28 not found ************************
-1B not found ************************
-MVI    H,#$0F
-0B not found ************************
 NOP
-18 not found ************************
+DCX    D
+MVI    H,#$0F
+DCX    B
+NOP
+NOP
 INR    B
 LXI    D,#$2626
-1B not found ************************
+DCX    D
 MVI    H,#$02
 MVI    C,#$08
 DCR    C
@@ -13179,22 +13167,22 @@ LXI    B,#$0000
 LXI    B,#$0200
 LXI    B,#$0200
 LXI    B,#$6000
-10 not found ************************
+NOP
 RRC
-10 not found ************************
-60 not found ************************
-30 not found ************************
-18 not found ************************
-LDAX   #$3D
-MOV    L,B
-FC not found ************************
-FC not found ************************
-MOV    L,B
+NOP
+MOV    H,B
+SIM
+NOP
+LDAX   D
 DCR    A
-LDAX   #$00
-08 not found ************************
+MOV    L,B
+CM     $68FC
+DCR    A
+LDAX   D
+NOP
+NOP
 DCR    C
-12 not found ************************
+STAX   D
 INR    B
 LXI    D,#$2613
 MVI    H,#$02
@@ -13202,22 +13190,22 @@ MVI    C,#$08
 DCR    C
 DCR    C
 LHLD   $1F50
-0A not found ************************
+LDAX   B
 LHLD   $1F62
 RLC
 LHLD   $1FE1
-FF not found ************************
+RST   7
 STAX   B
 LXI    D,#$0304
-08 not found ************************
+NOP
 INX    D
 MVI    H,#$00
-60 not found ************************
-10 not found ************************
+MOV    H,B
+NOP
 RRC
-10 not found ************************
-60 not found ************************
-38 not found ************************
+NOP
+MOV    H,B
+NOP
 DAD    D
 LDA    $FA6D
 JM     $3A6D
@@ -13225,8 +13213,8 @@ DAD    D
 NOP
 NOP
 RIM
-40 not found ************************
-4D not found ************************
+MOV    B,B
+MOV    C,L
 MOV    D,B
 RIM
 NOP
@@ -13234,48 +13222,48 @@ NOP
 NOP
 NOP
 NOP
-FF not found ************************
+RST   7
 CMP    B
-FF not found ************************
+RST   7
 ADD    B
-1F not found ************************
-10 not found ************************
-DUB    A
+RAR
+NOP
+SUB    A
 NOP
 ADD    B
-1F not found ************************
+RAR
 NOP
 NOP
 LXI    B,#$22D0
 RIM
-1C not found ************************
-10 not found ************************
-94 not found ************************
+INR    E
+NOP
+SUB    H
 NOP
 RIM
-1C not found ************************
-28 not found ************************
-1C not found ************************
-MVI    H,#$0F
-0B not found ************************
+INR    E
 NOP
-18 not found ************************
+INR    E
+MVI    H,#$0F
+DCX    B
+NOP
+NOP
 INR    B
 LXI    D,#$2612
-1C not found ************************
+INR    E
 MVI    H,#$02
 MVI    C,#$08
 DCR    C
-12 not found ************************
+STAX   D
 RRC
 INR    D
-12 not found ************************
+STAX   D
 RLC
 MVI    H,#$00
-08 not found ************************
-08 not found ************************
-08 not found ************************
-08 not found ************************
-08 not found ************************
+NOP
+NOP
+NOP
+NOP
+NOP
 NOP
 NOP
