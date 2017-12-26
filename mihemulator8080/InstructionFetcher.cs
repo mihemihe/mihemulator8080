@@ -16,54 +16,63 @@ namespace mihemulator8080
         TEXT_SIMPLE,
         TEXT_DECIMAL
     }
+    public readonly struct InstructionOpcodes
+    {
+        public InstructionOpcodes(byte opcode1, byte opcode2, byte opcode3)
+        {
+            Byte1 = opcode1;
+            Byte2 = opcode2;
+            Byte3 = opcode3;
+        }
+
+        public byte Byte1 { get; }
+        public byte Byte2 { get; }
+        public byte Byte3 { get; }
+    }
 
     public class InstructionFetcher
     {
-        public List<Tuple<string,int>> AssemblyLines { get; set; }
-        public List<byte> Bytes { get; set; }
-        private int iterator { get; set; }
-        private string SourceCode { get; set; }
         private int listAddressPointer;
-        private int ops;//delete
-
-        private SourceFileFormat SourceCodeFormat { get; set; }
-
+        private int ops;
         public InstructionFetcher()
         {
-            iterator = -1;
+            Iterator = -1;
             AssemblyLines = new List<Tuple<string, int>>();
             Bytes = new List<byte>();
             listAddressPointer = 0;
         }
 
-        public List<string> FetchAllCodeLines()
-        {
-            List<string> lines = new List<string>();
-            foreach (Tuple<string,int> line in AssemblyLines)
-            {
-                lines.Add(line.Item1);
-            }
-            return lines;
-        }
+        public List<Tuple<string, int>> AssemblyLines { get; set; }
+        public List<byte> Bytes { get; set; }
+        private int Iterator { get; set; }
+        private string SourceCode { get; set; }        
+        private SourceFileFormat SourceCodeFormat { get; set; }
 
         public List<byte> FetchAllCodeBytes()
         {
             return Bytes;
         }
-
-        public Tuple<string,int> FetchNextInstruction()
+        public List<string> FetchAllCodeLines()
         {
-            if (iterator >= AssemblyLines.Count)
+            List<string> lines = new List<string>();
+            foreach (Tuple<string, int> line in AssemblyLines)
             {
-                return Tuple.Create("EOF",-1);
+                lines.Add(line.Item1);
+            }
+            return lines;
+        }
+        public Tuple<string, int> FetchNextInstruction()
+        {
+            if (Iterator >= AssemblyLines.Count)
+            {
+                return Tuple.Create("EOF", -1);
             }
             else
             {
-                iterator++;
-                return AssemblyLines[iterator];
+                Iterator++;
+                return AssemblyLines[Iterator];
             }
         }
-
         public int LoadSourceFile(string pathByteCode, SourceFileFormat format)
         {
             BytesROM bytesROM;
@@ -84,18 +93,19 @@ namespace mihemulator8080
             }
             //TODO: add other formats from the enum
 
-
-
             return 0;
         }
-
         public int ParseCurrentContent()
         {
             this.ParseFile();
             return 0;
         }
-            
-        private string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
+        public int ResetInstructionIterator()
+        {
+            Iterator = -1;
+            return 0;
+        }
+        public string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
         {
             size = 1;
             string byte3 = BitConverter.ToString(new byte[] { instruction.Byte3 });
@@ -169,7 +179,6 @@ namespace mihemulator8080
                 case 0x3E: size = 2; return $"MVI    A,#${byte2}"; // is byte2 or byte3?
                 case 0x3F: return $"CMC";
 
-
                 case 0x40: return $"MOV    B,B";
                 case 0x41: return $"MOV    B,C";
                 case 0x42: return $"MOV    B,D";
@@ -183,7 +192,7 @@ namespace mihemulator8080
                 case 0x4A: return $"MOV    C,D";
                 case 0x4B: return $"MOV    C,E";
                 case 0x4C: return $"MOV    C,H";
-                case 0x4D: return $"MOV    C,L"; 
+                case 0x4D: return $"MOV    C,L";
                 case 0x4E: return $"MOV    C,M";
                 case 0x4F: return $"MOV    C,A";
 
@@ -253,9 +262,6 @@ namespace mihemulator8080
                 case 0x8E: return $"ADC    M";
                 case 0x8F: return $"ADC    A";
 
-
-
-
                 case 0x90: return $"SUB    B";
                 case 0x91: return $"SUB    C";
                 case 0x92: return $"SUB    D";
@@ -272,7 +278,6 @@ namespace mihemulator8080
                 case 0x9D: return $"SBB    L";
                 case 0x9E: return $"SBB    M";
                 case 0x9F: return $"SBB    A";
-
 
                 case 0xB0: return $"ORA    B";
                 case 0xB1: return $"ORA    C";
@@ -292,7 +297,6 @@ namespace mihemulator8080
                 case 0xBF: return $"CMP    A";
 
                 case 0xA0: return $"ANA    B";
-
 
                 case 0xA1: return $"ANA    C";
                 case 0xA2: return $"ANA    D";
@@ -360,7 +364,6 @@ namespace mihemulator8080
                     return BitConverter.ToString(new byte[] { instruction.Byte1 }) + " not found ************************";
             }
         }
-
         private void ParseFile()
         {
             int size = 0;
@@ -385,7 +388,7 @@ namespace mihemulator8080
                 InstructionOpcodes nextInstruction = new InstructionOpcodes(currentByte, byte2, byte3);
                 string decoded = DisassembleInstruction(nextInstruction, out size);
                 //Debug.Write(nextInstruction.Byte1 + "\t" + nextInstruction.Byte2 + "\t" + nextInstruction.Byte3 + "\t\n");
-                AssemblyLines.Add(Tuple.Create(decoded,size));
+                AssemblyLines.Add(Tuple.Create(decoded, size));
 
                 //Debug.Write("Position: ", position.ToString());
                 //Debug.Write($"{listAddressPointer.ToString("X4")}\t\t\t{decoded}\n");
@@ -395,24 +398,10 @@ namespace mihemulator8080
 
             //        List<string> noOPCode = new List<string>();
         }
-
         private struct BytesROM
         {
             public byte[] Bytes { get; set; }
         }
-
-        private readonly struct InstructionOpcodes
-        {
-            public InstructionOpcodes(byte opcode1, byte opcode2, byte opcode3)
-            {
-                Byte1 = opcode1;
-                Byte2 = opcode2;
-                Byte3 = opcode3;
-            }
-
-            public byte Byte1 { get; }
-            public byte Byte2 { get; }
-            public byte Byte3 { get; }
-        }
+        
     }
 }

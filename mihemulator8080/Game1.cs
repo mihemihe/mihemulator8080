@@ -56,11 +56,22 @@ namespace mihemulator8080
             {
                 Memory.RAMMemory[memoryPointer] = _byte;
                 memoryPointer++;
+                Memory.TextSectionSize++;
             }
 
+            //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
+
+            CPU.programCounter = 0x00;
+            
             do
             {
                 ticks++;
+
+                CPU.Cycle();
+
+                Debug.WriteLine("Ticks:" + ticks + " Pc: " + CPU.programCounter);
+                //Read a instruction
+                //Execute instruction
 
                 //string instruction = CPU.instructionFecther.FetchNextInstruction().Item1;
 

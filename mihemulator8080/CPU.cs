@@ -1,8 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 
 namespace mihemulator8080
 {
@@ -25,19 +21,50 @@ namespace mihemulator8080
         //1 - Not used, always one
         //C - Carry Flag
 
+        //bitarray better?
+
         public static bool SignFlag, ZeroFlag, AuxCarryFlag, ParityFlag, CarryFlag;
 
-        public static byte programCounter; // (PC) An ancient Instruction Pointer
+        public static int programCounter; // (PC) An ancient Instruction Pointer
 
         public static InstructionFetcher instructionFecther;
-
 
         static CPU()
         {
             instructionFecther = new InstructionFetcher();
         }
 
- 
+        public static InstructionOpcodes GetNextInstruction()
+        {
+            // read the program counter
+            // read next instruction frm membory, offset rogram counter
 
+
+            if (programCounter < Memory.TextSectionSize)
+            {
+                InstructionOpcodes codes = new InstructionOpcodes(
+            Memory.RAMMemory[programCounter],
+            Memory.RAMMemory[programCounter + 1],
+            Memory.RAMMemory[programCounter + 2]);
+                CPU.instructionFecther.DisassembleInstruction(codes, out int size);
+                programCounter += size;
+                return codes;
+            }
+            else return new InstructionOpcodes(5, 5, 5);
+        }
+
+        public static int ExecuteInstruction(InstructionOpcodes opCodes)
+        {
+            return 0;
+        }
+
+        public static int Cycle()
+        {
+            InstructionOpcodes nextInstruction = CPU.GetNextInstruction();
+            int cycleResult = ExecuteInstruction(nextInstruction);
+            Debug.Write(nextInstruction.Byte1 + "\n");
+            return 0;
+
+        }
     }
 }

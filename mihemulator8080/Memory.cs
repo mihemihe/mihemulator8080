@@ -32,7 +32,6 @@ namespace mihemulator8080
                 }
             }
         }
-
         public static void RAM2FileHTML()
         {
             string outputPath = @"..\..\..\..\Misc\OutputFiles\RAM.html";
@@ -98,5 +97,12 @@ namespace mihemulator8080
                 }
             }
         }
+        public static int TextSectionSize { get; set; }
+
+        static Memory()
+        {
+            TextSectionSize = 0;
+        }
+
     }
 }
