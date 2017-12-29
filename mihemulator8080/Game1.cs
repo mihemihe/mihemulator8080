@@ -11,8 +11,10 @@ namespace mihemulator8080
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private SpriteBatch spriteBatch2;
-        private int ticks = 0;
+
+        //private SpriteBatch spriteBatch2;
+        private int cyclesCounter = 0;
+
         private SpriteFont font;
         private int score = 0;
 
@@ -22,18 +24,38 @@ namespace mihemulator8080
         private const int screenStartX = 300;
         private const int screenStartY = 200;
 
+        private Texture2D oneCycle;
+        private Texture2D loopCycles;
+        private Rectangle positionOneCycleButton;
+        private bool oneCycleHover;
+
+        private KeyboardState keyboardState;
+        private MouseState mouseState;
+        private MouseState oldMouseState;
+
+        private int leftButtonPressed;
+        bool clickOneCycle;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Rectangle screenArea = new Rectangle(screenStartX, screenStartY, 256, 224); // size of space invaders screen. Create consts
             pos = new Vector2(screenStartX, screenStartY);
+            positionOneCycleButton = new Rectangle(10, 10, 40, 50);
+            oneCycleHover = false;
+            mouseState = Mouse.GetState();
+            oldMouseState = Mouse.GetState();
+            leftButtonPressed = 0;
+            clickOneCycle = false;
         }
 
         protected override void Initialize()
         {
+            this.IsMouseVisible = true;
+
             this.IsFixedTimeStep = false;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 128);
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 32); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
@@ -72,9 +94,11 @@ namespace mihemulator8080
         protected override void LoadContent()
         {
             font = Content.Load<SpriteFont>("defaultfont");
+            oneCycle = Content.Load<Texture2D>("oneCycle");
+            loopCycles = Content.Load<Texture2D>("loopCycles");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteBatch2 = new SpriteBatch(GraphicsDevice);
+            //spriteBatch2 = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -86,14 +110,37 @@ namespace mihemulator8080
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            keyboardState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape))
                 Exit();
 
-            //do while here
+            if (mouseState.X < positionOneCycleButton.X + positionOneCycleButton.Width &&
+                mouseState.X > positionOneCycleButton.X &&
+                mouseState.Y < positionOneCycleButton.Y + positionOneCycleButton.Height &&
+                mouseState.Y > positionOneCycleButton.Y)
+            {
+                oneCycleHover = true;
+            }
+            else oneCycleHover = false;
 
-            ticks++;
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                leftButtonPressed++;
+            }
+            else leftButtonPressed = 0;
 
-            CPU.Cycle();
+            clickOneCycle = (oneCycleHover &&
+                mouseState.LeftButton == ButtonState.Released &&
+                oldMouseState.LeftButton == ButtonState.Pressed);
+            
+            if (clickOneCycle || leftButtonPressed > 20 || keyboardState.IsKeyDown(Keys.P))
+            {
+                CPU.Cycle();
+                cyclesCounter++;
+            }
+
+
 
             screenBitmap = DisplayBuffer.GenerateDisplay(GraphicsDevice);
 
@@ -104,34 +151,37 @@ namespace mihemulator8080
             //string instruction = CPU.instructionFecther.FetchNextInstruction().Item1;
 
             // TODO: Add your update logic here
-
+            oldMouseState = mouseState;
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            
-            
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             spriteBatch.Begin();
+
+            // GUI elements
+            spriteBatch.Draw(oneCycle, positionOneCycleButton, Color.White);
+            spriteBatch.Draw(loopCycles, new Rectangle(280, 10, 80, 50), Color.White);
+            spriteBatch.DrawString(font, "Step ONE Instruction          Cycle automatically", new Vector2(10, 70), Color.Black);
+            // PC, cycles and next instruction
+            spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString("X4") + " (Memory address of current instruction)", new Vector2(10, 100), Color.Black);
+            spriteBatch.DrawString(font, "Cycle: " + cyclesCounter.ToString(), new Vector2(10, 120), Color.Black);
+            spriteBatch.DrawString(font, "Next CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 140), Color.Black);
+
+            // CPU Registers
             spriteBatch.Draw(screenBitmap, pos, Color.White);
-            string registers = "A: " + BitConverter.ToString(new byte[] { CPU.registerA })
+            string registers = "REGISTERS"
+                + "\nA: " + BitConverter.ToString(new byte[] { CPU.registerA })
                 + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
                 + "\nC: " + BitConverter.ToString(new byte[] { CPU.registerC })
                 + "\nD: " + BitConverter.ToString(new byte[] { CPU.registerD })
                 + "\nE: " + BitConverter.ToString(new byte[] { CPU.registerE })
                 + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
                 + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
-
-            spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString() + " (Memory address of current instruction)", new Vector2(100, 100), Color.Black);
-            spriteBatch.DrawString(font, "Cycle: " + ticks.ToString(), new Vector2(100, 200), Color.Black);
-            spriteBatch.DrawString(font, CPU.InstructionExecuting, new Vector2(10, 250), Color.Black);
             spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
 
-            //public static byte registerA, registerB, registerC, registerD, registerE, registerH, registerL;
-            //public static bool SignFlag, ZeroFlag, AuxCarryFlag, ParityFlag, CarryFlag;
-            //programcounter
             spriteBatch.End();
 
             // TODO: Add your drawing code here

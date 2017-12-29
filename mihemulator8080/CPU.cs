@@ -25,7 +25,11 @@ namespace mihemulator8080
 
         public static bool SignFlag, ZeroFlag, AuxCarryFlag, ParityFlag, CarryFlag;
 
+        // I think this should be uint. If they go over 27......... value they will overflow
+        // However only 65535 values are required (2-16) to map all memory
+        // if all memory is used it will fail !
         public static int programCounter; // (PC) An ancient Instruction Pointer
+        public static int stackPointer; // (SP) Stack Pointer
 
         public static InstructionFetcher instructionFecther;
         public static string InstructionExecuting;
@@ -33,6 +37,7 @@ namespace mihemulator8080
         static CPU()
         {
             instructionFecther = new InstructionFetcher();
+            InstructionExecuting = "";
         }
 
         public static InstructionOpcodes GetNextInstruction()
@@ -57,7 +62,31 @@ namespace mihemulator8080
 
         public static int ExecuteInstruction(InstructionOpcodes opCodes)
         {
-            return 0;
+
+
+            switch (opCodes.Byte1)
+            {
+
+                case 0x00: //NOP, do nothing
+                    break;
+                case 0x01: //LXI    B,#${byte3}{byte2}
+                    CPU.registerC = opCodes.Byte2;
+                    CPU.registerB = opCodes.Byte3;
+                    break;
+                case 0x05: //DCR B ************************************
+                    break;
+                case 0xC3: //JMP    ${byte3}{byte2}
+                    CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
+                    CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right 
+                    break;
+                case 0x31: //LXI    SP,#${byte3}{byte2}
+                    break;
+                default:
+                    break;
+            }
+
+
+                    return 0;
         }
 
         public static int Cycle()
