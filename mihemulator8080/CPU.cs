@@ -62,7 +62,7 @@ namespace mihemulator8080
         {
             InstructionOpcodes nextInstruction = CPU.GetNextInstruction();
             int cycleResult = ExecuteInstruction(nextInstruction);
-            Debug.Write(nextInstruction.Byte1 + "\n");
+            //Debug.Write(nextInstruction.Byte1 + "\n");
             return 0;
 
         }
