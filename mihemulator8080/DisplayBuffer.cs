@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections;
 
 namespace mihemulator8080
@@ -24,6 +25,7 @@ namespace mihemulator8080
 
         public static Texture2D GenerateDisplay(GraphicsDevice device)
         {
+            Random rnd = new Random();//remove this
             int startVideoRAM = 2400;
             //initialize a texture
             Texture2D texture = new Texture2D(device, X, Y);
@@ -40,8 +42,11 @@ namespace mihemulator8080
                 eightPixels.CopyTo(bits, 0);
                 for (int bit = 0; bit < 8; bit++)
                 {
-                    pixelsArray[pixel] = (bits[bit] == true) ? Color.White : Color.Red;
-                     
+                    
+                    int randomValue = rnd.Next(1, 3);
+                    pixelsArray[pixel] = (randomValue == 1) ? Color.White : Color.Red;
+                    //pixelsArray[pixel] = (bits[bit] == true) ? Color.White : Color.Red;
+
                     pixel++;
                 }
             }
