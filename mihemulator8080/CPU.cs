@@ -28,6 +28,7 @@ namespace mihemulator8080
         public static int programCounter; // (PC) An ancient Instruction Pointer
 
         public static InstructionFetcher instructionFecther;
+        public static string InstructionExecuting;
 
         static CPU()
         {
@@ -46,7 +47,8 @@ namespace mihemulator8080
             Memory.RAMMemory[programCounter],
             Memory.RAMMemory[programCounter + 1],
             Memory.RAMMemory[programCounter + 2]);
-                CPU.instructionFecther.DisassembleInstruction(codes, out int size);
+                InstructionExecuting =  CPU.instructionFecther.DisassembleInstruction(codes, out int size);
+                
                 programCounter += size;
                 return codes;
             }

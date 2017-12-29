@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CPU.cs" />
+    <Compile Include="DisplayBuffer.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="InstructionFetcher.cs" />
     <Compile Include="Memory.cs" />

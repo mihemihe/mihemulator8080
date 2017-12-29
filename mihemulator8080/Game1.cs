@@ -1,32 +1,40 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-
-
 
 namespace mihemulator8080
 {
-
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        int ticks = 0;
+        private SpriteBatch spriteBatch2;
+        private int ticks = 0;
         private SpriteFont font;
         private int score = 0;
+
+        private Texture2D screenBitmap;
+        private Rectangle screenArea;
+        private Vector2 pos;
+        private const int screenStartX = 300;
+        private const int screenStartY = 200;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Rectangle screenArea = new Rectangle(screenStartX, screenStartY, 256, 224); // size of space invaders screen. Create consts
+            pos = new Vector2(screenStartX, screenStartY);
         }
-
 
         protected override void Initialize()
         {
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 128);
+
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-G.json", SourceFileFormat.JSON_HEX);
@@ -44,9 +52,8 @@ namespace mihemulator8080
             }
             File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.FetchAllCodeLines());
 
-
-            Memory.RAM2File();
-            Memory.RAM2FileHTML();
+            //Memory.RAM2File(); NO WRITING FOR THE TIME BEING
+            //Memory.RAM2FileHTML();
             int memoryPointer = 0;
             foreach (byte _byte in CPU.instructionFecther.FetchAllCodeBytes())
             {
@@ -58,32 +65,24 @@ namespace mihemulator8080
             //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
 
             CPU.programCounter = 0x00;
-
-
-
-            
-
-
-
+            screenBitmap = DisplayBuffer.GenerateDisplay(GraphicsDevice); // First screencap
             base.Initialize();
         }
 
- 
         protected override void LoadContent()
         {
             font = Content.Load<SpriteFont>("defaultfont");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch2 = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
-
 
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -96,6 +95,8 @@ namespace mihemulator8080
 
             CPU.Cycle();
 
+            screenBitmap = DisplayBuffer.GenerateDisplay(GraphicsDevice);
+
             //Debug.WriteLine("Ticks:" + ticks + " Pc: " + CPU.programCounter);
             //Read a instruction
             //Execute instruction
@@ -107,15 +108,30 @@ namespace mihemulator8080
             base.Update(gameTime);
         }
 
-
         protected override void Draw(GameTime gameTime)
         {
+            
+            
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            spriteBatch.Draw(screenBitmap, pos, Color.White);
+            string registers = "A: " + BitConverter.ToString(new byte[] { CPU.registerA })
+                + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
+                + "\nC: " + BitConverter.ToString(new byte[] { CPU.registerC })
+                + "\nD: " + BitConverter.ToString(new byte[] { CPU.registerD })
+                + "\nE: " + BitConverter.ToString(new byte[] { CPU.registerE })
+                + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
+                + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
 
-            spriteBatch.DrawString(font, "Hello", new Vector2(100, 100), Color.Black);
-            spriteBatch.DrawString(font, ticks.ToString(), new Vector2(100, 200), Color.Black);
+            spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString() + " (Memory address of current instruction)", new Vector2(100, 100), Color.Black);
+            spriteBatch.DrawString(font, "Cycle: " + ticks.ToString(), new Vector2(100, 200), Color.Black);
+            spriteBatch.DrawString(font, CPU.InstructionExecuting, new Vector2(10, 250), Color.Black);
+            spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
 
+            //public static byte registerA, registerB, registerC, registerD, registerE, registerH, registerL;
+            //public static bool SignFlag, ZeroFlag, AuxCarryFlag, ParityFlag, CarryFlag;
+            //programcounter
             spriteBatch.End();
 
             // TODO: Add your drawing code here
