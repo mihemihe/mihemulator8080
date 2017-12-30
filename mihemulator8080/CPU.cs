@@ -5,7 +5,7 @@ namespace mihemulator8080
     public static class CPU
     {
         // CPU registers A,B,C,D,E - 8 bits each
-        public static byte registerA, registerB, registerC, registerD, registerE, registerH, registerL;
+        public static uint registerA, registerB, registerC, registerD, registerE, registerH, registerL;
 
         //private Flag register(F) bits:
 
@@ -28,12 +28,12 @@ namespace mihemulator8080
         // I think this should be uint. If they go over 27......... value they will overflow
         // However only 65535 values are required (2-16) to map all memory
         // if all memory is used it will fail !
-        public static int programCounter; // (PC) An ancient Instruction Pointer
+        public static uint programCounter; // (PC) An ancient Instruction Pointer
 
-        public static int stackPointer; // (SP) Stack Pointer
+        public static uint stackPointer; // (SP) Stack Pointer
 
-        public static int memoryAddressDE;
-        public static int memoryAddressHL;
+        public static uint memoryAddressDE;
+        public static uint memoryAddressHL;
         public static byte[] tempBytesStorage;
 
         public static InstructionFetcher instructionFecther;
@@ -59,7 +59,7 @@ namespace mihemulator8080
             Memory.RAMMemory[programCounter],
             Memory.RAMMemory[programCounter + 1],
             Memory.RAMMemory[programCounter + 2]);
-                InstructionExecuting = CPU.instructionFecther.DisassembleInstruction(codes, out int size);
+                InstructionExecuting = CPU.instructionFecther.DisassembleInstruction(codes, out uint size);
 
                 programCounter += size;
                 return codes;
@@ -130,25 +130,25 @@ namespace mihemulator8080
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
-                    Memory.RAMMemory[memoryAddressHL] = CPU.registerA;
+                    Memory.RAMMemory[memoryAddressHL] = (byte)CPU.registerA;
 
                     break;
 
                 case 0xC3: //JMP    ${byte3}{byte2}
-                    CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
+                    CPU.programCounter = (uint)opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     break;
                 case 0xC2: //JNZ    ${byte3}{byte2}
                     // if z=false then jump to address
                     if (CPU.ZeroFlag == false)
                     {
-                        CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
+                        CPU.programCounter = (uint)opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                         CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     }
                     break;
 
                 case 0x31: //LXI    SP,#${byte3}{byte2}
-                    CPU.stackPointer = opCodes.Byte3 << 8;
+                    CPU.stackPointer = (uint)opCodes.Byte3 << 8;
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
 
@@ -159,7 +159,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = opCodes.Byte2; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = opCodes.Byte3;
                     CPU.stackPointer = CPU.stackPointer - 2;
-                    CPU.programCounter = opCodes.Byte3 << 8; // This is a JMP
+                    CPU.programCounter = (uint)opCodes.Byte3 << 8; // This is a JMP
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2;
                     break;
 
