@@ -4427,7 +4427,7 @@ MOV    H,A
 POP    B
 RET
 LXI    H,#$2400
-MVI    M,#$00
+MVI    M,#$F2
 INX    H
 MOV    A,H
 CPI    #$40

@@ -141,10 +141,42 @@ namespace mihemulator8080
                     CPU.registerB = opCodes.Byte2;
                     break;
 
+                case 0x09: //DAD    B //double add, sums HL + BC, in their byte positions and compare. CY flag
+                    instructionText = $"DAD    B";
+                    HL = 0;
+                    HL = (uint)((CPU.registerH << 8) | CPU.registerL);
+                    uint BC = (uint)((CPU.registerB << 8) | CPU.registerC);
+                    uint DADBResult = HL + BC;
+                    CPU.registerH = (byte)((DADBResult & 0xFF00) >> 8);
+                    CPU.registerL = (byte)(DADBResult & 0xFF);
+                    CPU.CarryFlag = ((DADBResult & 0xFFFF0000) != 0);
+                    break;
+
                 case 0x11: //LXI    D,#${byte3}{byte2}
                     instructionText = $"LXI    D,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     CPU.registerE = opCodes.Byte2;
                     CPU.registerD = opCodes.Byte3;
+                    break;
+                case 0x14: //INR    D
+                    //Z S P Aux
+                    instructionText = $"INR    D";
+                    CPU.registerD = (byte)(CPU.registerD + 1);
+                    CPU.ZeroFlag = (CPU.registerD == 0);
+                    CPU.SignFlag = (0x80 == (CPU.registerD & 0x80));
+                    bitArrayOperation = new BitArray(new byte[] { CPU.registerD });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+                    CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
+
+
+
+
+
                     break;
                 case 0x0E: //MVI    C,#${byte2}
                     instructionText = $"MVI    C,#${opCodes.Byte2.ToString("X2")}";
@@ -284,6 +316,13 @@ namespace mihemulator8080
                     CPU.stackPointer += 2; //return the stack pointer back to original position
                     break;
 
+                case 0xC5: //PUSH   B - BC move to the stack
+                    instructionText = $"PUSH   B";
+                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerB; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerC;
+                    CPU.stackPointer += 2;
+                    break;
+
                 case 0xCD: //CALL   ${byte3}{byte2}
                     instructionText = $"CALL   ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     // This is a PUSH to stack, fixed start address in the code, $2400
@@ -367,7 +406,7 @@ namespace mihemulator8080
             InstructionOpcodes nextInstruction = CPU.GetNextInstruction();
             int cycleResult = ExecuteInstruction(nextInstruction);
 
-            if (fileDebug == true && cyclesCounter > 37000)
+            if (fileDebug == true && cyclesCounter > 87000)
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))
                 {
@@ -380,7 +419,7 @@ namespace mihemulator8080
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))
                 {
-                    sw.WriteLine(cyclesCounter.ToString());
+                    sw.WriteLine(cyclesCounter.ToString() + "****************************************************");
 
                 }
             }

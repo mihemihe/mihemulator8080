@@ -54,7 +54,7 @@ namespace mihemulator8080
             this.IsMouseVisible = true;
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1); // only if IsFixedTimeStep is true
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 16); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
@@ -86,7 +86,7 @@ namespace mihemulator8080
             //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
 
             CPU.programCounter = 0x00;
-            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.White, Color.Red); //Inverted colours. This is bad test, first frame will come emtpy always
+            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.Red, Color.White); //Inverted colours. This is bad test, first frame will come emtpy always
             screenBitmap = DisplayBuffer.videoTexture; // First screencap
 
 
@@ -138,15 +138,14 @@ namespace mihemulator8080
                 mouseState.LeftButton == ButtonState.Released &&
                 oldMouseState.LeftButton == ButtonState.Pressed);
             
-            if (true || clickOneCycle || leftButtonPressed > 20 || keyboardState.IsKeyDown(Keys.P))
+            if ( true || clickOneCycle || leftButtonPressed > 20 || keyboardState.IsKeyDown(Keys.P))
             {
                 CPU.Cycle();
                 CPU.cyclesCounter++;
             }
 
 
-            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.Red, Color.White);
-            screenBitmap = DisplayBuffer.videoTexture;
+
 
             //Debug.WriteLine("Ticks:" + ticks + " Pc: " + CPU.programCounter);
             //Read a instruction
@@ -161,41 +160,45 @@ namespace mihemulator8080
 
         protected override void Draw(GameTime gameTime)
         {
+            //Update VideoBuffer
+            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.Red, Color.White);
+            screenBitmap = DisplayBuffer.videoTexture;
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
 
-            //// GUI elements
-            //spriteBatch.Draw(oneCycle, positionOneCycleButton, Color.White);
-            //spriteBatch.Draw(loopCycles, new Rectangle(280, 10, 80, 50), Color.White);
-            //spriteBatch.DrawString(font, "Step ONE Instruction          Cycle automatically", new Vector2(10, 70), Color.Black);
-            //// PC, cycles and next instruction
-            //spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString("X4") + " (Memory address of current instruction)", new Vector2(10, 100), Color.Black);
-            //spriteBatch.DrawString(font, "StackPointer(SP): $" + CPU.stackPointer.ToString("X4") + " (Memory address of stack pointer)", new Vector2(10, 120), Color.Black);
-            //spriteBatch.DrawString(font, "Cycle: " + CPU.cyclesCounter.ToString(), new Vector2(10, 140), Color.Black);
-            //spriteBatch.DrawString(font, "Last executed CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 160), Color.Black);
+            // GUI elements
+            spriteBatch.Draw(oneCycle, positionOneCycleButton, Color.White);
+            spriteBatch.Draw(loopCycles, new Rectangle(280, 10, 80, 50), Color.White);
+            spriteBatch.DrawString(font, "Step ONE Instruction          Cycle automatically", new Vector2(10, 70), Color.Black);
+            // PC, cycles and next instruction
+            spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString("X4") + " (Memory address of current instruction)", new Vector2(10, 100), Color.Black);
+            spriteBatch.DrawString(font, "StackPointer(SP): $" + CPU.stackPointer.ToString("X4") + " (Memory address of stack pointer)", new Vector2(10, 120), Color.Black);
+            spriteBatch.DrawString(font, "Cycle: " + CPU.cyclesCounter.ToString(), new Vector2(10, 140), Color.Black);
+            spriteBatch.DrawString(font, "Last executed CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 160), Color.Black);
 
             // Display!!
             spriteBatch.Draw(screenBitmap, pos, Color.White);
 
             // CPU Registers
-            //string registers = "REGISTERS"
-            //    + "\nA: " + BitConverter.ToString(new byte[] { CPU.registerA })
-            //    + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
-            //    + "\nC: " + BitConverter.ToString(new byte[] { CPU.registerC })
-            //    + "\nD: " + BitConverter.ToString(new byte[] { CPU.registerD })
-            //    + "\nE: " + BitConverter.ToString(new byte[] { CPU.registerE })
-            //    + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
-            //    + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
-            //spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
+            string registers = "REGISTERS"
+                + "\nA: " + BitConverter.ToString(new byte[] { CPU.registerA })
+                + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
+                + "\nC: " + BitConverter.ToString(new byte[] { CPU.registerC })
+                + "\nD: " + BitConverter.ToString(new byte[] { CPU.registerD })
+                + "\nE: " + BitConverter.ToString(new byte[] { CPU.registerE })
+                + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
+                + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
+            spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
 
-            //string flags = "FLAGS"
-            //     + "\nZERO:       " + CPU.ZeroFlag.ToString()
-            //     + "\nSIGN:       " + CPU.SignFlag.ToString()
-            //     + "\nPARITY:     " + CPU.ParityFlag.ToString()
-            //     + "\nCARRY:      " + CPU.CarryFlag.ToString()
-            //     + "\nAUX. CARRY: " + CPU.AuxCarryFlag.ToString();                                  
-            //spriteBatch.DrawString(font, flags, new Vector2(120, 300), Color.Black);
+            string flags = "FLAGS"
+                 + "\nZERO:       " + CPU.ZeroFlag.ToString()
+                 + "\nSIGN:       " + CPU.SignFlag.ToString()
+                 + "\nPARITY:     " + CPU.ParityFlag.ToString()
+                 + "\nCARRY:      " + CPU.CarryFlag.ToString()
+                 + "\nAUX. CARRY: " + CPU.AuxCarryFlag.ToString();
+            spriteBatch.DrawString(font, flags, new Vector2(120, 300), Color.Black);
 
 
 
