@@ -39,6 +39,8 @@ namespace mihemulator8080
         public static byte[] tempBytesStorage;
         public static byte byteOperation;
         public static BitArray bitArrayOperation;
+        public static int returnAddress;
+        public static int evenOddCounter;
 
         public static InstructionFetcher instructionFecther;
         public static string InstructionExecuting;
@@ -56,6 +58,8 @@ namespace mihemulator8080
             tempBytesStorage = new byte[4];
             byteOperation = 0;
             bitArrayOperation = new BitArray(8, false);
+            returnAddress = 0;
+            evenOddCounter = 0;
             SignFlag = false;
             ZeroFlag = false;
             AuxCarryFlag = false;
@@ -110,7 +114,7 @@ namespace mihemulator8080
                     CPU.SignFlag = (0x80 == (byteOperation & 0x80)); //0x80 = 128 (10000000) Most Significant bit
                                                                      //  if 8th bit is 1, the & will preserve and the result will be 0x80 
                     bitArrayOperation = new BitArray(new byte[] { byteOperation });
-                    int evenOddCounter = 0; // TODO: take this to a separate parity method
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
                     foreach (bool bit in bitArrayOperation)
                     {
                         if (bit == true) evenOddCounter++;
@@ -204,8 +208,8 @@ namespace mihemulator8080
                 case 0xC9: //RET
                     instructionText = $"RET";
                     CPU.programCounter = 0;
-                    programCounter = Memory.RAMMemory[CPU.stackPointer] << 8; //why +1 and not -1? explained next commentary
-                    programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer + 1]; //+1 to go up in the stack (grows downwards)
+                    programCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
+                    programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
                     CPU.stackPointer += 2; //return the stack pointer back to original position
                     break;
 
@@ -213,15 +217,16 @@ namespace mihemulator8080
                     instructionText = $"CALL   ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     // This is a PUSH to stack, fixed start address in the code, $2400
                     // for clarity , better of use returnaddress, but point is programCounter contains already pc  +2
-                    //int returnAddress = CPU.programCounter; // no need +2 because it is incremented already
-                    Memory.RAMMemory[CPU.stackPointer - 1] = opCodes.Byte2; // is this the correct order? who knows
-                    Memory.RAMMemory[CPU.stackPointer - 2] = opCodes.Byte3;
+                    returnAddress = CPU.programCounter;
+                    tempBytesStorage = BitConverter.GetBytes(returnAddress);
+                    //This is the PUSH of programCounter + 2 in the stack
+                    Memory.RAMMemory[CPU.stackPointer - 1] = tempBytesStorage[1]; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 2] = tempBytesStorage[0];
                     CPU.stackPointer = CPU.stackPointer - 2;
+
+                    //This is the JMP
                     CPU.programCounter = opCodes.Byte3 << 8; // This is a JMP
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2;
-
-
-
                     break;
 
                 default:
