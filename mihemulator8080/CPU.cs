@@ -184,7 +184,9 @@ namespace mihemulator8080
                     CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     break;
+
                 case 0xC2: //JNZ    ${byte3}{byte2}
+                    instructionText = $"JNZ    ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     // if z=false then jump to address
                     if (CPU.ZeroFlag == false)
                     {
@@ -194,11 +196,21 @@ namespace mihemulator8080
                     break;
 
                 case 0x31: //LXI    SP,#${byte3}{byte2}
+                    instructionText = $"LXI    SP,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     CPU.stackPointer = opCodes.Byte3 << 8;
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
 
+                case 0xC9: //RET
+                    instructionText = $"RET";
+                    CPU.programCounter = 0;
+                    programCounter = Memory.RAMMemory[CPU.stackPointer] << 8; //why +1 and not -1? explained next commentary
+                    programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer + 1]; //+1 to go up in the stack (grows downwards)
+                    CPU.stackPointer += 2; //return the stack pointer back to original position
+                    break;
+
                 case 0xCD: //CALL   ${byte3}{byte2}
+                    instructionText = $"CALL   ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     // This is a PUSH to stack, fixed start address in the code, $2400
                     // for clarity , better of use returnaddress, but point is programCounter contains already pc  +2
                     //int returnAddress = CPU.programCounter; // no need +2 because it is incremented already
@@ -207,6 +219,9 @@ namespace mihemulator8080
                     CPU.stackPointer = CPU.stackPointer - 2;
                     CPU.programCounter = opCodes.Byte3 << 8; // This is a JMP
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2;
+
+
+
                     break;
 
                 default:
