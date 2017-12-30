@@ -32,17 +32,17 @@ namespace mihemulator8080
 
     public class InstructionFetcher
     {
-        private int listAddressPointer;
+        private uint listAddressPointer;
         private int ops;
         public InstructionFetcher()
         {
             Iterator = -1;
-            AssemblyLines = new List<Tuple<string, int>>();
+            AssemblyLines = new List<Tuple<string, uint>>();
             Bytes = new List<byte>();
             listAddressPointer = 0;
         }
 
-        public List<Tuple<string, int>> AssemblyLines { get; set; }
+        public List<Tuple<string, uint>> AssemblyLines { get; set; }
         public List<byte> Bytes { get; set; }
         private int Iterator { get; set; }
         private string SourceCode { get; set; }        
@@ -55,17 +55,18 @@ namespace mihemulator8080
         public List<string> FetchAllCodeLines()
         {
             List<string> lines = new List<string>();
-            foreach (Tuple<string, int> line in AssemblyLines)
+            foreach (Tuple<string, uint> line in AssemblyLines)
             {
                 lines.Add(line.Item1);
             }
             return lines;
         }
-        public Tuple<string, int> FetchNextInstruction()
+        public Tuple<string, uint> FetchNextInstruction()
         {
             if (Iterator >= AssemblyLines.Count)
             {
-                return Tuple.Create("EOF", -1);
+                
+                return Tuple.Create("EOF", 999999U);
             }
             else
             {
@@ -105,7 +106,7 @@ namespace mihemulator8080
             Iterator = -1;
             return 0;
         }
-        public string DisassembleInstruction(in InstructionOpcodes instruction, out int size)
+        public string DisassembleInstruction(in InstructionOpcodes instruction, out uint size)
         {
             size = 1;
             string byte3 = BitConverter.ToString(new byte[] { instruction.Byte3 });
@@ -366,22 +367,22 @@ namespace mihemulator8080
         }
         private void ParseFile()
         {
-            int size = 0;
+            uint size = 0;
             int codeLengthInBytes = Bytes.Count;
 
-            for (int position = 0; position < codeLengthInBytes;)
+            for (uint position = 0; position < codeLengthInBytes;)
             {
-                byte currentByte = Bytes[position];
+                byte currentByte = Bytes[(int)position];
                 byte byte2 = 0x00;
                 byte byte3 = 0x00;
 
                 if (position < codeLengthInBytes - 1)
                 {
-                    byte2 = Bytes[position + 1]; //out of bound at the endfix
+                    byte2 = Bytes[(int)position + 1]; //out of bound at the endfix
 
                     if (position < codeLengthInBytes - 2)
                     {
-                        byte3 = Bytes[position + 2];
+                        byte3 = Bytes[(int)position + 2];
                     }
                 }
 

@@ -174,13 +174,13 @@ namespace mihemulator8080
             // CPU Registers
             spriteBatch.Draw(screenBitmap, pos, Color.White);
             string registers = "REGISTERS"
-                + "\nA: " + BitConverter.ToString(new byte[] { CPU.registerA })
-                + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
-                + "\nC: " + BitConverter.ToString(new byte[] { CPU.registerC })
-                + "\nD: " + BitConverter.ToString(new byte[] { CPU.registerD })
-                + "\nE: " + BitConverter.ToString(new byte[] { CPU.registerE })
-                + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
-                + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
+                + "\nA: " + BitConverter.ToString(new byte[] { (byte)CPU.registerA })
+                + "\nB: " + BitConverter.ToString(new byte[] { (byte)CPU.registerB })
+                + "\nC: " + BitConverter.ToString(new byte[] { (byte)CPU.registerC })
+                + "\nD: " + BitConverter.ToString(new byte[] { (byte)CPU.registerD })
+                + "\nE: " + BitConverter.ToString(new byte[] { (byte)CPU.registerE })
+                + "\nH: " + BitConverter.ToString(new byte[] { (byte)CPU.registerH })
+                + "\nL: " + BitConverter.ToString(new byte[] { (byte)CPU.registerL });
             spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
 
             spriteBatch.End();

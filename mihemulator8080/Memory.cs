@@ -27,7 +27,7 @@ namespace mihemulator8080
                 foreach (var instruction in CPU.instructionFecther.AssemblyLines)
                 {
                     string address = memoryAddress.ToString("X4");
-                    memoryAddress += instruction.Item2;
+                    memoryAddress += (int)instruction.Item2;
                     file.WriteLine("0x" + address + "\t" + instruction.Item1);
                 }
             }
@@ -35,7 +35,7 @@ namespace mihemulator8080
         public static void RAM2FileHTML() // TODO: CALL as hyperlink too!
         {
             string outputPath = @"..\..\..\..\Misc\OutputFiles\RAM.html";
-            int memoryAddress = 0;
+            uint memoryAddress = 0;
 
             if (File.Exists(outputPath))
             {
