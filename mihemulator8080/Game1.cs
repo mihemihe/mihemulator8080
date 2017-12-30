@@ -16,10 +16,9 @@ namespace mihemulator8080
         private int cyclesCounter = 0;
 
         private SpriteFont font;
-        private int score = 0;
+
 
         private Texture2D screenBitmap;
-        private Rectangle screenArea;
         private Vector2 pos;
         private const int screenStartX = 300;
         private const int screenStartY = 200;
@@ -54,7 +53,7 @@ namespace mihemulator8080
         {
             this.IsMouseVisible = true;
 
-            this.IsFixedTimeStep = true;
+            this.IsFixedTimeStep = false;
             this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
@@ -87,7 +86,8 @@ namespace mihemulator8080
             //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
 
             CPU.programCounter = 0x00;
-            screenBitmap = DisplayBuffer.GenerateDisplay(GraphicsDevice); // First screencap
+            DisplayBuffer.GenerateDisplay(GraphicsDevice);
+            screenBitmap = DisplayBuffer.videoTexture; // First screencap
             base.Initialize();
         }
 
@@ -141,8 +141,8 @@ namespace mihemulator8080
             }
 
 
-
-            screenBitmap = DisplayBuffer.GenerateDisplay(GraphicsDevice);
+            DisplayBuffer.GenerateDisplay(GraphicsDevice);
+            screenBitmap = DisplayBuffer.videoTexture;
 
             //Debug.WriteLine("Ticks:" + ticks + " Pc: " + CPU.programCounter);
             //Read a instruction

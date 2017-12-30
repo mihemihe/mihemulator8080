@@ -1,0 +1,1797 @@
+NOP
+NOP
+NOP
+
+
+
+
+
+
+
+
+
+
+
+DCR    B - B: 0
+
+
+
+
+
+DCR    B - B: 255
+
+
+
+
+
+DCR    B - B: 254
+
+
+
+
+
+DCR    B - B: 253
+
+
+
+
+
+DCR    B - B: 252
+
+
+
+
+
+DCR    B - B: 251
+
+
+
+
+
+DCR    B - B: 250
+
+
+
+
+
+DCR    B - B: 249
+
+
+
+
+
+DCR    B - B: 248
+
+
+
+
+
+DCR    B - B: 247
+
+
+
+
+
+DCR    B - B: 246
+
+
+
+
+
+DCR    B - B: 245
+
+
+
+
+
+DCR    B - B: 244
+
+
+
+
+
+DCR    B - B: 243
+
+
+
+
+
+DCR    B - B: 242
+
+
+
+
+
+DCR    B - B: 241
+
+
+
+
+
+DCR    B - B: 240
+
+
+
+
+
+DCR    B - B: 239
+
+
+
+
+
+DCR    B - B: 238
+
+
+
+
+
+DCR    B - B: 237
+
+
+
+
+
+DCR    B - B: 236
+
+
+
+
+
+DCR    B - B: 235
+
+
+
+
+
+DCR    B - B: 234
+
+
+
+
+
+DCR    B - B: 233
+
+
+
+
+
+DCR    B - B: 232
+
+
+
+
+
+DCR    B - B: 231
+
+
+
+
+
+DCR    B - B: 230
+
+
+
+
+
+DCR    B - B: 229
+
+
+
+
+
+DCR    B - B: 228
+
+
+
+
+
+DCR    B - B: 227
+
+
+
+
+
+DCR    B - B: 226
+
+
+
+
+
+DCR    B - B: 225
+
+
+
+
+
+DCR    B - B: 224
+
+
+
+
+
+DCR    B - B: 223
+
+
+
+
+
+DCR    B - B: 222
+
+
+
+
+
+DCR    B - B: 221
+
+
+
+
+
+DCR    B - B: 220
+
+
+
+
+
+DCR    B - B: 219
+
+
+
+
+
+DCR    B - B: 218
+
+
+
+
+
+DCR    B - B: 217
+
+
+
+
+
+DCR    B - B: 216
+
+
+
+
+
+DCR    B - B: 215
+
+
+
+
+
+DCR    B - B: 214
+
+
+
+
+
+DCR    B - B: 213
+
+
+
+
+
+DCR    B - B: 212
+
+
+
+
+
+DCR    B - B: 211
+
+
+
+
+
+DCR    B - B: 210
+
+
+
+
+
+DCR    B - B: 209
+
+
+
+
+
+DCR    B - B: 208
+
+
+
+
+
+DCR    B - B: 207
+
+
+
+
+
+DCR    B - B: 206
+
+
+
+
+
+DCR    B - B: 205
+
+
+
+
+
+DCR    B - B: 204
+
+
+
+
+
+DCR    B - B: 203
+
+
+
+
+
+DCR    B - B: 202
+
+
+
+
+
+DCR    B - B: 201
+
+
+
+
+
+DCR    B - B: 200
+
+
+
+
+
+DCR    B - B: 199
+
+
+
+
+
+DCR    B - B: 198
+
+
+
+
+
+DCR    B - B: 197
+
+
+
+
+
+DCR    B - B: 196
+
+
+
+
+
+DCR    B - B: 195
+
+
+
+
+
+DCR    B - B: 194
+
+
+
+
+
+DCR    B - B: 193
+
+
+
+
+
+DCR    B - B: 192
+
+
+
+
+
+DCR    B - B: 191
+
+
+
+
+
+DCR    B - B: 190
+
+
+
+
+
+DCR    B - B: 189
+
+
+
+
+
+DCR    B - B: 188
+
+
+
+
+
+DCR    B - B: 187
+
+
+
+
+
+DCR    B - B: 186
+
+
+
+
+
+DCR    B - B: 185
+
+
+
+
+
+DCR    B - B: 184
+
+
+
+
+
+DCR    B - B: 183
+
+
+
+
+
+DCR    B - B: 182
+
+
+
+
+
+DCR    B - B: 181
+
+
+
+
+
+DCR    B - B: 180
+
+
+
+
+
+DCR    B - B: 179
+
+
+
+
+
+DCR    B - B: 178
+
+
+
+
+
+DCR    B - B: 177
+
+
+
+
+
+DCR    B - B: 176
+
+
+
+
+
+DCR    B - B: 175
+
+
+
+
+
+DCR    B - B: 174
+
+
+
+
+
+DCR    B - B: 173
+
+
+
+
+
+DCR    B - B: 172
+
+
+
+
+
+DCR    B - B: 171
+
+
+
+
+
+DCR    B - B: 170
+
+
+
+
+
+DCR    B - B: 169
+
+
+
+
+
+DCR    B - B: 168
+
+
+
+
+
+DCR    B - B: 167
+
+
+
+
+
+DCR    B - B: 166
+
+
+
+
+
+DCR    B - B: 165
+
+
+
+
+
+DCR    B - B: 164
+
+
+
+
+
+DCR    B - B: 163
+
+
+
+
+
+DCR    B - B: 162
+
+
+
+
+
+DCR    B - B: 161
+
+
+
+
+
+DCR    B - B: 160
+
+
+
+
+
+DCR    B - B: 159
+
+
+
+
+
+DCR    B - B: 158
+
+
+
+
+
+DCR    B - B: 157
+
+
+
+
+
+DCR    B - B: 156
+
+
+
+
+
+DCR    B - B: 155
+
+
+
+
+
+DCR    B - B: 154
+
+
+
+
+
+DCR    B - B: 153
+
+
+
+
+
+DCR    B - B: 152
+
+
+
+
+
+DCR    B - B: 151
+
+
+
+
+
+DCR    B - B: 150
+
+
+
+
+
+DCR    B - B: 149
+
+
+
+
+
+DCR    B - B: 148
+
+
+
+
+
+DCR    B - B: 147
+
+
+
+
+
+DCR    B - B: 146
+
+
+
+
+
+DCR    B - B: 145
+
+
+
+
+
+DCR    B - B: 144
+
+
+
+
+
+DCR    B - B: 143
+
+
+
+
+
+DCR    B - B: 142
+
+
+
+
+
+DCR    B - B: 141
+
+
+
+
+
+DCR    B - B: 140
+
+
+
+
+
+DCR    B - B: 139
+
+
+
+
+
+DCR    B - B: 138
+
+
+
+
+
+DCR    B - B: 137
+
+
+
+
+
+DCR    B - B: 136
+
+
+
+
+
+DCR    B - B: 135
+
+
+
+
+
+DCR    B - B: 134
+
+
+
+
+
+DCR    B - B: 133
+
+
+
+
+
+DCR    B - B: 132
+
+
+
+
+
+DCR    B - B: 131
+
+
+
+
+
+DCR    B - B: 130
+
+
+
+
+
+DCR    B - B: 129
+
+
+
+
+
+DCR    B - B: 128
+
+
+
+
+
+DCR    B - B: 127
+
+
+
+
+
+DCR    B - B: 126
+
+
+
+
+
+DCR    B - B: 125
+
+
+
+
+
+DCR    B - B: 124
+
+
+
+
+
+DCR    B - B: 123
+
+
+
+
+
+DCR    B - B: 122
+
+
+
+
+
+DCR    B - B: 121
+
+
+
+
+
+DCR    B - B: 120
+
+
+
+
+
+DCR    B - B: 119
+
+
+
+
+
+DCR    B - B: 118
+
+
+
+
+
+DCR    B - B: 117
+
+
+
+
+
+DCR    B - B: 116
+
+
+
+
+
+DCR    B - B: 115
+
+
+
+
+
+DCR    B - B: 114
+
+
+
+
+
+DCR    B - B: 113
+
+
+
+
+
+DCR    B - B: 112
+
+
+
+
+
+DCR    B - B: 111
+
+
+
+
+
+DCR    B - B: 110
+
+
+
+
+
+DCR    B - B: 109
+
+
+
+
+
+DCR    B - B: 108
+
+
+
+
+
+DCR    B - B: 107
+
+
+
+
+
+DCR    B - B: 106
+
+
+
+
+
+DCR    B - B: 105
+
+
+
+
+
+DCR    B - B: 104
+
+
+
+
+
+DCR    B - B: 103
+
+
+
+
+
+DCR    B - B: 102
+
+
+
+
+
+DCR    B - B: 101
+
+
+
+
+
+DCR    B - B: 100
+
+
+
+
+
+DCR    B - B: 99
+
+
+
+
+
+DCR    B - B: 98
+
+
+
+
+
+DCR    B - B: 97
+
+
+
+
+
+DCR    B - B: 96
+
+
+
+
+
+DCR    B - B: 95
+
+
+
+
+
+DCR    B - B: 94
+
+
+
+
+
+DCR    B - B: 93
+
+
+
+
+
+DCR    B - B: 92
+
+
+
+
+
+DCR    B - B: 91
+
+
+
+
+
+DCR    B - B: 90
+
+
+
+
+
+DCR    B - B: 89
+
+
+
+
+
+DCR    B - B: 88
+
+
+
+
+
+DCR    B - B: 87
+
+
+
+
+
+DCR    B - B: 86
+
+
+
+
+
+DCR    B - B: 85
+
+
+
+
+
+DCR    B - B: 84
+
+
+
+
+
+DCR    B - B: 83
+
+
+
+
+
+DCR    B - B: 82
+
+
+
+
+
+DCR    B - B: 81
+
+
+
+
+
+DCR    B - B: 80
+
+
+
+
+
+DCR    B - B: 79
+
+
+
+
+
+DCR    B - B: 78
+
+
+
+
+
+DCR    B - B: 77
+
+
+
+
+
+DCR    B - B: 76
+
+
+
+
+
+DCR    B - B: 75
+
+
+
+
+
+DCR    B - B: 74
+
+
+
+
+
+DCR    B - B: 73
+
+
+
+
+
+DCR    B - B: 72
+
+
+
+
+
+DCR    B - B: 71
+
+
+
+
+
+DCR    B - B: 70
+
+
+
+
+
+DCR    B - B: 69
+
+
+
+
+
+DCR    B - B: 68
+
+
+
+
+
+DCR    B - B: 67
+
+
+
+
+
+DCR    B - B: 66
+
+
+
+
+
+DCR    B - B: 65
+
+
+
+
+
+DCR    B - B: 64
+
+
+
+
+
+DCR    B - B: 63
+
+
+
+
+
+DCR    B - B: 62
+
+
+
+
+
+DCR    B - B: 61
+
+
+
+
+
+DCR    B - B: 60
+
+
+
+
+
+DCR    B - B: 59
+
+
+
+
+
+DCR    B - B: 58
+
+
+
+
+
+DCR    B - B: 57
+
+
+
+
+
+DCR    B - B: 56
+
+
+
+
+
+DCR    B - B: 55
+
+
+
+
+
+DCR    B - B: 54
+
+
+
+
+
+DCR    B - B: 53
+
+
+
+
+
+DCR    B - B: 52
+
+
+
+
+
+DCR    B - B: 51
+
+
+
+
+
+DCR    B - B: 50
+
+
+
+
+
+DCR    B - B: 49
+
+
+
+
+
+DCR    B - B: 48
+
+
+
+
+
+DCR    B - B: 47
+
+
+
+
+
+DCR    B - B: 46
+
+
+
+
+
+DCR    B - B: 45
+
+
+
+
+
+DCR    B - B: 44
+
+
+
+
+
+DCR    B - B: 43
+
+
+
+
+
+DCR    B - B: 42
+
+
+
+
+
+DCR    B - B: 41
+
+
+
+
+
+DCR    B - B: 40
+
+
+
+
+
+DCR    B - B: 39
+
+
+
+
+
+DCR    B - B: 38
+
+
+
+
+
+DCR    B - B: 37
+
+
+
+
+
+DCR    B - B: 36
+
+
+
+
+
+DCR    B - B: 35
+
+
+
+
+
+DCR    B - B: 34
+
+
+
+
+
+DCR    B - B: 33
+
+
+
+
+
+DCR    B - B: 32
+
+
+
+
+
+DCR    B - B: 31
+
+
+
+
+
+DCR    B - B: 30
+
+
+
+
+
+DCR    B - B: 29
+
+
+
+
+
+DCR    B - B: 28
+
+
+
+
+
+DCR    B - B: 27
+
+
+
+
+
+DCR    B - B: 26
+
+
+
+
+
+DCR    B - B: 25
+
+
+
+
+
+DCR    B - B: 24
+
+
+
+
+
+DCR    B - B: 23
+
+
+
+
+
+DCR    B - B: 22
+
+
+
+
+
+DCR    B - B: 21
+
+
+
+
+
+DCR    B - B: 20
+
+
+
+
+
+DCR    B - B: 19
+
+
+
+
+
+DCR    B - B: 18
+
+
+
+
+
+DCR    B - B: 17
+
+
+
+
+
+DCR    B - B: 16
+
+
+
+
+
+DCR    B - B: 15
+
+
+
+
+
+DCR    B - B: 14
+
+
+
+
+
+DCR    B - B: 13
+
+
+
+
+
+DCR    B - B: 12
+
+
+
+
+
+DCR    B - B: 11
+
+
+
+
+
+DCR    B - B: 10
+
+
+
+
+
+DCR    B - B: 9
+
+
+
+
+
+DCR    B - B: 8
+
+
+
+
+
+DCR    B - B: 7
+
+
+
+
+
+DCR    B - B: 6
+
+
+
+
+
+DCR    B - B: 5
+
+
+
+
+
+DCR    B - B: 4
+
+
+
+
+
+DCR    B - B: 3
+
+
+
+
+
+DCR    B - B: 2
+
+
+
+
+
+DCR    B - B: 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DCR    B - B: 3
+
+
+
+
+
+
+
+DCR    B - B: 2
+
+
+
+
+
+
+
+DCR    B - B: 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LXI    B,#$0020
+
+
+DCR    B - B: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

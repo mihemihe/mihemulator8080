@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 
 namespace mihemulator8080
 {
@@ -42,6 +43,10 @@ namespace mihemulator8080
         public static InstructionFetcher instructionFecther;
         public static string InstructionExecuting;
 
+        public static bool fileDebug = true;
+        public static string instructionText;
+        public static string debugFilePath = @"..\..\..\..\Misc\OutputFiles\ExecutionSecuence.txt";
+
         static CPU()
         {
             instructionFecther = new InstructionFetcher();
@@ -56,6 +61,11 @@ namespace mihemulator8080
             AuxCarryFlag = false;
             ParityFlag = false;
             CarryFlag = false;
+            instructionText = "";
+            if (File.Exists(debugFilePath))
+            {
+                File.Delete(debugFilePath);
+            }
         }
 
         public static InstructionOpcodes GetNextInstruction()
@@ -79,17 +89,21 @@ namespace mihemulator8080
 
         public static int ExecuteInstruction(InstructionOpcodes opCodes)
         {
+            instructionText = "";
             switch (opCodes.Byte1)
             {
                 case 0x00: //NOP, do nothing
+                    instructionText = $"NOP";
                     break;
 
                 case 0x01: //LXI    B,#${byte3}{byte2}
                     CPU.registerC = opCodes.Byte2;
                     CPU.registerB = opCodes.Byte3;
+                    instructionText = $"LXI    B,#${(opCodes.Byte3.ToString("X2"))}{opCodes.Byte2.ToString("X2")}";
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC flags affected"
+                    instructionText = $"DCR    B - B: {CPU.registerB.ToString("X2")}";
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
                     CPU.ZeroFlag = (byteOperation == 0) ? true : false;
@@ -104,19 +118,23 @@ namespace mihemulator8080
                     }
                     CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
                     CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
+                    CPU.registerB = byteOperation;                    
                     break;
 
 
                 case 0x06: //MVI    B,#${byte2}
+                    instructionText = $"MVI    B,#${opCodes.Byte2.ToString("X2")}";
                     CPU.registerB = opCodes.Byte2;
                     break;
 
                 case 0x11: //LXI    D,#${byte3}{byte2}
+                    instructionText = $"LXI    D,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     CPU.registerE = opCodes.Byte2;
                     CPU.registerD = opCodes.Byte3;
                     break;
 
                 case 0x13: //INX    D
+                    instructionText = $"INX    D";
                     memoryAddressDE = 0;
                     memoryAddressDE = CPU.registerD << 8;
                     memoryAddressDE = memoryAddressDE | CPU.registerE;
@@ -127,6 +145,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x1A: //LDAX   D - "A <- (DE)"
+                    instructionText = "LDAX   D";
                     memoryAddressDE = 0;
                     memoryAddressDE = CPU.registerD << 8;
                     memoryAddressDE = memoryAddressDE | CPU.registerE;
@@ -135,11 +154,13 @@ namespace mihemulator8080
                     break;
 
                 case 0x21: //LXI    H,#${byte3}{byte2}
+                    instructionText = $"LXI    H,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     CPU.registerL = opCodes.Byte2;
                     CPU.registerH = opCodes.Byte3;
                     break;
 
                 case 0x23: //INX    H
+                    instructionText = $"INX    H";
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
@@ -150,6 +171,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x77: //MOV    M,A
+                    instructionText = $"MOV    M,A";
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
@@ -158,6 +180,7 @@ namespace mihemulator8080
                     break;
 
                 case 0xC3: //JMP    ${byte3}{byte2}
+                    instructionText = $"JMP    ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
                     CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     break;
@@ -197,6 +220,15 @@ namespace mihemulator8080
         {
             InstructionOpcodes nextInstruction = CPU.GetNextInstruction();
             int cycleResult = ExecuteInstruction(nextInstruction);
+
+            if (fileDebug == true)
+            {
+                using (StreamWriter sw = File.AppendText(debugFilePath))
+                {
+                    sw.WriteLine(instructionText);
+
+                }
+            }
             //Debug.Write(nextInstruction.Byte1 + "\n");
             return 0;
         }

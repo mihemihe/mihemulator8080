@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace mihemulator8080
 {
-    internal class DisplayBuffer
+    public static class DisplayBuffer
     {
         //RAM
         //$2000-$23ff:    work RAM. Stack starts from $2400 downwards
@@ -19,16 +19,16 @@ namespace mihemulator8080
         public static Texture2D videoTexture;
         private const int X = 256;
         private const int Y = 224;
-        private const int startVideoRAM = 2400; //First bye of video RAM
+        private const int startVideoRAM = 0x2400; //First bye of video RAM //TODO was not 0x!! noob mistake..
         private const int lengthVideoRAM = 7168; // RAM size, starting 1: 0-7167
 
 
-        public static Texture2D GenerateDisplay(GraphicsDevice device)
+        public static void GenerateDisplay(GraphicsDevice device)
         {
             //Random rnd = new Random();//remove this
-            int startVideoRAM = 2400;
+            
             //initialize a texture
-            Texture2D texture = new Texture2D(device, X, Y);
+             videoTexture = new Texture2D(device, X, Y);
 
             //the array holds the color for each pixel in the texture
             Color[] pixelsArray = new Color[X * Y];
@@ -37,7 +37,7 @@ namespace mihemulator8080
             for (int byteVideo = 0; byteVideo < lengthVideoRAM; byteVideo++)
             {
                 //BitArray eightPixels = new BitArray(new int[] { byteVideo });
-                BitArray eightPixels = new BitArray(new byte[] { Memory.RAMMemory[byteVideo + 2400] });
+                BitArray eightPixels = new BitArray(new byte[] { Memory.RAMMemory[byteVideo + startVideoRAM] });
                 bool[] bits = new bool[8];
                 eightPixels.CopyTo(bits, 0);
                 for (int bit = 0; bit < 8; bit++)
@@ -50,9 +50,9 @@ namespace mihemulator8080
                     pixel++;
                 }
             }
-            texture.SetData(pixelsArray);
+            videoTexture.SetData(pixelsArray);
 
-            return texture;
+            
         }
 
     }
