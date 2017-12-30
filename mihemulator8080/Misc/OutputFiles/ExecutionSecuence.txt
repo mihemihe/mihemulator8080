@@ -1,2465 +1,449 @@
-NOP
-NOP
-NOP
-JMP    $18D4
-LXI    SP,#$2400
-MVI    B,#$00
-CALL   $01E6
-LXI    D,#$1B00
-LXI    H,#$2000
-JMP    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 00
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FD
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: FA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: F0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: EF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: EE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: ED
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: EC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: EB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: EA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: E0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DD
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: DA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: D0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CD
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: CA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: C0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BD
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: BA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: B0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AF
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AE
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AD
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AC
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AB
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: AA
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A9
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A8
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A7
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A6
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A5
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A4
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A3
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A2
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A1
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: A0
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 9A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 99
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 98
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 97
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 96
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 95
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 94
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 93
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 92
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 91
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 90
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 8A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 89
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 88
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 87
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 86
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 85
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 84
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 83
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 82
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 81
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 80
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 7A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 79
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 78
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 77
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 76
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 75
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 74
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 73
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 72
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 71
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 70
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 6A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 69
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 68
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 67
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 66
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 65
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 64
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 63
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 62
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 61
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 60
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 5A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 59
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 58
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 57
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 56
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 55
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 54
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 53
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 52
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 51
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 50
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 4A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 49
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 48
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 47
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 46
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 45
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 44
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 43
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 42
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 41
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 40
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 3A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 39
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 38
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 37
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 36
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 35
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 34
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 33
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 32
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 31
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 30
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 2A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 29
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 28
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 27
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 26
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 25
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 24
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 23
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 22
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 21
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 20
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 1A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 19
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 18
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 17
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 16
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 15
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 14
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 13
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 12
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 11
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 10
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0F
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0E
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0D
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0C
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0B
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 0A
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 09
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 08
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 07
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 06
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 05
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 04
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 03
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 02
-JNZ    $1A32
-LDAX   D
-MOV    M,A
-INX    H
-INX    D
-DCR    B - B: 01
-JNZ    $1A32
-RET
-CALL   $1956
-CALL   $1A5C
-LXI    H,#$2400
-
-INX    H
-
-
+0
+1000
+2000
+3000
+4000
+5000
+6000
+7000
+8000
+9000
+10000
+11000
+12000
+13000
+14000
+15000
+16000
+17000
+18000
+19000
+20000
+21000
+22000
+23000
+24000
+25000
+26000
+27000
+28000
+29000
+30000
+31000
+32000
+33000
+34000
+35000
+36000
+37000
+INX    H
+MOV    A,H - H-L: 3F-B3
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B4
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B5
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B6
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B7
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B8
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-B9
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BA
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BB
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BC
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BD
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BE
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-BF
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C0
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C1
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C2
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C3
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C4
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C5
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C6
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C7
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C8
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-C9
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CA
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CB
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CC
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CD
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CE
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-CF
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D0
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D1
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D2
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D3
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D4
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D5
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D6
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D7
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D8
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-D9
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DA
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DB
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DC
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DD
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DE
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-DF
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E0
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E1
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E2
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E3
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E4
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E5
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E6
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E7
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E8
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-E9
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-EA
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-EB
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-EC
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-ED
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-EE
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-EF
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F0
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F1
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F2
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F3
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F4
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F5
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F6
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F7
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F8
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-F9
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FA
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FB
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FC
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FD
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FE
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 3F-FF
+CPI    #$40
+JNZ    $1A5F
+MVI    M,#$00
+INX    H
+MOV    A,H - H-L: 40-00
+CPI    #$40
 JNZ    $1A5F
 RET
 CALL   $191A
-
+MVI    C,#$1C
 LXI    H,#$241E
 LXI    D,#$1AE4
 JMP    $08F3
 LDAX   D
-
+PUSH   D
 CALL   $08FF
 LXI    D,#$1E00
-
-
-
-
-
-
-
-
-
+PUSH   H
+MVI    H,#$00
+MOV    L,A
+DAD    H
+DAD    H
+DAD    H
+DAD    D
+XCHG
+POP    H
 MVI    B,#$08
-
+OUT    #$06 Out to device, sound???
 JMP    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-
-
-DCR    B - B: 00
-JNZ    $1439
-
-LDAX   D
-MOV    M,A
-INX    D
-LXI    B,#$0020
-

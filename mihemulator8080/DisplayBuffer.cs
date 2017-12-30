@@ -23,7 +23,7 @@ namespace mihemulator8080
         private const int lengthVideoRAM = 7168; // RAM size, starting 1: 0-7167
 
 
-        public static void GenerateDisplay(GraphicsDevice device)
+        public static void GenerateDisplay(GraphicsDevice device, Color colorBG, Color colorPixel)
         {
             //Random rnd = new Random();//remove this
             
@@ -45,7 +45,7 @@ namespace mihemulator8080
                     
                     //int randomValue = rnd.Next(1, 3);
                     //pixelsArray[pixel] = (randomValue == 1) ? Color.White : Color.Red;
-                    pixelsArray[pixel] = (bits[bit] == true) ? Color.White : Color.Red;
+                    pixelsArray[pixel] = (bits[bit] == true) ? colorPixel : colorBG;
 
                     pixel++;
                 }

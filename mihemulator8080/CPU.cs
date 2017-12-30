@@ -49,6 +49,12 @@ namespace mihemulator8080
         public static string instructionText;
         public static string debugFilePath = @"..\..\..\..\Misc\OutputFiles\ExecutionSecuence.txt";
 
+        public static int cyclesCounter;
+
+        public static uint HL;
+        public static uint DADHResult;
+        public static byte[] tempHL;
+
         static CPU()
         {
             instructionFecther = new InstructionFetcher();
@@ -66,6 +72,10 @@ namespace mihemulator8080
             ParityFlag = false;
             CarryFlag = false;
             instructionText = "";
+            cyclesCounter = 0;
+            HL = 0;
+            DADHResult = 0;
+            tempHL = new byte[2] { 0x00, 0x00 };
             if (File.Exists(debugFilePath))
             {
                 File.Delete(debugFilePath);
@@ -136,6 +146,10 @@ namespace mihemulator8080
                     CPU.registerE = opCodes.Byte2;
                     CPU.registerD = opCodes.Byte3;
                     break;
+                case 0x0E: //MVI    C,#${byte2}
+                    instructionText = $"MVI    C,#${opCodes.Byte2.ToString("X2")}";
+                    CPU.registerC = opCodes.Byte2;
+                    break;
 
                 case 0x13: //INX    D
                     instructionText = $"INX    D";
@@ -146,6 +160,17 @@ namespace mihemulator8080
                     tempBytesStorage = BitConverter.GetBytes(memoryAddressDE);
                     CPU.registerD = tempBytesStorage[1];
                     CPU.registerE = tempBytesStorage[0];
+                    break;
+
+                case 0x19: //DAD    D //double add, sums HL + DE, in their byte positions and compare. CY flag
+                    instructionText = $"DAD    D";
+                    HL = 0;
+                    HL = (uint)((CPU.registerH << 8) | CPU.registerL);
+                    uint DE = (uint)((CPU.registerD << 8) | CPU.registerE);
+                    uint DADDResult = HL + DE;
+                    CPU.registerH = (byte)((DADDResult & 0xFF00) >> 8);
+                    CPU.registerL = (byte)(DADDResult & 0xFF);
+                    CPU.CarryFlag = ((DADDResult & 0xFFFF0000) != 0);
                     break;
 
                 case 0x1A: //LDAX   D - "A <- (DE)"
@@ -174,19 +199,63 @@ namespace mihemulator8080
                     CPU.registerL = tempBytesStorage[0];
                     break;
 
+                case 0x26: //MVI    H,#${byte2}
+                    instructionText = $"MVI    H,#${opCodes.Byte2.ToString("X2")}";
+                    CPU.registerH = opCodes.Byte2;
+                    break;
+
+                case 0x29: //DAD    H
+                    instructionText = $"DAD    H"; //double add, doubles L doubles H, sums them and compare. CY flag
+                    HL = 0;
+                    HL = (uint)(CPU.registerH << 8 | CPU.registerL);
+                    DADHResult = HL + HL;
+                    CPU.registerH = (byte)((DADHResult & 0xFF00) >> 8);
+                    CPU.registerL = (byte)(DADHResult & 0xFF);
+                    CPU.CarryFlag = ((DADHResult & 0xFFFF0000) != 0);                    
+                    break;
+
+                case 0x31: //LXI    SP,#${byte3}{byte2}
+                    instructionText = $"LXI    SP,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
+                    CPU.stackPointer = opCodes.Byte3 << 8;
+                    CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
+                    break;
+
+                case 0x36: //MVI    M,#${byte2}   M means memory address of HL in this case!!!
+                    instructionText = $"MVI    M,#${opCodes.Byte2.ToString("X2")}";
+                    memoryAddressHL = 0;
+                    memoryAddressHL = CPU.registerH << 8;
+                    memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    Memory.RAMMemory[memoryAddressHL] = opCodes.Byte2;
+                    break;
+
+                case 0x6f: //MOV    L,A
+                    instructionText = $"MOV    L,A";
+                    CPU.registerL = CPU.registerA;
+                    break;
+
+                //case 0x6f: //
+                //    instructionText = $"";
+                //    break;
+
                 case 0x77: //MOV    M,A
                     instructionText = $"MOV    M,A";
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
                     Memory.RAMMemory[memoryAddressHL] = CPU.registerA;
-
                     break;
 
-                case 0xC3: //JMP    ${byte3}{byte2}
-                    instructionText = $"JMP    ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
-                    CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
-                    CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
+                case 0x7c: //MOV    A,H
+                    instructionText = $"MOV    A,H - H-L: {CPU.registerH.ToString("X2")}-{CPU.registerL.ToString("X2")}";
+                    CPU.registerA = CPU.registerH;
+                    break;
+
+                case 0xC1: //POP    B
+                    instructionText = $"POP    B";
+                    CPU.registerB = Memory.RAMMemory[CPU.stackPointer + 1];
+                    CPU.registerC = Memory.RAMMemory[CPU.stackPointer];
+                    CPU.stackPointer += 2;
+
                     break;
 
                 case 0xC2: //JNZ    ${byte3}{byte2}
@@ -199,11 +268,13 @@ namespace mihemulator8080
                     }
                     break;
 
-                case 0x31: //LXI    SP,#${byte3}{byte2}
-                    instructionText = $"LXI    SP,#${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
-                    CPU.stackPointer = opCodes.Byte3 << 8;
-                    CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
+                case 0xC3: //JMP    ${byte3}{byte2}
+                    instructionText = $"JMP    ${opCodes.Byte3.ToString("X2")}{opCodes.Byte2.ToString("X2")}";
+                    CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
+                    CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     break;
+
+
 
                 case 0xC9: //RET
                     instructionText = $"RET";
@@ -229,6 +300,61 @@ namespace mihemulator8080
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2;
                     break;
 
+                case 0xD3: //OUT    #${byte2}
+                    instructionText = $"OUT    #${opCodes.Byte2.ToString("X2")} Out to device, sound???";
+                    break;
+
+                case 0xD5: //PUSH   D - DE move to the stack
+                    instructionText = $"PUSH   D";
+                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerD; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerE;
+                    CPU.stackPointer += 2;
+                    break;
+
+                case 0xE1: //POP    H -- POP stack to HL
+                    instructionText = $"POP    H";                    
+                    CPU.registerH = Memory.RAMMemory[CPU.stackPointer + 1];
+                    CPU.registerL = Memory.RAMMemory[CPU.stackPointer];
+                    CPU.stackPointer += 2;
+                    break;
+
+                    case 0xEB: //XCHG - Swaps HL by DE, in this particular order
+                    instructionText = $"XCHG";
+                    tempHL = new byte[] { CPU.registerH, CPU.registerL };
+                    CPU.registerH = CPU.registerD;
+                    CPU.registerL = CPU.registerE;
+                    CPU.registerD = tempHL[0];
+                    CPU.registerE = tempHL[1];
+                    break;
+
+
+                case 0xE5: //PUSH   H - HL move to the stack
+                    instructionText = $"PUSH   H";
+                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerH; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerL;
+                    CPU.stackPointer += 2;
+                    break;
+
+                case 0xFE: //CPI    #${byte2} //compare immediate with accumulator A, substracting
+                    //	Z, S, P, CY, AC
+                    instructionText = $"CPI    #${opCodes.Byte2.ToString("X2")}"; //comments in 0x05 of this operations
+                    byteOperation = 0;
+                    byteOperation = (byte)(CPU.registerA - opCodes.Byte2);
+                    CPU.ZeroFlag = (byteOperation == 0) ? true : false;
+                    CPU.SignFlag = (0x80 == (byteOperation & 0x80));
+                    bitArrayOperation = new BitArray(new byte[] { byteOperation });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+                    CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
+                    //This is the CY operation
+                    CPU.CarryFlag = (opCodes.Byte2 > CPU.registerA) ? true : false;
+                    break;
+
                 default:
                     break;
             }
@@ -241,11 +367,20 @@ namespace mihemulator8080
             InstructionOpcodes nextInstruction = CPU.GetNextInstruction();
             int cycleResult = ExecuteInstruction(nextInstruction);
 
-            if (fileDebug == true)
+            if (fileDebug == true && cyclesCounter > 37000)
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))
                 {
                     sw.WriteLine(instructionText);
+
+                }
+            }
+
+            if (cyclesCounter % 1000 == 0)
+            {
+                using (StreamWriter sw = File.AppendText(debugFilePath))
+                {
+                    sw.WriteLine(cyclesCounter.ToString());
 
                 }
             }
