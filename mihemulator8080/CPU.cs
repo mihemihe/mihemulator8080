@@ -85,8 +85,8 @@ namespace mihemulator8080
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC"
-                    uint result = 0;
-                    result = CPU.registerB - 1;
+                    byte result = 0;
+                    result = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
                     CPU.ZeroFlag = (result == 0) ? true : false;
                     break;
 
