@@ -75,12 +75,38 @@ namespace mihemulator8080
                     break;
                 case 0x05: //DCR B ************************************
                     break;
+                case 0x06: //MVI    B,#${byte2}
+                    CPU.registerB = opCodes.Byte2;
+                    break;
+                case 0x11: //LXI    D,#${byte3}{byte2}
+                    CPU.registerE = opCodes.Byte2;
+                    CPU.registerD = opCodes.Byte3;
+                    break;
+                case 0x21: //LXI    H,#${byte3}{byte2}
+                    CPU.registerL = opCodes.Byte2;
+                    CPU.registerH = opCodes.Byte3;
+                    break;
                 case 0xC3: //JMP    ${byte3}{byte2}
                     CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right 
                     break;
                 case 0x31: //LXI    SP,#${byte3}{byte2}
+                    CPU.stackPointer = opCodes.Byte3 << 8;
+                    CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
+                case 0xCD: //CALL   ${byte3}{byte2}
+                    // This is a PUSH to stack, fixed start address in the code, $2400
+                    // for clarity , better of use returnaddress, but point is programCounter contains already pc  +2
+                    //int returnAddress = CPU.programCounter; // no need +2 because it is incremented already
+                    Memory.RAMMemory[CPU.stackPointer - 1] = opCodes.Byte2; // is this the correct order? who knows 
+                    Memory.RAMMemory[CPU.stackPointer - 2] = opCodes.Byte3;
+                    CPU.stackPointer = CPU.stackPointer - 2;
+                    CPU.programCounter = opCodes.Byte3 << 8; // This is a JMP
+                    CPU.programCounter = CPU.programCounter | opCodes.Byte2;
+                    break;
+                
+
+
                 default:
                     break;
             }

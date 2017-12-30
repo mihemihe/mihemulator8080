@@ -74,8 +74,8 @@ namespace mihemulator8080
             }
             File.WriteAllLines(SpaceInvadersAsmPath, CPU.instructionFecther.FetchAllCodeLines());
 
-            //Memory.RAM2File(); NO WRITING FOR THE TIME BEING
-            //Memory.RAM2FileHTML();
+            Memory.RAM2File(); //NO WRITING FOR THE TIME BEING
+            Memory.RAM2FileHTML();
             int memoryPointer = 0;
             foreach (byte _byte in CPU.instructionFecther.FetchAllCodeBytes())
             {
@@ -167,8 +167,9 @@ namespace mihemulator8080
             spriteBatch.DrawString(font, "Step ONE Instruction          Cycle automatically", new Vector2(10, 70), Color.Black);
             // PC, cycles and next instruction
             spriteBatch.DrawString(font, "ProgramCounter(PC): $" + CPU.programCounter.ToString("X4") + " (Memory address of current instruction)", new Vector2(10, 100), Color.Black);
-            spriteBatch.DrawString(font, "Cycle: " + cyclesCounter.ToString(), new Vector2(10, 120), Color.Black);
-            spriteBatch.DrawString(font, "Next CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 140), Color.Black);
+            spriteBatch.DrawString(font, "StackPointer(SP): $" + CPU.stackPointer.ToString("X4") + " (Memory address of stack pointer)", new Vector2(10, 120), Color.Black);
+            spriteBatch.DrawString(font, "Cycle: " + cyclesCounter.ToString(), new Vector2(10, 140), Color.Black);
+            spriteBatch.DrawString(font, "Last executed CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 160), Color.Black);
 
             // CPU Registers
             spriteBatch.Draw(screenBitmap, pos, Color.White);

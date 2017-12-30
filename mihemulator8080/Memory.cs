@@ -32,7 +32,7 @@ namespace mihemulator8080
                 }
             }
         }
-        public static void RAM2FileHTML()
+        public static void RAM2FileHTML() // TODO: CALL as hyperlink too!
         {
             string outputPath = @"..\..\..\..\Misc\OutputFiles\RAM.html";
             int memoryAddress = 0;
@@ -80,7 +80,7 @@ namespace mihemulator8080
                     string htmlLine = "";
                     htmlLine += @"<p id= """;
 
-                    bool isJumpInstruction = instruction.Item1.Contains("JMP");
+                    bool isJumpInstruction = (instruction.Item1.Contains("JMP") || instruction.Item1.Contains("CALL"));
                     if (isJumpInstruction)
                     {
                         string targetAddres = instruction.Item1.Split('$')[1];

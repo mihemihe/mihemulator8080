@@ -8,7 +8,7 @@ namespace mihemulator8080
     internal class DisplayBuffer
     {
         //RAM
-        //$2000-$23ff:    work RAM
+        //$2000-$23ff:    work RAM. Stack starts from $2400 downwards
         //$2400-$3fff:    video RAM
 
         //Video: 256(x) *224(y) @ 60Hz, vertical monitor.Colours are simulated with a
