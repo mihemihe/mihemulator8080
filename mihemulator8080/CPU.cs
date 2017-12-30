@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace mihemulator8080
 {
@@ -35,6 +36,8 @@ namespace mihemulator8080
         public static int memoryAddressDE;
         public static int memoryAddressHL;
         public static byte[] tempBytesStorage;
+        public static byte byteOperation;
+        public static BitArray bitArrayOperation;
 
         public static InstructionFetcher instructionFecther;
         public static string InstructionExecuting;
@@ -46,6 +49,8 @@ namespace mihemulator8080
             memoryAddressDE = 0;
             memoryAddressHL = 0;
             tempBytesStorage = new byte[4];
+            byteOperation = 0;
+            bitArrayOperation = new BitArray(8, false);
             SignFlag = false;
             ZeroFlag = false;
             AuxCarryFlag = false;
@@ -84,11 +89,23 @@ namespace mihemulator8080
                     CPU.registerB = opCodes.Byte3;
                     break;
 
-                case 0x05: //DCR B "Z, S, P, AC"
-                    byte result = 0;
-                    result = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
-                    CPU.ZeroFlag = (result == 0) ? true : false;
+                case 0x05: //DCR B "Z, S, P, AC flags affected"
+                    byteOperation = 0;
+                    byteOperation = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
+                    CPU.ZeroFlag = (byteOperation == 0) ? true : false;
+                    CPU.SignFlag = (0x80 == (byteOperation & 0x80)); //0x80 = 128 (10000000) Most Significant bit
+                                                                     //  if 8th bit is 1, the & will preserve and the result will be 0x80 
+                    bitArrayOperation = new BitArray(new byte[] { byteOperation });
+                    int evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+                    CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
                     break;
+
 
                 case 0x06: //MVI    B,#${byte2}
                     CPU.registerB = opCodes.Byte2;

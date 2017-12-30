@@ -54,8 +54,8 @@ namespace mihemulator8080
         {
             this.IsMouseVisible = true;
 
-            this.IsFixedTimeStep = false;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 32); // only if IsFixedTimeStep is true
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 1); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
@@ -134,7 +134,7 @@ namespace mihemulator8080
                 mouseState.LeftButton == ButtonState.Released &&
                 oldMouseState.LeftButton == ButtonState.Pressed);
             
-            if (clickOneCycle || leftButtonPressed > 20 || keyboardState.IsKeyDown(Keys.P))
+            if (true || clickOneCycle || leftButtonPressed > 20 || keyboardState.IsKeyDown(Keys.P))
             {
                 CPU.Cycle();
                 cyclesCounter++;
@@ -171,8 +171,10 @@ namespace mihemulator8080
             spriteBatch.DrawString(font, "Cycle: " + cyclesCounter.ToString(), new Vector2(10, 140), Color.Black);
             spriteBatch.DrawString(font, "Last executed CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 160), Color.Black);
 
-            // CPU Registers
+            // Display!!
             spriteBatch.Draw(screenBitmap, pos, Color.White);
+
+            // CPU Registers
             string registers = "REGISTERS"
                 + "\nA: " + BitConverter.ToString(new byte[] { CPU.registerA })
                 + "\nB: " + BitConverter.ToString(new byte[] { CPU.registerB })
@@ -182,6 +184,17 @@ namespace mihemulator8080
                 + "\nH: " + BitConverter.ToString(new byte[] { CPU.registerH })
                 + "\nL: " + BitConverter.ToString(new byte[] { CPU.registerL });
             spriteBatch.DrawString(font, registers, new Vector2(10, 300), Color.Black);
+
+            string flags = "FLAGS"
+                 + "\nZERO:       " + CPU.ZeroFlag.ToString()
+                 + "\nSIGN:       " + CPU.SignFlag.ToString()
+                 + "\nPARITY:     " + CPU.ParityFlag.ToString()
+                 + "\nCARRY:      " + CPU.CarryFlag.ToString()
+                 + "\nAUX. CARRY: " + CPU.AuxCarryFlag.ToString();                                  
+            spriteBatch.DrawString(font, flags, new Vector2(120, 300), Color.Black);
+
+
+
 
             spriteBatch.End();
 
