@@ -46,6 +46,11 @@ namespace mihemulator8080
             memoryAddressDE = 0;
             memoryAddressHL = 0;
             tempBytesStorage = new byte[4];
+            SignFlag = false;
+            ZeroFlag = false;
+            AuxCarryFlag = false;
+            ParityFlag = false;
+            CarryFlag = false;
         }
 
         public static InstructionOpcodes GetNextInstruction()
@@ -81,7 +86,8 @@ namespace mihemulator8080
 
                 case 0x05: //DCR B "Z, S, P, AC"
                     uint result = 0;
-                    //////result = CPU.registerB - 1;
+                    result = CPU.registerB - 1;
+                    CPU.ZeroFlag = (result == 0) ? true : false;
                     break;
 
                 case 0x06: //MVI    B,#${byte2}
