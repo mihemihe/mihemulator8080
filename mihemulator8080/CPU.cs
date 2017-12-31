@@ -156,7 +156,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC flags affected"
-                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t\t" +CPU.CPUStatus();
+                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t" +CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
                     CPU.ZeroFlag = (byteOperation == 0) ? true : false;
@@ -219,7 +219,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x13: //INX    D
-                    instructionText = $"INX    D";
+                    instructionText = $"{byte1txt}\t\tINX    D\t\t; Increments DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus(); 
                     memoryAddressDE = 0;
                     memoryAddressDE = CPU.registerD << 8;
                     memoryAddressDE = memoryAddressDE | CPU.registerE;
@@ -241,11 +241,12 @@ namespace mihemulator8080
                     break;
 
                 case 0x1A: //LDAX   D - "A <- (DE)"
-                    instructionText = "LDAX   D";
+                    instructionText = $"{byte1txt}\t\tLDAX   D\t\t; Copy $DE(${CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) value()->A(0x{CPU.registerA.ToString("X2")})" + "\t" + CPU.CPUStatus();
                     memoryAddressDE = 0;
                     memoryAddressDE = CPU.registerD << 8;
                     memoryAddressDE = memoryAddressDE | CPU.registerE;
                     CPU.registerA = Memory.RAMMemory[memoryAddressDE];
+                    instructionText = instructionText.Replace("value()", $"value(0x{Memory.RAMMemory[memoryAddressDE].ToString("X2")})");
 
                     break;
 
@@ -256,7 +257,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x23: //INX    H
-                    instructionText = $"INX    H";
+                    instructionText = $"{byte1txt}\t\tINX    H\t\t; Increments HL({CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus();
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
@@ -305,7 +306,7 @@ namespace mihemulator8080
                 //    break;
 
                 case 0x77: //MOV    M,A
-                    instructionText = $"MOV    M,A";
+                    instructionText = $"{byte1txt}\t\tMOV    M,A\t\t; Move A({CPU.registerA.ToString("X2")}) to address in $HL(${CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")})" + "\t" + CPU.CPUStatus(); 
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
