@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections;
+using System.Diagnostics;
 
 namespace mihemulator8080
 {
@@ -21,19 +21,32 @@ namespace mihemulator8080
         private const int Y = 224;
         private const int startVideoRAM = 0x2400; //First bye of video RAM //TODO was not 0x!! noob mistake..
         private const int lengthVideoRAM = 7168; // RAM size, starting 1: 0-7167
+        private static Color[] pixelsArray;
+        private static int pixel;
+        private static Color colorBG, colorPixel;
 
-
-        public static void GenerateDisplay(GraphicsDevice device, Color colorBG, Color colorPixel)
+        public static void Init(GraphicsDevice device, Color BG, Color cixel)
         {
-            //Random rnd = new Random();//remove this
-            
-            //initialize a texture
-             videoTexture = new Texture2D(device, X, Y);
+            videoTexture = new Texture2D(device, X, Y);
+            pixelsArray = new Color[X * Y];
+            pixel = 0;
+            colorBG = BG;
+            colorPixel = cixel;
+        }
 
-            //the array holds the color for each pixel in the texture
-            Color[] pixelsArray = new Color[X * Y];
+        public static void ChangeColors(Color BG, Color cixel)
+        {
+            colorBG = BG;
+            colorPixel = cixel;
+        }
 
-            int pixel = 0;
+        //TODO create another method to set colors, instead os passing colors every frame
+
+        public static void GenerateDisplay()
+        {
+            //Stopwatch watch = new Stopwatch();
+            //watch.Start();
+            pixel = 0;
             for (int byteVideo = 0; byteVideo < lengthVideoRAM; byteVideo++)
             {
                 //BitArray eightPixels = new BitArray(new int[] { byteVideo });
@@ -42,18 +55,18 @@ namespace mihemulator8080
                 eightPixels.CopyTo(bits, 0);
                 for (int bit = 0; bit < 8; bit++)
                 {
-                    
                     //int randomValue = rnd.Next(1, 3);
                     //pixelsArray[pixel] = (randomValue == 1) ? Color.White : Color.Red;
                     pixelsArray[pixel] = (bits[bit] == true) ? colorPixel : colorBG;
 
                     pixel++;
                 }
+                //Inlining the for to increase performance, maybe use aggresive inlining attribute?
+                // Inlining tested, no gain. Rule #1 don't try to outsmart the compiler optimizations
             }
             videoTexture.SetData(pixelsArray);
 
-            
+            //Debug.WriteLine(watch.ElapsedTicks);
         }
-
     }
 }

@@ -54,7 +54,7 @@ namespace mihemulator8080
             this.IsMouseVisible = true;
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 16); // only if IsFixedTimeStep is true
+            this.TargetElapsedTime = new TimeSpan(5000); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
@@ -85,8 +85,8 @@ namespace mihemulator8080
 
             //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
 
-            CPU.programCounter = 0x00;
-            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.Red, Color.White); //Inverted colours. This is bad test, first frame will come emtpy always
+            DisplayBuffer.Init(GraphicsDevice, Color.Red, Color.White);
+            DisplayBuffer.GenerateDisplay(); //Inverted colours. This is bad test, first frame will come emtpy always
             screenBitmap = DisplayBuffer.videoTexture; // First screencap
 
 
@@ -142,6 +142,7 @@ namespace mihemulator8080
             {
                 CPU.Cycle();
                 CPU.cyclesCounter++;
+                CPU.cyclesPerSecond++;
             }
 
 
@@ -161,7 +162,7 @@ namespace mihemulator8080
         protected override void Draw(GameTime gameTime)
         {
             //Update VideoBuffer
-            DisplayBuffer.GenerateDisplay(GraphicsDevice, Color.Red, Color.White);
+            DisplayBuffer.GenerateDisplay();
             screenBitmap = DisplayBuffer.videoTexture;
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -178,8 +179,7 @@ namespace mihemulator8080
             spriteBatch.DrawString(font, "Cycle: " + CPU.cyclesCounter.ToString(), new Vector2(10, 140), Color.Black);
             spriteBatch.DrawString(font, "Last executed CPU instruction:\n" + CPU.InstructionExecuting, new Vector2(10, 160), Color.Black);
 
-            // Display!!
-            spriteBatch.Draw(screenBitmap, pos, Color.White);
+
 
             // CPU Registers
             string registers = "REGISTERS"
@@ -200,9 +200,11 @@ namespace mihemulator8080
                  + "\nAUX. CARRY: " + CPU.AuxCarryFlag.ToString();
             spriteBatch.DrawString(font, flags, new Vector2(120, 300), Color.Black);
 
+            // Cycles per second
+            spriteBatch.DrawString(font, "Cyles per second: " + CPU.CPS, new Vector2(140, 440), Color.Black);
 
-
-
+            // Display!!
+            spriteBatch.Draw(screenBitmap, pos, Color.White);
             spriteBatch.End();
 
             // TODO: Add your drawing code here
