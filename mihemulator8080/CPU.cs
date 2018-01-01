@@ -214,6 +214,16 @@ namespace mihemulator8080
                     CPU.registerC = byteOperation;
                     break;
 
+                case 0x0F: //RRC //TODO: I just copied this instruction. Investigate more how it works and why exists
+                    //uint8_t x = state->a;
+                    //state->a = ((x & 1) << 7) | (x >> 1);
+                    //state->cc.cy = (1 == (x & 1));
+                    byteOperation = 0;                    
+                    byteOperation = CPU.registerA;
+                    CPU.registerA = (byte)((byteOperation & 1) <<7 | (byteOperation >>1));
+                    CPU.CarryFlag = (1 == (byteOperation & 1));
+                    break;
+
                 case 0x11: //LXI    D,#${byte3}{byte2}
                     instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLXI    D,#${byte3txt}{byte2txt}\t\t; Load 0x{byte3txt}{byte2txt} on DE" + "\t\t\t" + CPU.CPUStatus();
                     CPU.registerD = opCodes.Byte3;
@@ -320,7 +330,36 @@ namespace mihemulator8080
                     Memory.RAMMemory[memoryAddressHL] = opCodes.Byte2;
                     break;
 
-                case 0x6f: //MOV    L,A
+                case 0x56: //"MOV    D,M
+                    memoryAddressHL = 0;
+                    memoryAddressHL = CPU.registerH << 8;
+                    memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    instructionText = $"{byte1txt}\t\tMOV    D,M\t\t; Move value({Memory.RAMMemory[memoryAddressHL].ToString("X2")})" +
+                                      $" in HL(${memoryAddressHL.ToString("X4")}) to D({CPU.registerD.ToString("X2")})" + "\t" + CPU.CPUStatus();
+                    CPU.registerD = Memory.RAMMemory[memoryAddressHL];
+                    break;
+
+                case 0x5E: //MOV    E,M
+                    memoryAddressHL = 0;
+                    memoryAddressHL = CPU.registerH << 8;
+                    memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    instructionText = $"{byte1txt}\t\tMOV    E,M\t\t; Move value({Memory.RAMMemory[memoryAddressHL].ToString("X2")})" +
+                                      $" in HL(${memoryAddressHL.ToString("X4")}) to E({CPU.registerE.ToString("X2")})" + "\t" + CPU.CPUStatus();
+                    CPU.registerE = Memory.RAMMemory[memoryAddressHL];
+                    break;
+
+                case 0x66: //"MOV    H,M
+                    memoryAddressHL = 0;
+                    memoryAddressHL = CPU.registerH << 8;
+                    memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    instructionText = $"{byte1txt}\t\tMOV    H,M\t\t; Move value({Memory.RAMMemory[memoryAddressHL].ToString("X2")})" +
+                                      $" in HL(${memoryAddressHL.ToString("X4")}) to H({CPU.registerH.ToString("X2")})" + "\t" + CPU.CPUStatus();
+                    CPU.registerH = Memory.RAMMemory[memoryAddressHL];
+                    break;
+
+
+
+                case 0x6F: //MOV    L,A
                     instructionText = $"{byte1txt}\t\tMOV    L,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to L(0x{CPU.registerL.ToString("X2")})(L Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerL = CPU.registerA;
                     break;
@@ -337,9 +376,24 @@ namespace mihemulator8080
                     Memory.RAMMemory[memoryAddressHL] = CPU.registerA;
                     break;
 
-                case 0x7c: //MOV    A,H
+                case 0x7A: //MOV    A,D
+                    instructionText = $"{byte1txt}\t\tMOV    A,D\t\t; Move D(0x{CPU.registerD.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
+                    CPU.registerA = CPU.registerD;
+                    break;
+
+                case 0x7C: //MOV    A,H
                     instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerA = CPU.registerH;
+                    break;
+
+
+                case 0x7E: //MOV    A,M
+                    memoryAddressHL = 0;
+                    memoryAddressHL = CPU.registerH << 8;
+                    memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    instructionText = $"{byte1txt}\t\tMOV    A,M\t\t; Move value({Memory.RAMMemory[memoryAddressHL].ToString("X2")})" +
+                                      $" in HL(${memoryAddressHL.ToString("X4")}) to A({CPU.registerA.ToString("X2")})" + "\t" + CPU.CPUStatus();
+                    CPU.registerA = Memory.RAMMemory[memoryAddressHL];
                     break;
 
                 case 0xC1: //POP    B
@@ -445,6 +499,21 @@ namespace mihemulator8080
                     CPU.stackPointer -= 2;
                     break;
 
+                //TODO: This broke the welcome screen, probabl because there is a POP somewhere next 
+                case 0xF5: //PUSH   PSW -  (sp-2)<-flags; (sp-1)<-A; sp <- sp - 2 ZSPCYAux                    
+                    byte psw = 0;
+                    psw = (byte)(
+                        Convert.ToByte(CPU.ZeroFlag) |
+                        Convert.ToByte(CPU.SignFlag) << 1 |
+                        Convert.ToByte(CPU.ParityFlag) << 2 |
+                        Convert.ToByte(CPU.CarryFlag) << 3 |
+                        Convert.ToByte(CPU.AuxCarryFlag) << 4);
+                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerA; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 2] = psw;
+                    instructionText = $"{byte1txt}\t\tPUSH   PSW\t\t; Move flags(0x{psw.ToString("X2")})A(0x{CPU.registerA.ToString("X2")})->stack. SP-2\t" + CPU.CPUStatus();
+                    CPU.stackPointer -= 2;
+                    break;
+
                 case 0xFE: //CPI    #${byte2} //compare immediate with accumulator A, substracting
                     //	Z, S, P, CY, AC
                     instructionText = $"{byte1txt} {byte2txt}\t\tCPI    #${byte2txt}\t\t; Compare A(0x{CPU.registerA.ToString("X2")})-Byte2(0x{byte2txt}). Flags" + "\t" + CPU.CPUStatus();
@@ -465,6 +534,7 @@ namespace mihemulator8080
                     break;
 
                 default:
+                    instructionText = $"******* NOT IMPLEMENTED : {byte1txt}";
                     break;
             }
 

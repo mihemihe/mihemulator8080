@@ -204,7 +204,6 @@ namespace mihemulator8080
                 case 0x55: return $"MOV    D,L";
                 case 0x56: return $"MOV    D,M";
                 case 0x57: return $"MOV    D,A";
-
                 case 0x59: return $"MOV    E,C";
                 case 0x5B: return $"MOV    E,E";
                 case 0x5D: return $"MOV    E,L";
