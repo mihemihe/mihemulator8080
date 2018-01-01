@@ -2,3 +2,14 @@ $"{byte1txt}\t\tNOP\t\t\t; No operation" + "\t\t\t\t" + CPU.CPUStatus();
 $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t\t" +CPU.CPUStatus();
 $"{byte1txt} {byte2txt}\t\tMVI    B,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to B(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
 $"{byte1txt} {byte2txt} {byte3txt}\tJMP    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt}" + "\t\t\t\t" + CPU.CPUStatus(); 
+
+$"{byte1txt}\t\tLDAX   D\t\t; Copy $DE(${CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) value()->A(0x{CPU.registerA.ToString("X2")})" + "\t" + CPU.CPUStatus();
+instructionText = instructionText.Replace("value()", $"value(0x{Memory.RAMMemory[memoryAddressDE].ToString("X2")})");
+
+$"{byte1txt}\t\tINX    D\t\t; Increments DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus(); 
+
+{byte1txt} {byte2txt} {byte3txt}\tCALL   ${byte3txt}{byte2txt}\t\t; Jump->${byte3txt}{byte2txt}, ret ${CPU.programCounter.ToString("X2")}->stack, SP -2"
+
+{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
+
+{byte1txt} {byte2txt}\t\tMVI    B,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to B(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus();

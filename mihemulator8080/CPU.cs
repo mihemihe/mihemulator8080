@@ -218,7 +218,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x0E: //MVI    C,#${byte2}
-                    instructionText = $"MVI    C,#${byte2txt}";
+                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    C,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to C(0x{CPU.registerC.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
                     CPU.registerC = opCodes.Byte2;
                     break;
 
@@ -234,11 +234,11 @@ namespace mihemulator8080
                     break;
 
                 case 0x19: //DAD    D //double add, sums HL + DE, in their byte positions and compare. CY flag
-                    instructionText = $"DAD    D";
                     HL = 0;
                     HL = (uint)((CPU.registerH << 8) | CPU.registerL);
                     uint DE = (uint)((CPU.registerD << 8) | CPU.registerE);
                     uint DADDResult = HL + DE;
+                    instructionText = $"{byte1txt}\t\tDAD    D\t\t; HL(0x{HL.ToString("X4")})+DE(0x{DE.ToString("X4")})=(0x{DADDResult.ToString("X4")})->HL CY" + "\t" + CPU.CPUStatus(); 
                     CPU.registerH = (byte)((DADDResult & 0xFF00) >> 8);
                     CPU.registerL = (byte)(DADDResult & 0xFF);
                     CPU.CarryFlag = ((DADDResult & 0xFFFF0000) != 0);
@@ -272,15 +272,15 @@ namespace mihemulator8080
                     break;
 
                 case 0x26: //MVI    H,#${byte2}
-                    instructionText = $"MVI    H,#${byte2txt}";
+                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    H,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to H(0x{CPU.registerH.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
                     CPU.registerH = opCodes.Byte2;
                     break;
 
-                case 0x29: //DAD    H
-                    instructionText = $"DAD    H"; //double add, doubles L doubles H, sums them and compare. CY flag
+                case 0x29: //DAD    H                    
                     HL = 0;
                     HL = (uint)(CPU.registerH << 8 | CPU.registerL);
                     DADHResult = HL + HL;
+                    instructionText = $"{byte1txt}\t\tDAD    H\t\t; HL(0x{HL.ToString("X4")})+HL(0x{HL.ToString("X4")})=(0x{DADHResult.ToString("X4")})->HL CY" + "\t" + CPU.CPUStatus(); //double add, doubles L doubles H, sums them and compare. CY flag
                     CPU.registerH = (byte)((DADHResult & 0xFF00) >> 8);
                     CPU.registerL = (byte)(DADHResult & 0xFF);
                     CPU.CarryFlag = ((DADHResult & 0xFFFF0000) != 0);
@@ -301,7 +301,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x6f: //MOV    L,A
-                    instructionText = $"MOV    L,A";
+                    instructionText = $"{byte1txt}\t\tMOV    L,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to L(0x{CPU.registerL.ToString("X2")})(L Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerL = CPU.registerA;
                     break;
 
@@ -318,7 +318,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x7c: //MOV    A,H
-                    instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H({CPU.registerH.ToString("X2")}) to A({CPU.registerA.ToString("X2")})(A Before Move)" + "\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus(); 
                     CPU.registerA = CPU.registerH;
                     break;
 
@@ -331,10 +331,11 @@ namespace mihemulator8080
                     break;
 
                 case 0xC2: //JNZ    ${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJNZ    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt} if ZeroFlag({Convert.ToInt32(CPU.ZeroFlag)}) is 1" + "\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJNZ    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt} if ZeroFlag({Convert.ToInt32(CPU.ZeroFlag)}) == 0" + "\t" + CPU.CPUStatus();
                     // if z=false then jump to address
                     if (CPU.ZeroFlag == false)
                     {
+                        //This is a jump to the address
                         CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                         CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     }
@@ -359,11 +360,11 @@ namespace mihemulator8080
                     instructionText = $"PUSH   B";
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerB; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerC;
-                    CPU.stackPointer += 2;
+                    CPU.stackPointer -= 2;
                     break;
 
                 case 0xCD: //CALL   ${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tCALL   ${byte3txt}{byte2txt}\t\t; Jump->${byte3txt}{byte2txt}, ret ${CPU.programCounter.ToString("X2")}->stack, SP -2"
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tCALL   ${byte3txt}{byte2txt}\t\t; Jump->${byte3txt}{byte2txt}, ret ${CPU.programCounter.ToString("X4")}->stack, SP -2"
                         + "\t" + CPU.CPUStatus(); ;
                     // This is a PUSH to stack, fixed start address in the code, $2400
                     // for clarity , better of use returnaddress, but point is programCounter contains already pc  +2
@@ -383,22 +384,23 @@ namespace mihemulator8080
                     instructionText = $"OUT    #${byte2txt} Out to device, sound???";
                     break;
 
-                case 0xD5: //PUSH   D - DE move to the stack
-                    instructionText = $"PUSH   D";
+                case 0xD5: //PUSH   D - DE move to the stack //TODO: Finally found a bug here, I was using + 2!!!! check again if the order is correct, and matches with POP
+                    instructionText = $"{byte1txt}\t\tPUSH   D\t\t; DE(0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();  
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerD; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerE;
-                    CPU.stackPointer += 2;
+                    CPU.stackPointer -= 2;
                     break;
 
                 case 0xE1: //POP    H -- POP stack to HL
-                    instructionText = $"POP    H";
+                    instructionText = $"{byte1txt}\t\tPOP    H\t\t; Stack (0x{Memory.RAMMemory[CPU.stackPointer + 1].ToString("X2")}{Memory.RAMMemory[CPU.stackPointer].ToString("X2")})" +
+                        $" to HL (0x{CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}). SP+2" + "\t" + CPU.CPUStatus(); 
                     CPU.registerH = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerL = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
                     break;
 
                 case 0xEB: //XCHG - Swaps HL by DE, in this particular order
-                    instructionText = $"XCHG";
+                    instructionText = $"{byte1txt}\t\tXCHG\t\t\t; Swap HL({CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}) and DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")})" + "\t\t" + CPU.CPUStatus(); 
                     tempHL = new byte[] { CPU.registerH, CPU.registerL };
                     CPU.registerH = CPU.registerD;
                     CPU.registerL = CPU.registerE;
@@ -407,15 +409,15 @@ namespace mihemulator8080
                     break;
 
                 case 0xE5: //PUSH   H - HL move to the stack
-                    instructionText = $"PUSH   H";
+                    instructionText = $"{byte1txt}\t\tPUSH   H\t\t; HL(0x{ CPU.registerH.ToString("X2")}{ CPU.registerL.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();  
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerH; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerL;
-                    CPU.stackPointer += 2;
+                    CPU.stackPointer -= 2;
                     break;
 
                 case 0xFE: //CPI    #${byte2} //compare immediate with accumulator A, substracting
                     //	Z, S, P, CY, AC
-                    instructionText = $"CPI    #${byte2txt}"; //comments in 0x05 of this operations
+                    instructionText = $"{byte1txt} {byte2txt}\t\tCPI    #${byte2txt}\t\t; Compare A(0x{CPU.registerA.ToString("X2")})-Byte2(0x{byte2txt}). Flags" + "\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerA - opCodes.Byte2);
                     CPU.ZeroFlag = (byteOperation == 0) ? true : false;
