@@ -40,6 +40,7 @@ namespace mihemulator8080
         public static int memoryAddressHL;
         public static byte[] tempBytesStorage;
         public static byte byteOperation;
+        public static ushort uInt16Operation;
         public static BitArray bitArrayOperation;
         public static int returnAddress;
         public static int evenOddCounter;
@@ -67,6 +68,7 @@ namespace mihemulator8080
 
         static CPU()
         {
+            uInt16Operation = 0;
             linesToAppendCounter = 0;
             sb = new StringBuilder();
             programCounter = 0x00;
@@ -218,6 +220,7 @@ namespace mihemulator8080
                     //uint8_t x = state->a;
                     //state->a = ((x & 1) << 7) | (x >> 1);
                     //state->cc.cy = (1 == (x & 1));
+                    instructionText = $"{byte1txt}\t\tRRC\t\t\t; ***NOT CLEAR" + "\t\t\t\t" + CPU.CPUStatus();
                     byteOperation = 0;                    
                     byteOperation = CPU.registerA;
                     CPU.registerA = (byte)((byteOperation & 1) <<7 | (byteOperation >>1));
@@ -439,6 +442,35 @@ namespace mihemulator8080
                     CPU.stackPointer -= 2;
                     break;
 
+                case 0xC6: //ADI    #${byte2}
+                    instructionText = $"9**************add the text*****";
+
+                    uInt16Operation = 0;
+                    
+                        uInt16Operation = (ushort)(CPU.registerA + opCodes.Byte2);
+                    CPU.ZeroFlag = ((uInt16Operation & 0xFF) == 0);
+                    CPU.SignFlag = (0x80 == (uInt16Operation & 0x80));
+
+                    tempBytesStorage = BitConverter.GetBytes(uInt16Operation);
+                    bitArrayOperation = new BitArray(new byte[] { tempBytesStorage[0] }); //WTF am I doing lol. I should split it and take the low byte
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+
+                    CPU.CarryFlag = uInt16Operation > 0xFF; //TODO CHECK THIS!!!
+                    CPU.registerA = (byte)uInt16Operation;
+
+                    //state->cc.z = ((x & 0xff) == 0);
+                    //state->cc.s = (0x80 == (x & 0x80));
+                    //state->cc.p = parity((x & 0xff), 8);
+                    //state->cc.cy = (x > 0xff);
+                    //state->a = (uint8_t)x;
+                    //state->pc++;
+                    break;
+
                 case 0xCD: //CALL   ${byte3}{byte2}
                     instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tCALL   ${byte3txt}{byte2txt}\t\t; Jump->${byte3txt}{byte2txt}, ret ${CPU.programCounter.ToString("X4")}->stack, SP -2"
                         + "\t" + CPU.CPUStatus(); ;
@@ -481,6 +513,30 @@ namespace mihemulator8080
                     CPU.registerH = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerL = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
+                    break;
+
+                case 0xE6: //ANI    #${byte2} //TODO: Chec if we are implemeting this right
+                    //state->a = state->a & opcode[1];
+                    //LogicFlagsA(state);
+                    //state->pc++;
+                    instructionText = $"{byte1txt} {byte2txt}\t\tANI   #${byte2txt}\t\t; Investigate this ANI operation better" + "\t\t" + CPU.CPUStatus(); ;
+                    CPU.registerA = (byte)(CPU.registerA & opCodes.Byte2);
+                    //state->cc.cy = state->cc.ac = 0;
+                    //state->cc.z = (state->a == 0);
+                    //state->cc.s = (0x80 == (state->a & 0x80));
+                    //state->cc.p = parity(state->a, 8);
+                    CPU.AuxCarryFlag = false;
+                    CPU.CarryFlag = false;
+                    if (CPU.registerA == 0) CPU.ZeroFlag = false;
+                    CPU.SignFlag = (0x80 == (CPU.registerA & 0x80));
+
+                    bitArrayOperation = new BitArray(new byte[] { CPU.registerA });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
                     break;
 
                 case 0xEB: //XCHG - Swaps HL by DE, in this particular order
