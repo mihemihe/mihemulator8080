@@ -104,17 +104,21 @@ namespace mihemulator8080
 
         public static string CPUStatus()
         {
+            int valueTopStack = 0;
+            valueTopStack = Memory.RAMMemory[CPU.stackPointer + 1] << 8;
+            valueTopStack = valueTopStack | Memory.RAMMemory[CPU.stackPointer];
             return $"A:0x{CPU.registerA.ToString("X2")} " +
                    $"B:0x{CPU.registerB.ToString("X2")} " +
                    $"C:0x{CPU.registerC.ToString("X2")} " +
-                   $"DE:0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")} " +                   
-                   $"HL:0x{CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")} -- " +                   
+                   $"DE:0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")} " +
+                   $"HL:0x{CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")} -- " +
                    $"S:{Convert.ToInt32(CPU.SignFlag)} " +
                    $"Z:{Convert.ToInt32(CPU.ZeroFlag)} " +
                    $"C:{Convert.ToInt32(CPU.CarryFlag)} " +
                    $"P:{Convert.ToInt32(CPU.ParityFlag)} " +
-                   $"Aux:{Convert.ToInt32(CPU.AuxCarryFlag)} " + 
-                   $"SP:{CPU.stackPointer.ToString("X4")}";
+                   $"Aux:{Convert.ToInt32(CPU.AuxCarryFlag)} " +
+                   $"SP:${CPU.stackPointer.ToString("X4")}->({valueTopStack.ToString("X4")})";
+            //TODO: Add stack size too, it will be helpful to debug
         }
 
         public static InstructionOpcodes GetNextInstruction()
@@ -146,17 +150,17 @@ namespace mihemulator8080
             switch (opCodes.Byte1)
             {
                 case 0x00: //NOP, do nothing
-                    instructionText = $"{byte1txt}\t\tNOP\t\t\t; No operation" + "\t\t\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tNOP\t\t\t; No operation" + "\t\t\t\t" + CPU.CPUStatus();
                     break;
 
                 case 0x01: //LXI    B,#${byte3}{byte2}
                     CPU.registerC = opCodes.Byte2;
                     CPU.registerB = opCodes.Byte3;
-                    instructionText = $"LXI    B,#${(byte3txt)}{byte2txt}\t; {(byte3txt)}{byte2txt} to BC" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"LXI    B,#${(byte3txt)}{byte2txt}\t; {(byte3txt)}{byte2txt} to BC" + "\t\t" + CPU.CPUStatus();
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC flags affected"
-                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t" +CPU.CPUStatus();
+                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
                     CPU.ZeroFlag = (byteOperation == 0) ? true : false;
@@ -171,11 +175,11 @@ namespace mihemulator8080
                     CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
                     CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
                     CPU.registerB = byteOperation;
-                    
+
                     break;
 
                 case 0x06: //MVI    B,#${byte2}
-                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    B,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to B(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    B,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to B(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
                     CPU.registerB = opCodes.Byte2;
                     break;
 
@@ -219,7 +223,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x13: //INX    D
-                    instructionText = $"{byte1txt}\t\tINX    D\t\t; Increments DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tINX    D\t\t; Increments DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus();
                     memoryAddressDE = 0;
                     memoryAddressDE = CPU.registerD << 8;
                     memoryAddressDE = memoryAddressDE | CPU.registerE;
@@ -283,16 +287,16 @@ namespace mihemulator8080
                     break;
 
                 case 0x31: //LXI    SP,#${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLXI    SP,#${byte3txt}{byte2txt}\t; Load 0x{byte3txt}{byte2txt} on Stack Pointer" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLXI    SP,#${byte3txt}{byte2txt}\t; Load 0x{byte3txt}{byte2txt} on Stack Pointer" + "\t\t" + CPU.CPUStatus();
                     CPU.stackPointer = opCodes.Byte3 << 8;
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
 
                 case 0x36: //MVI    M,#${byte2}   M means memory address of HL in this case!!!
-                    instructionText = $"MVI    M,#${byte2txt}";
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
+                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    M,#${byte2txt}\t\t; Move Byte2({byte2txt}) to $ in HL $({memoryAddressHL.ToString("X4")})" + "\t" + CPU.CPUStatus();
                     Memory.RAMMemory[memoryAddressHL] = opCodes.Byte2;
                     break;
 
@@ -306,7 +310,7 @@ namespace mihemulator8080
                 //    break;
 
                 case 0x77: //MOV    M,A
-                    instructionText = $"{byte1txt}\t\tMOV    M,A\t\t; Move A({CPU.registerA.ToString("X2")}) to address in $HL(${CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")})" + "\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tMOV    M,A\t\t; Move A({CPU.registerA.ToString("X2")}) to address in $HL(${CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")})" + "\t" + CPU.CPUStatus();
                     memoryAddressHL = 0;
                     memoryAddressHL = CPU.registerH << 8;
                     memoryAddressHL = memoryAddressHL | CPU.registerL;
@@ -314,7 +318,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x7c: //MOV    A,H
-                    instructionText = $"MOV    A,H --- HL: ${CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}";
+                    instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H({CPU.registerH.ToString("X2")}) to A({CPU.registerA.ToString("X2")})(A Before Move)" + "\t" + CPU.CPUStatus(); 
                     CPU.registerA = CPU.registerH;
                     break;
 
@@ -327,7 +331,7 @@ namespace mihemulator8080
                     break;
 
                 case 0xC2: //JNZ    ${byte3}{byte2}
-                    instructionText = $"JNZ    ${byte3txt}{byte2txt}";
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJNZ    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt} if ZeroFlag({Convert.ToInt32(CPU.ZeroFlag)}) is 1" + "\t" + CPU.CPUStatus();
                     // if z=false then jump to address
                     if (CPU.ZeroFlag == false)
                     {
@@ -337,16 +341,17 @@ namespace mihemulator8080
                     break;
 
                 case 0xC3: //JMP    ${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJMP    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt}" + "\t\t\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJMP    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt}" + "\t\t\t\t" + CPU.CPUStatus();
                     CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     break;
 
                 case 0xC9: //RET
-                    instructionText = $"RET";
+
                     CPU.programCounter = 0;
                     programCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
                     programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
+                    instructionText = $"{byte1txt}\t\tRET\t\t\t; Jump to ret $ in SP->${programCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
                     CPU.stackPointer += 2; //return the stack pointer back to original position
                     break;
 

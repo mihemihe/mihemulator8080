@@ -54,7 +54,7 @@ namespace mihemulator8080
             this.IsMouseVisible = true;
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(5000); // only if IsFixedTimeStep is true
+            this.TargetElapsedTime = new TimeSpan(800); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
