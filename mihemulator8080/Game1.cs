@@ -20,8 +20,8 @@ namespace mihemulator8080
 
         private Texture2D screenBitmap;
         private Vector2 pos;
-        private const int screenStartX = 300;
-        private const int screenStartY = 200;
+        private const int screenStartX = 400;
+        private const int screenStartY = 450;
 
         private Texture2D oneCycle;
         private Texture2D loopCycles;
@@ -35,6 +35,10 @@ namespace mihemulator8080
         private int leftButtonPressed;
         bool clickOneCycle;
 
+        private float RotationAngle;
+        private Vector2 origin;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -47,6 +51,9 @@ namespace mihemulator8080
             oldMouseState = Mouse.GetState();
             leftButtonPressed = 0;
             clickOneCycle = false;
+            origin.X = 0;
+            origin.Y = 0;
+            RotationAngle = -3.14F / 2;
         }
 
         protected override void Initialize()
@@ -161,6 +168,7 @@ namespace mihemulator8080
 
         protected override void Draw(GameTime gameTime)
         {
+
             //Update VideoBuffer
             DisplayBuffer.GenerateDisplay();
             screenBitmap = DisplayBuffer.videoTexture;
@@ -204,7 +212,10 @@ namespace mihemulator8080
             spriteBatch.DrawString(font, "Cyles per second: " + CPU.CPS, new Vector2(140, 440), Color.Black);
 
             // Display!!
-            spriteBatch.Draw(screenBitmap, pos, Color.White);
+            
+ 
+        
+            spriteBatch.Draw(screenBitmap, pos, null, Color.White, RotationAngle, origin, 1.0f, SpriteEffects.None, 0f);
             spriteBatch.End();
 
             // TODO: Add your drawing code here

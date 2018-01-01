@@ -154,9 +154,9 @@ namespace mihemulator8080
                     break;
 
                 case 0x01: //LXI    B,#${byte3}{byte2}
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLXI    B,#${(byte3txt)}{byte2txt}\t\t; {(byte3txt)}{byte2txt} to BC" + "\t\t\t\t" + CPU.CPUStatus();
                     CPU.registerC = opCodes.Byte2;
-                    CPU.registerB = opCodes.Byte3;
-                    instructionText = $"LXI    B,#${(byte3txt)}{byte2txt}\t; {(byte3txt)}{byte2txt} to BC" + "\t\t" + CPU.CPUStatus();
+                    CPU.registerB = opCodes.Byte3;                    
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC flags affected"
@@ -184,14 +184,34 @@ namespace mihemulator8080
                     break;
 
                 case 0x09: //DAD    B //double add, sums HL + BC, in their byte positions and compare. CY flag
-                    instructionText = $"DAD    B";
                     HL = 0;
                     HL = (uint)((CPU.registerH << 8) | CPU.registerL);
                     uint BC = (uint)((CPU.registerB << 8) | CPU.registerC);
                     uint DADBResult = HL + BC;
+                    instructionText = $"{byte1txt}\t\tDAD    B\t\t; HL(0x{HL.ToString("X4")})+DE(0x{BC.ToString("X4")})=(0x{DADBResult.ToString("X4")})->HL CY" + "\t" + CPU.CPUStatus();
                     CPU.registerH = (byte)((DADBResult & 0xFF00) >> 8);
                     CPU.registerL = (byte)(DADBResult & 0xFF);
                     CPU.CarryFlag = ((DADBResult & 0xFFFF0000) != 0);
+                    break;
+
+
+
+                case 0x0D: //DCR C "Z, S, P, AC flags affected"
+                    instructionText = $"{byte1txt}\t\tDCR    C\t\t; Decrement C({CPU.registerC.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
+                    byteOperation = 0;
+                    byteOperation = (byte)(CPU.registerC - 1); //need to cast because + operator creates int. byte does not have +
+                    CPU.ZeroFlag = (byteOperation == 0) ? true : false;
+                    CPU.SignFlag = (0x80 == (byteOperation & 0x80)); //0x80 = 128 (10000000) Most Significant bit
+                                                                     //  if 8th bit is 1, the & will preserve and the result will be 0x80
+                    bitArrayOperation = new BitArray(new byte[] { byteOperation });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+                    CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
+                    CPU.registerC = byteOperation;
                     break;
 
                 case 0x11: //LXI    D,#${byte3}{byte2}
@@ -238,7 +258,7 @@ namespace mihemulator8080
                     HL = (uint)((CPU.registerH << 8) | CPU.registerL);
                     uint DE = (uint)((CPU.registerD << 8) | CPU.registerE);
                     uint DADDResult = HL + DE;
-                    instructionText = $"{byte1txt}\t\tDAD    D\t\t; HL(0x{HL.ToString("X4")})+DE(0x{DE.ToString("X4")})=(0x{DADDResult.ToString("X4")})->HL CY" + "\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tDAD    D\t\t; HL(0x{HL.ToString("X4")})+DE(0x{DE.ToString("X4")})=(0x{DADDResult.ToString("X4")})->HL CY" + "\t" + CPU.CPUStatus();
                     CPU.registerH = (byte)((DADDResult & 0xFF00) >> 8);
                     CPU.registerL = (byte)(DADDResult & 0xFF);
                     CPU.CarryFlag = ((DADDResult & 0xFFFF0000) != 0);
@@ -276,7 +296,7 @@ namespace mihemulator8080
                     CPU.registerH = opCodes.Byte2;
                     break;
 
-                case 0x29: //DAD    H                    
+                case 0x29: //DAD    H
                     HL = 0;
                     HL = (uint)(CPU.registerH << 8 | CPU.registerL);
                     DADHResult = HL + HL;
@@ -318,12 +338,14 @@ namespace mihemulator8080
                     break;
 
                 case 0x7c: //MOV    A,H
-                    instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerA = CPU.registerH;
                     break;
 
                 case 0xC1: //POP    B
                     instructionText = $"POP    B";
+                    instructionText = $"{byte1txt}\t\tPOP    B\t\t; Stack (0x{Memory.RAMMemory[CPU.stackPointer + 1].ToString("X2")}{Memory.RAMMemory[CPU.stackPointer].ToString("X2")})" +
+                                      $" to BC (0x{CPU.registerB.ToString("X2")}{CPU.registerC.ToString("X2")}). SP+2" + "\t" + CPU.CPUStatus();
                     CPU.registerB = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerC = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
@@ -357,7 +379,7 @@ namespace mihemulator8080
                     break;
 
                 case 0xC5: //PUSH   B - BC move to the stack
-                    instructionText = $"PUSH   B";
+                    instructionText = $"{byte1txt}\t\tPUSH   B\t\t; BC(0x{CPU.registerB.ToString("X2")}{CPU.registerC.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerB; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerC;
                     CPU.stackPointer -= 2;
@@ -384,8 +406,16 @@ namespace mihemulator8080
                     instructionText = $"OUT    #${byte2txt} Out to device, sound???";
                     break;
 
+                case 0xD1: //POP    D -- POP stack to DE
+                    instructionText = $"{byte1txt}\t\tPOP    D\t\t; Stack (0x{Memory.RAMMemory[CPU.stackPointer + 1].ToString("X2")}{Memory.RAMMemory[CPU.stackPointer].ToString("X2")})" +
+                                      $" to DE (0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}). SP+2" + "\t" + CPU.CPUStatus();
+                    CPU.registerD = Memory.RAMMemory[CPU.stackPointer + 1];
+                    CPU.registerE = Memory.RAMMemory[CPU.stackPointer];
+                    CPU.stackPointer += 2;
+                    break;
+
                 case 0xD5: //PUSH   D - DE move to the stack //TODO: Finally found a bug here, I was using + 2!!!! check again if the order is correct, and matches with POP
-                    instructionText = $"{byte1txt}\t\tPUSH   D\t\t; DE(0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();  
+                    instructionText = $"{byte1txt}\t\tPUSH   D\t\t; DE(0x{CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerD; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerE;
                     CPU.stackPointer -= 2;
@@ -393,14 +423,14 @@ namespace mihemulator8080
 
                 case 0xE1: //POP    H -- POP stack to HL
                     instructionText = $"{byte1txt}\t\tPOP    H\t\t; Stack (0x{Memory.RAMMemory[CPU.stackPointer + 1].ToString("X2")}{Memory.RAMMemory[CPU.stackPointer].ToString("X2")})" +
-                        $" to HL (0x{CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}). SP+2" + "\t" + CPU.CPUStatus(); 
+                                      $" to HL (0x{CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}). SP+2" + "\t" + CPU.CPUStatus();
                     CPU.registerH = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerL = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
                     break;
 
                 case 0xEB: //XCHG - Swaps HL by DE, in this particular order
-                    instructionText = $"{byte1txt}\t\tXCHG\t\t\t; Swap HL({CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}) and DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")})" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tXCHG\t\t\t; Swap HL({CPU.registerH.ToString("X2")}{CPU.registerL.ToString("X2")}) and DE({CPU.registerD.ToString("X2")}{CPU.registerE.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
                     tempHL = new byte[] { CPU.registerH, CPU.registerL };
                     CPU.registerH = CPU.registerD;
                     CPU.registerL = CPU.registerE;
@@ -409,7 +439,7 @@ namespace mihemulator8080
                     break;
 
                 case 0xE5: //PUSH   H - HL move to the stack
-                    instructionText = $"{byte1txt}\t\tPUSH   H\t\t; HL(0x{ CPU.registerH.ToString("X2")}{ CPU.registerL.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();  
+                    instructionText = $"{byte1txt}\t\tPUSH   H\t\t; HL(0x{ CPU.registerH.ToString("X2")}{ CPU.registerL.ToString("X2")}) to stack. Stack -2" + "\t\t" + CPU.CPUStatus();
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerH; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerL;
                     CPU.stackPointer -= 2;
