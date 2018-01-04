@@ -38,6 +38,7 @@ namespace mihemulator8080
 
         public static int memoryAddressDE;
         public static int memoryAddressHL;
+        public static int memoryAddressBC;
         public static byte[] tempBytesStorage;
         public static byte byteOperation;
         public static ushort uInt16Operation;
@@ -83,6 +84,7 @@ namespace mihemulator8080
             InstructionExecuting = "";
             memoryAddressDE = 0;
             memoryAddressHL = 0;
+            memoryAddressBC = 0;
             tempBytesStorage = new byte[4];
             byteOperation = 0;
             bitArrayOperation = new BitArray(8, false);
@@ -158,7 +160,7 @@ namespace mihemulator8080
                 case 0x01: //LXI    B,#${byte3}{byte2}
                     instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLXI    B,#${(byte3txt)}{byte2txt}\t\t; {(byte3txt)}{byte2txt} to BC" + "\t\t\t\t" + CPU.CPUStatus();
                     CPU.registerC = opCodes.Byte2;
-                    CPU.registerB = opCodes.Byte3;                    
+                    CPU.registerB = opCodes.Byte3;
                     break;
 
                 case 0x05: //DCR B "Z, S, P, AC flags affected"
@@ -196,7 +198,14 @@ namespace mihemulator8080
                     CPU.CarryFlag = ((DADBResult & 0xFFFF0000) != 0);
                     break;
 
-
+                case 0x0A: //LDAX   B - "A <- (BC)"
+                    instructionText = $"{byte1txt}\t\tLDAX   B\t\t; Copy $BC(${CPU.registerB.ToString("X2")}{CPU.registerC.ToString("X2")}) value()->A(0x{CPU.registerA.ToString("X2")})" + "\t" + CPU.CPUStatus();
+                    memoryAddressBC = 0;
+                    memoryAddressBC = CPU.registerB << 8;
+                    memoryAddressBC = memoryAddressBC | CPU.registerC;
+                    CPU.registerA = Memory.RAMMemory[memoryAddressBC];
+                    instructionText = instructionText.Replace("value()", $"value(0x{Memory.RAMMemory[memoryAddressBC].ToString("X2")})");
+                    break;
 
                 case 0x0D: //DCR C "Z, S, P, AC flags affected"
                     instructionText = $"{byte1txt}\t\tDCR    C\t\t; Decrement C({CPU.registerC.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
@@ -221,9 +230,9 @@ namespace mihemulator8080
                     //state->a = ((x & 1) << 7) | (x >> 1);
                     //state->cc.cy = (1 == (x & 1));
                     instructionText = $"{byte1txt}\t\tRRC\t\t\t; ***NOT CLEAR" + "\t\t\t\t" + CPU.CPUStatus();
-                    byteOperation = 0;                    
+                    byteOperation = 0;
                     byteOperation = CPU.registerA;
-                    CPU.registerA = (byte)((byteOperation & 1) <<7 | (byteOperation >>1));
+                    CPU.registerA = (byte)((byteOperation & 1) << 7 | (byteOperation >> 1));
                     CPU.CarryFlag = (1 == (byteOperation & 1));
                     break;
 
@@ -360,8 +369,6 @@ namespace mihemulator8080
                     CPU.registerH = Memory.RAMMemory[memoryAddressHL];
                     break;
 
-
-
                 case 0x6F: //MOV    L,A
                     instructionText = $"{byte1txt}\t\tMOV    L,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to L(0x{CPU.registerL.ToString("X2")})(L Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerL = CPU.registerA;
@@ -388,7 +395,6 @@ namespace mihemulator8080
                     instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerA = CPU.registerH;
                     break;
-
 
                 case 0x7E: //MOV    A,M
                     memoryAddressHL = 0;
@@ -446,8 +452,8 @@ namespace mihemulator8080
                     instructionText = $"9**************add the text*****";
 
                     uInt16Operation = 0;
-                    
-                        uInt16Operation = (ushort)(CPU.registerA + opCodes.Byte2);
+
+                    uInt16Operation = (ushort)(CPU.registerA + opCodes.Byte2);
                     CPU.ZeroFlag = ((uInt16Operation & 0xFF) == 0);
                     CPU.SignFlag = (0x80 == (uInt16Operation & 0x80));
 
@@ -555,8 +561,37 @@ namespace mihemulator8080
                     CPU.stackPointer -= 2;
                     break;
 
-                //TODO: This broke the welcome screen, probabl because there is a POP somewhere next 
-                case 0xF5: //PUSH   PSW -  (sp-2)<-flags; (sp-1)<-A; sp <- sp - 2 ZSPCYAux                    
+                case 0xF1: //POP    PSW
+                    instructionText = $"*******add text for pop psw here";
+                    //state->a = state->memory[state->sp + 1];
+                    //uint8_t psw = state->memory[state->sp];
+                    //state->cc.z = (0x01 == (psw & 0x01));
+                    //state->cc.s = (0x02 == (psw & 0x02));
+                    //state->cc.p = (0x04 == (psw & 0x04));
+                    //state->cc.cy = (0x05 == (psw & 0x08));
+                    //state->cc.ac = (0x10 == (psw & 0x10));
+                    //state->sp += 2;
+
+                    // This is how the push is implemented
+//                    Convert.ToByte(CPU.ZeroFlag) |
+//Convert.ToByte(CPU.SignFlag) << 1 |
+//Convert.ToByte(CPU.ParityFlag) << 2 |
+//Convert.ToByte(CPU.CarryFlag) << 3 |
+//Convert.ToByte(CPU.AuxCarryFlag) << 4);
+                    CPU.registerA = Memory.RAMMemory[stackPointer + 1];
+                    byteOperation = 0;
+                    byteOperation = Memory.RAMMemory[stackPointer];
+                    CPU.ZeroFlag = ((byteOperation & 0b0000_0001) > 0);
+                    CPU.SignFlag = ((byteOperation & 0b0000_0010) > 0);
+                    CPU.ParityFlag = ((byteOperation & 0b0000_0100) > 0);
+                    CPU.CarryFlag = ((byteOperation & 0b0000_1000) > 0);
+                    CPU.AuxCarryFlag = ((byteOperation & 0b0001_0000) > 0);
+                    stackPointer += 2;
+
+                    break;
+
+                //TODO: This broke the welcome screen, probabl because there is a POP somewhere next
+                case 0xF5: //PUSH   PSW -  (sp-2)<-flags; (sp-1)<-A; sp <- sp - 2 ZSPCYAux
                     byte psw = 0;
                     psw = (byte)(
                         Convert.ToByte(CPU.ZeroFlag) |
@@ -615,9 +650,44 @@ namespace mihemulator8080
 
             if (fileDebug == true && cyclesCounter > -1)
             {
+                string comment;
+                switch (instructionLine.ToString("X4"))
+                {
+                    case "1A32":
+                        comment = "-BlockCopyROM->RAM";
+                        break;
+
+                    case "1956":
+                        comment = "-DrawStatus";
+                        break;
+
+                    case "1A5C":
+                        comment = "--ClearScreen";
+                        break;
+
+                    case "191A":
+                        comment = "--DrawScoreHead";
+                        break;
+
+                    case "08F3":
+                        comment = "---PrintMessage";
+                        break;
+
+                    case "08FF":
+                        comment = "----DrawChar";
+                        break;
+
+                    case "1439":
+                        comment = "-----DrawSimpSprite";
+                        break;
+
+                    default:
+                        comment = "";
+                        break;
+                }
                 sb.AppendLine("C: " + CPU.cyclesCounter.ToString("D7") + " $" +
                         instructionLine.ToString("X4") + " " +
-                        instructionText);
+                        instructionText + " " + comment);
                 linesToAppendCounter++;
             }
 
