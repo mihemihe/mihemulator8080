@@ -151,9 +151,9 @@ namespace mihemulator8080
                 CPU.cyclesCounter++;
                 CPU.cyclesPerSecond++;
 
-                if (CPU.cyclesCounter == 37517)
+                if (CPU.cyclesCounter == 46150)
                 {
-                    this.TargetElapsedTime = new TimeSpan(20000);
+                    this.TargetElapsedTime = new TimeSpan(50000);
                 }
             }
 
