@@ -176,7 +176,7 @@ namespace mihemulator8080
                 case 0x3A: size = 3; return $"LDA    ${byte3}{byte2}";
                 case 0x3C: return $"INR    A";
                 case 0x3D: return $"DCR    A";
-                case 0x3E: size = 2; return $"MVI    A,#${byte2}"; // is byte2 or byte3?
+                case 0x3E: size = 2; return $"MVI    A,#${byte2}"; // is byte2 or byte3? //for sure byte 2, remove after todo review
                 case 0x3F: return $"CMC";
 
                 case 0x40: return $"MOV    B,B";
@@ -278,6 +278,18 @@ namespace mihemulator8080
                 case 0x9E: return $"SBB    M";
                 case 0x9F: return $"SBB    A";
 
+                case 0xA0: return $"ANA    B";
+                case 0xA1: return $"ANA    C";
+                case 0xA2: return $"ANA    D";
+                case 0xA3: return $"ANA    E";
+                case 0xA4: return $"ANA    H";
+                case 0xA5: return $"ANA    L";
+                case 0xA6: return $"ANA    M";
+                case 0xA7: return $"ANA    A";
+                case 0xA8: return $"XRA    B";
+                case 0xAA: return $"XRA    C";
+                case 0xAF: return $"XRA    A";
+
                 case 0xB0: return $"ORA    B";
                 case 0xB1: return $"ORA    C";
                 case 0xB2: return $"ORA    D";
@@ -294,19 +306,6 @@ namespace mihemulator8080
                 case 0xBD: return $"CMP    L";
                 case 0xBE: return $"CMP    M";
                 case 0xBF: return $"CMP    A";
-
-                case 0xA0: return $"ANA    B";
-
-                case 0xA1: return $"ANA    C";
-                case 0xA2: return $"ANA    D";
-                case 0xA3: return $"ANA    E";
-                case 0xA4: return $"ANA    H";
-                case 0xA5: return $"ANA    L";
-                case 0xA6: return $"ANA    M";
-                case 0xA7: return $"ANA    A";
-                case 0xA8: return $"XRA    B";
-                case 0xAA: return $"XRA    C";
-                case 0xAF: return $"XRA    A";
 
                 case 0xC0: return $"RNZ";
                 case 0xC1: return $"POP    B";
@@ -352,7 +351,7 @@ namespace mihemulator8080
                 case 0xF6: size = 2; return $"ORI    #${byte2}";
                 case 0xF8: return $"RM";
                 case 0xFA: size = 3; return $"JM     ${byte3}{byte2}";
-                case 0xFB: return $"EI";
+                case 0xFB: return $"EI"; //TODO Special, enables interrupts !
                 case 0xFC: size = 3; return $"CM     ${byte3}{byte2}";
                 case 0xFE: size = 2; return $"CPI    #${byte2}";
                 case 0xFF: return $"RST   7"; // I dont understand this one

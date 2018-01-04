@@ -39,6 +39,7 @@ namespace mihemulator8080
         public static int memoryAddressDE;
         public static int memoryAddressHL;
         public static int memoryAddressBC;
+        public static int memoryAddressImmediate;
         public static byte[] tempBytesStorage;
         public static byte byteOperation;
         public static ushort uInt16Operation;
@@ -85,6 +86,7 @@ namespace mihemulator8080
             memoryAddressDE = 0;
             memoryAddressHL = 0;
             memoryAddressBC = 0;
+            memoryAddressImmediate = 0;
             tempBytesStorage = new byte[4];
             byteOperation = 0;
             bitArrayOperation = new BitArray(8, false);
@@ -333,6 +335,13 @@ namespace mihemulator8080
                     CPU.stackPointer = opCodes.Byte3 << 8;
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
+                case 0x32: //STA    ${byte3}{byte2}
+                    instructionText = $"add text for move A to immediate address $********";
+                    memoryAddressImmediate = 0;
+                    memoryAddressImmediate = opCodes.Byte3 << 8;
+                    memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
+                    Memory.RAMMemory[memoryAddressImmediate] = CPU.registerA;
+                    break;
 
                 case 0x36: //MVI    M,#${byte2}   M means memory address of HL in this case!!!
                     memoryAddressHL = 0;
@@ -341,6 +350,39 @@ namespace mihemulator8080
                     instructionText = $"{byte1txt} {byte2txt}\t\tMVI    M,#${byte2txt}\t\t; Move Byte2({byte2txt}) to $ in HL $({memoryAddressHL.ToString("X4")})" + "\t" + CPU.CPUStatus();
                     Memory.RAMMemory[memoryAddressHL] = opCodes.Byte2;
                     break;
+
+                case 0x3A: //LDA    ${byte3}{byte2} 	A <- (adr)
+                    instructionText = $"Add text for LDA  ";
+                    memoryAddressImmediate = 0;
+                    memoryAddressImmediate = opCodes.Byte3 << 8;
+                    memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
+                    CPU.registerA = Memory.RAMMemory[memoryAddressImmediate];
+                    break;
+
+                case 0x3D: //DCR    A"Z, S, P, AC flags affected"
+                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement A({CPU.registerA.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
+                    byteOperation = 0;
+                    byteOperation = (byte)(CPU.registerA - 1); //need to cast because + operator creates int. byte does not have +
+                    CPU.ZeroFlag = (byteOperation == 0) ? true : false;
+                    CPU.SignFlag = (0x80 == (byteOperation & 0x80)); //0x80 = 128 (10000000) Most Significant bit
+                                                                     //  if 8th bit is 1, the & will preserve and the result will be 0x80
+                    bitArrayOperation = new BitArray(new byte[] { byteOperation });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+                    CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
+                    CPU.registerA = byteOperation;
+
+                    break;
+
+                case 0x3E: //MVI    A,#${byte2}
+                    instructionText = $"{byte1txt} {byte2txt}\t\tMVI    A,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to A(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
+                    CPU.registerA = opCodes.Byte2;
+                    break;
+
 
                 case 0x56: //"MOV    D,M
                     memoryAddressHL = 0;
@@ -391,6 +433,11 @@ namespace mihemulator8080
                     CPU.registerA = CPU.registerD;
                     break;
 
+                case 0x7B: //MOV    A,E
+                    instructionText = $"{byte1txt}\t\tMOV    A,E\t\t; Move D(0x{CPU.registerE.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
+                    CPU.registerA = CPU.registerE;
+                    break;
+
                 case 0x7C: //MOV    A,H
                     instructionText = $"{byte1txt}\t\tMOV    A,H\t\t; Move H(0x{CPU.registerH.ToString("X2")}) to A(0x{CPU.registerA.ToString("X2")})(A Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerA = CPU.registerH;
@@ -405,6 +452,45 @@ namespace mihemulator8080
                     CPU.registerA = Memory.RAMMemory[memoryAddressHL];
                     break;
 
+
+                case 0xA7: // ANA    A
+                    instructionText = $"";
+                    instructionText = $"add text ANA A *******";
+                    CPU.registerA = (byte)(CPU.registerA & CPU.registerA); //XOR
+                    CPU.CarryFlag = false;
+                    CPU.AuxCarryFlag = false;
+                    CPU.SignFlag = (0x80 == (CPU.registerA & 0x80));
+
+                    bitArrayOperation = new BitArray(new byte[] { CPU.registerA });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+
+                    break;
+                case 0xAF: // XRA    A
+                    instructionText = $"add text XRA A *******";
+                    CPU.registerA = (byte)(CPU.registerA ^ CPU.registerA); //XOR
+                    CPU.CarryFlag = false;
+                    CPU.AuxCarryFlag = false;
+                    CPU.SignFlag = (0x80 == (CPU.registerA & 0x80));
+
+                    bitArrayOperation = new BitArray(new byte[] { CPU.registerA });
+                    evenOddCounter = 0; // TODO: take this to a separate parity method
+                    foreach (bool bit in bitArrayOperation)
+                    {
+                        if (bit == true) evenOddCounter++;
+                    }
+                    CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
+
+                    //state->cc.cy = state->cc.ac = 0;
+                    //state->cc.z = (state->a == 0);
+                    //state->cc.s = (0x80 == (state->a & 0x80));
+                    //state->cc.p = parity(state->a, 8);
+                    break;
+
                 case 0xC1: //POP    B
                     instructionText = $"POP    B";
                     instructionText = $"{byte1txt}\t\tPOP    B\t\t; Stack (0x{Memory.RAMMemory[CPU.stackPointer + 1].ToString("X2")}{Memory.RAMMemory[CPU.stackPointer].ToString("X2")})" +
@@ -412,7 +498,6 @@ namespace mihemulator8080
                     CPU.registerB = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerC = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
-
                     break;
 
                 case 0xC2: //JNZ    ${byte3}{byte2}
