@@ -151,9 +151,9 @@ namespace mihemulator8080
                 CPU.cyclesCounter++;
                 CPU.cyclesPerSecond++;
 
-                if (CPU.cyclesCounter == 46150)
+                if (CPU.cyclesCounter == 47000)
                 {
-                    this.TargetElapsedTime = new TimeSpan(50000);
+                    this.TargetElapsedTime = new TimeSpan(500000);
                 }
             }
 
@@ -215,11 +215,12 @@ namespace mihemulator8080
 
             // Cycles per second
             spriteBatch.DrawString(font, "Cyles per second: " + CPU.CPS, new Vector2(140, 440), Color.Black);
+            spriteBatch.DrawString(font, "Subroutine: " + CPU.comment, new Vector2(140, 460), Color.Black);
 
             // Display!!
-            
- 
-        
+
+
+
             spriteBatch.Draw(screenBitmap, pos, null, Color.White, RotationAngle, origin, 1.0f, SpriteEffects.None, 0f);
             spriteBatch.End();
 

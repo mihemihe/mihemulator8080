@@ -57,7 +57,17 @@ namespace mihemulator8080
                 {
                     //int randomValue = rnd.Next(1, 3);
                     //pixelsArray[pixel] = (randomValue == 1) ? Color.White : Color.Red;
-                    pixelsArray[pixel] = (bits[bit] == true) ? colorPixel : colorBG;
+                    if (CPU.cyclesCounter > 46150)
+                    {
+                        pixelsArray[pixel] = (bits[bit] == true) ? Color.Black : colorBG;
+
+                    }
+                    else
+                    {
+                        pixelsArray[pixel] = (bits[bit] == true) ? colorPixel : colorBG; //TODO remove this if, is just for debug
+                    }
+                    
+                    
 
                     pixel++;
                 }

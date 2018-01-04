@@ -36,6 +36,7 @@ namespace mihemulator8080
 
         public static int stackPointer; // (SP) Stack Pointer
 
+        public static string comment;
         public static int memoryAddressDE;
         public static int memoryAddressHL;
         public static int memoryAddressBC;
@@ -70,6 +71,7 @@ namespace mihemulator8080
 
         static CPU()
         {
+            comment = "";
             uInt16Operation = 0;
             linesToAppendCounter = 0;
             sb = new StringBuilder();
@@ -220,7 +222,7 @@ namespace mihemulator8080
                     instructionText = instructionText.Replace("value()", $"value(0x{Memory.RAMMemory[memoryAddressBC].ToString("X2")})");
                     break;
 
-                case 0x0D: //DCR C "Z, S, P, AC flags affected"
+                case 0x0D: //DCR    C"Z, S, P, AC flags affected"
                     instructionText = $"{byte1txt}\t\tDCR    C\t\t; Decrement C({CPU.registerC.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerC - 1); //need to cast because + operator creates int. byte does not have +
@@ -593,7 +595,7 @@ namespace mihemulator8080
                         CPU.programCounter = 0;
                         programCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
                         programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
-                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z({Convert.ToInt32(CPU.ZeroFlag)}) Jump to ret $ in SP->${programCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
+                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z=1({Convert.ToInt32(CPU.ZeroFlag)}) Jump to ret $ in SP->${programCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
                         CPU.stackPointer += 2; //return the stack pointer back to original position
                     }
                     else
@@ -601,7 +603,7 @@ namespace mihemulator8080
                         int pseudoProgramCounter = 0;
                         pseudoProgramCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
                         pseudoProgramCounter = pseudoProgramCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
-                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z({Convert.ToInt32(CPU.ZeroFlag)}) Jump to ret $ in SP->${pseudoProgramCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
+                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z=1({Convert.ToInt32(CPU.ZeroFlag)}) Jump to ret $ in SP->${pseudoProgramCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
                     }
                     break;
 
@@ -798,7 +800,7 @@ namespace mihemulator8080
 
             if (fileDebug == true && cyclesCounter > -1)
             {
-                string comment;
+                
                 switch (instructionLine.ToString("X4"))
                 {
                     case "1A32":
@@ -821,13 +823,139 @@ namespace mihemulator8080
                         comment = "---PrintMessage";
                         break;
 
+
+
                     case "08FF":
                         comment = "----DrawChar";
+                        if (instructionText.Contains("A:0x26"))
+                        {
+                            comment = comment + ("          SPACE");
+                        }
+                        else if (instructionText.Contains("A:0x12"))
+                        {
+                            comment = comment + ("           S");
+                        }
+                        else if (instructionText.Contains("A:0x02"))
+                        {
+                            comment = comment + ("           C");
+                        }
+                        else if (instructionText.Contains("A:0x0E"))
+                        {
+                            comment = comment + ("           O");
+                        }
+                        else if (instructionText.Contains("A:0x11"))
+                        {
+                            comment = comment + ("           R");
+                        }
+                        else if (instructionText.Contains("A:0x04"))
+                        {
+                            comment = comment + ("           E");
+                        }
+                        else if (instructionText.Contains("A:0x24"))
+                        {
+                            comment = comment + ("           <");
+                        }
+                        else if (instructionText.Contains("A:0x25"))
+                        {
+                            comment = comment + ("           >");
+                        }
+                        else if (instructionText.Contains("A:0x1B"))
+                        {
+                            comment = comment + ("           1");
+                        }
+                        else if (instructionText.Contains("A:0x1C"))
+                        {
+                            comment = comment + ("           2");
+                        }
+                        else if (instructionText.Contains("A:0x28"))
+                        {
+                            comment = comment + ("           *ASTERISK");
+                        }
+                        else if (instructionText.Contains("A:0x0B"))
+                        {
+                            comment = comment + ("           L");
+                        }
+                        else
+                        {
+                            int a = 34;
+                        }
                         break;
 
                     case "1439":
                         comment = "-----DrawSimpSprite";
                         break;
+
+                    case "1815":
+                        comment = "-----DrawAdvancedTable";
+                        break;
+
+                    case "143C":
+                        comment = "-----DrawSimpSprite - Next +1";
+                        break;
+
+
+                    case "1925":
+                        comment = "--Draw Player 1 Score";
+                        break;
+
+                    case "181D":
+                        comment = "--Draw SCORE ADVANCE TABLE";
+                        break;
+
+                    case "192B":
+                        comment = "--Draw Player 2 Score";
+                        break;
+
+                    case "1820":
+                        comment = "--Draw SCORE ADVANCE TABLE OUT";
+                        break;
+
+                    case "1856":
+                        comment = "--Read Pri Struct";
+                        break;
+
+                        
+
+                    case "1931":
+                        comment = "---Draw Score";
+                        break;
+
+                    case "09AD":
+                        comment = "----Print4Digits";
+                        break;
+
+                    case "09B2":
+                        comment = "-----DrawHexByte";
+                        break;
+
+                    case "1844":
+                        comment = "-----Draw 16-bit sprite";
+                        break;
+
+                    case "1828":
+                        comment = "-----Do All table";
+                        break;
+
+                    case "09C5":
+                        comment = "------Bump to number characters";
+                        break;
+
+                    case "1950":
+                        comment = "--PrintHiScore";
+                        break;
+
+
+                    case "193C":
+                        comment = "--PrintCreditLabel";
+                        break;
+
+                    case "1947":
+                        comment = "--DrawNumCredits";
+                        break;
+
+
+
+
 
                     case "0AA2": // hack to decrease the counter ISRdelay in address: 20C0
                         Memory.RAMMemory[0x20C0] = (byte)(Memory.RAMMemory[0x20C0] - 1);
@@ -836,7 +964,7 @@ namespace mihemulator8080
                         
 
                     default:
-                        comment = "";
+                        //comment = "";
                         break;
                 }
                 sb.AppendLine("C: " + CPU.cyclesCounter.ToString("D7") + " $" +
