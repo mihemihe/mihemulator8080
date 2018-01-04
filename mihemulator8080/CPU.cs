@@ -165,7 +165,7 @@ namespace mihemulator8080
                     CPU.registerB = opCodes.Byte3;
                     break;
 
-                case 0x05: //DCR B "Z, S, P, AC flags affected"
+                case 0x05: //DCR    B"Z, S, P, AC flags affected"
                     instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement B({CPU.registerB.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerB - 1); //need to cast because + operator creates int. byte does not have +
@@ -352,18 +352,19 @@ namespace mihemulator8080
                     break;
 
                 case 0x3A: //LDA    ${byte3}{byte2} 	A <- (adr)
-                    instructionText = $"Add text for LDA  ";
+                    
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLDA    ${byte3txt}{byte2txt}\t\tLoad A({CPU.registerA.ToString("X2")}) with value({Memory.RAMMemory[memoryAddressImmediate]}) in ${memoryAddressImmediate.ToString("X4")}" + "\t\t" + CPU.CPUStatus();
                     CPU.registerA = Memory.RAMMemory[memoryAddressImmediate];
                     break;
 
                 case 0x3D: //DCR    A"Z, S, P, AC flags affected"
-                    instructionText = $"{byte1txt}\t\tDCR    B\t\t; Decrement A({CPU.registerA.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt}\t\tDCR    A\t\t; Decrement A({CPU.registerA.ToString("X2")}) and update ZSPAC" + "\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = (byte)(CPU.registerA - 1); //need to cast because + operator creates int. byte does not have +
-                    CPU.ZeroFlag = (byteOperation == 0) ? true : false;
+                    CPU.ZeroFlag = (byteOperation == 0) ? true : false; //TODO BUG TRACK, it stops in the P of PLAY
                     CPU.SignFlag = (0x80 == (byteOperation & 0x80)); //0x80 = 128 (10000000) Most Significant bit
                                                                      //  if 8th bit is 1, the & will preserve and the result will be 0x80
                     bitArrayOperation = new BitArray(new byte[] { byteOperation });
@@ -375,7 +376,6 @@ namespace mihemulator8080
                     CPU.ParityFlag = (evenOddCounter % 2 == 0) ? true : false; // set if even parity
                     CPU.AuxCarryFlag = true; //SpaceInvaders does not use it. TODO: Implement in full 8080 emulator
                     CPU.registerA = byteOperation;
-
                     break;
 
                 case 0x3E: //MVI    A,#${byte2}
@@ -765,6 +765,12 @@ namespace mihemulator8080
                     case "1439":
                         comment = "-----DrawSimpSprite";
                         break;
+
+                    case "0AA2": // hack to decrease the counter ISRdelay in address: 20C0
+                        Memory.RAMMemory[0x20C0] = (byte)(Memory.RAMMemory[0x20C0] - 1);
+                        comment = "";
+                        break;
+                        
 
                     default:
                         comment = "";
