@@ -127,7 +127,7 @@ namespace mihemulator8080
                    $"C:{Convert.ToInt32(CPU.CarryFlag)} " +
                    $"P:{Convert.ToInt32(CPU.ParityFlag)} " +
                    $"Aux:{Convert.ToInt32(CPU.AuxCarryFlag)} " +
-                   $"SP:${CPU.stackPointer.ToString("X4")}->({valueTopStack.ToString("X4")})";
+                   $"SP:${CPU.stackPointer.ToString("X4")}->({valueTopStack.ToString("X4")}) StackSize({stackSize.ToString("D2")})";
             //TODO: Add stack size too, it will be helpful to debug
         }
 
@@ -172,8 +172,8 @@ namespace mihemulator8080
                 case 0x03: //INX    B
                     instructionText = $"{byte1txt}\t\tINX    B\t\t; Increments BC({CPU.registerB.ToString("X2")}{CPU.registerC.ToString("X2")}) + 1" + "\t\t" + CPU.CPUStatus();
                     memoryAddressBC = 0;
-                    memoryAddressBC = CPU.registerD << 8;
-                    memoryAddressBC = memoryAddressBC | CPU.registerE;
+                    memoryAddressBC = CPU.registerB << 8;
+                    memoryAddressBC = memoryAddressBC | CPU.registerC;
                     memoryAddressBC++;
                     tempBytesStorage = BitConverter.GetBytes(memoryAddressBC);
                     CPU.registerB = tempBytesStorage[1];
@@ -351,7 +351,7 @@ namespace mihemulator8080
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
                 case 0x32: //STA    ${byte3}{byte2}
-                    instructionText = $"add text for move A to immediate address $********";
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tSTA    ${byte3txt}{byte2txt}\t\t; Store A(0x{CPU.registerH.ToString("X2")}) to ${byte3txt}{byte2txt}" + "\t\t" + CPU.CPUStatus(); 
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
@@ -376,7 +376,7 @@ namespace mihemulator8080
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLDA    ${byte3txt}{byte2txt}\t\tLoad A({CPU.registerA.ToString("X2")}) with value({Memory.RAMMemory[memoryAddressImmediate]}) in ${memoryAddressImmediate.ToString("X4")}" + "\t\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLDA    ${byte3txt}{byte2txt}\t\tLoad A({CPU.registerA.ToString("X2")}) with value({Memory.RAMMemory[memoryAddressImmediate]}) in ${memoryAddressImmediate.ToString("X4")}" + "\t" + CPU.CPUStatus();
                     CPU.registerA = Memory.RAMMemory[memoryAddressImmediate];
                     break;
 

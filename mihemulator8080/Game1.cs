@@ -61,7 +61,7 @@ namespace mihemulator8080
             this.IsMouseVisible = true;
 
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = new TimeSpan(250); // only if IsFixedTimeStep is true
+            this.TargetElapsedTime = new TimeSpan(4000); // only if IsFixedTimeStep is true
 
             CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\INVADERS-H.json", SourceFileFormat.JSON_HEX);
             //Debug.Write("Next file2\n");
@@ -92,7 +92,7 @@ namespace mihemulator8080
 
             //CPU.instructionFecther.ResetInstructionIterator(); //this is overly complicated, better get it from RAM
 
-            DisplayBuffer.Init(GraphicsDevice, Color.Red, Color.White);
+            DisplayBuffer.Init(GraphicsDevice, Color.Black, Color.White);
             DisplayBuffer.GenerateDisplay(); //Inverted colours. This is bad test, first frame will come emtpy always
             screenBitmap = DisplayBuffer.videoTexture; // First screencap
 
@@ -153,7 +153,7 @@ namespace mihemulator8080
 
                 if (CPU.cyclesCounter == 47000)
                 {
-                    this.TargetElapsedTime = new TimeSpan(500000);
+                    this.TargetElapsedTime = new TimeSpan(4000);
                 }
             }
 
