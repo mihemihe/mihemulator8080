@@ -351,7 +351,7 @@ namespace mihemulator8080
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
                 case 0x32: //STA    ${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tSTA    ${byte3txt}{byte2txt}\t\t; Store A(0x{CPU.registerH.ToString("X2")}) to ${byte3txt}{byte2txt}" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tSTA    ${byte3txt}{byte2txt}\t\t; Store A(0x{CPU.registerA.ToString("X2")}) to ${byte3txt}{byte2txt}" + "\t\t" + CPU.CPUStatus(); 
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
@@ -376,7 +376,7 @@ namespace mihemulator8080
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLDA    ${byte3txt}{byte2txt}\t\tLoad A({CPU.registerA.ToString("X2")}) with value({Memory.RAMMemory[memoryAddressImmediate]}) in ${memoryAddressImmediate.ToString("X4")}" + "\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tLDA    ${byte3txt}{byte2txt}\t\t; Load A({CPU.registerA.ToString("X2")}) with value({Memory.RAMMemory[memoryAddressImmediate]}) in ${memoryAddressImmediate.ToString("X4")}" + "\t" + CPU.CPUStatus();
                     CPU.registerA = Memory.RAMMemory[memoryAddressImmediate];
                     break;
 
@@ -401,6 +401,11 @@ namespace mihemulator8080
                 case 0x3E: //MVI    A,#${byte2}
                     instructionText = $"{byte1txt} {byte2txt}\t\tMVI    A,#${byte2txt}\t\t; Move Byte2(0x{byte2txt}) to A(0x{CPU.registerB.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
                     CPU.registerA = opCodes.Byte2;
+                    break;
+
+                case 0x4F: //MOV    C,A
+                    instructionText = $"{byte1txt}\t\tMOV    C,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to C(0x{CPU.registerC.ToString("X2")})(C Before)" + "\t" + CPU.CPUStatus();
+                    CPU.registerC = CPU.registerA;
                     break;
 
 
@@ -622,6 +627,18 @@ namespace mihemulator8080
                     stackSize += 2;
                     break;
 
+
+                case 0xCA: //JZ    ${byte3}{byte2} opposite JNZ, if Z true -> jump to immediate $
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tJZ    ${byte3txt}{byte2txt}\t\t; jump to ${byte3txt}{byte2txt} if ZeroFlag({Convert.ToInt32(CPU.ZeroFlag)}) == 1" + "\t" + CPU.CPUStatus();
+                    // if z=true then jump to address
+                    if (CPU.ZeroFlag == true)
+                    {
+                        //This is a jump to the address
+                        CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
+                        CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
+                    }
+                    break;
+
                 case 0xCD: //CALL   ${byte3}{byte2}
                     instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tCALL   ${byte3txt}{byte2txt}\t\t; Jump->${byte3txt}{byte2txt}, ret ${CPU.programCounter.ToString("X4")}->stack, SP -2"
                         + "\t" + CPU.CPUStatus(); ;
@@ -642,6 +659,10 @@ namespace mihemulator8080
 
                 case 0xD3: //OUT    #${byte2}
                     instructionText = $"OUT    #${byte2txt} Out to device, sound???";
+                    if (opCodes.Byte2 == 0x06)
+                    {
+                        instructionText = $"{byte1txt} {byte2txt}\t\tOUT    #${byte2txt}\t\t; Feed the WatchDog with byte2({byte2txt})" + "\t" + CPU.CPUStatus();
+                    }
                     break;
 
                 case 0xD1: //POP    D -- POP stack to DE
@@ -659,6 +680,20 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerE;
                     CPU.stackPointer -= 2;
                     stackSize -= 2;
+                    break;
+
+
+                case 0xD8: //RC - if carry true jump to top of stack address
+                    instructionText = $"{byte1txt}\t\tRC\t\t; POP top stack and jumps to it. SP+2" + "\t\t" + CPU.CPUStatus(); 
+                    // if cy=true then jump to address on top of stack
+                    if (CPU.CarryFlag == true)
+                    {
+                        //This is a pop + jump to the address
+                        CPU.programCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
+                        CPU.programCounter = CPU.programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
+                        CPU.stackPointer += 2;
+                        stackSize += 2;
+                    }
                     break;
 
                 case 0xDA: //JC     ${byte3}{byte2} jump if carry true(1) //04*JAN debug here TODO TODO TODO 
@@ -788,6 +823,7 @@ namespace mihemulator8080
 
                 default:
                     instructionText = $"******* NOT IMPLEMENTED : {byte1txt}";
+                    Debug.WriteLine($"******* NOT IMPLEMENTED : {byte1txt}");
                     break;
             }
 
@@ -887,6 +923,23 @@ namespace mihemulator8080
                         {
                             comment = comment + ("           L");
                         }
+                        else if (instructionText.Contains("A:0x1D"))
+                        {
+                            comment = comment + ("           3");
+                        }
+                        else if (instructionText.Contains("A:0x1A"))
+                        {
+                            comment = comment + ("           0");
+                        }
+                        else if (instructionText.Contains("A:0x18"))
+                        {
+                            comment = comment + ("           Y");
+                        }
+                        else if (instructionText.Contains("A:0x27"))
+                        {
+                            comment = comment + ("           =");
+                        }
+
                         else
                         {
                             int a = 34;
@@ -926,7 +979,11 @@ namespace mihemulator8080
                         comment = "--Read Pri Struct";
                         break;
 
-                        
+                    case "0B24":
+                        comment = "--Animate";
+                        break;
+
+
 
                     case "1931":
                         comment = "---Draw Score";
