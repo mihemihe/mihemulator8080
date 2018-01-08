@@ -35,6 +35,7 @@ namespace mihemulator8080
         public static int programCounter; // (PC) An ancient Instruction Pointer
 
         public static int stackPointer; // (SP) Stack Pointer
+        public static int stackSize;
 
         public static string comment;
         public static int memoryAddressDE;
@@ -71,6 +72,7 @@ namespace mihemulator8080
 
         static CPU()
         {
+            stackSize = 0;
             comment = "";
             uInt16Operation = 0;
             linesToAppendCounter = 0;
@@ -365,7 +367,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x37: //STC
-                    instructionText = $"{byte1txt}\t\tSTC\t\t\t; Carry flag({CPU.CarryFlag.ToString()}) to 1" + "\t\t\t\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt}\t\tSTC\t\t\t; Carry flag({CPU.CarryFlag.ToString()}) to 1" + "\t\t\t" + CPU.CPUStatus();
                     CPU.CarryFlag = true;
                     break;
 
@@ -488,11 +490,11 @@ namespace mihemulator8080
 
                 case 0xA7: // ANA    A
                     instructionText = $"";
-                    instructionText = $"add text ANA A *******";
+                    instructionText = $"{byte1txt}\t\tANA    A\t\t; A and A - Update Flags ZSPCYAC" + "\t" + CPU.CPUStatus();
                     CPU.registerA = (byte)(CPU.registerA & CPU.registerA); //AND
                     CPU.CarryFlag = false; //Test dangerous, revert to false
                     CPU.AuxCarryFlag = false;
-                    CPU.SignFlag = (0x80 == (CPU.registerA & 0x80));
+                    CPU.SignFlag = (0b1000_0000 == (CPU.registerA & 0b1000_0000));
 
                     bitArrayOperation = new BitArray(new byte[] { CPU.registerA });
                     evenOddCounter = 0; // TODO: take this to a separate parity method
@@ -531,6 +533,7 @@ namespace mihemulator8080
                     CPU.registerB = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerC = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
+                    stackSize += 2;
                     break;
 
                 case 0xC2: //JNZ    ${byte3}{byte2}
@@ -557,6 +560,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerB; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerC;
                     CPU.stackPointer -= 2;
+                    stackSize -=2;
                     break;
 
                 case 0xC6: //ADI    #${byte2}
@@ -595,8 +599,9 @@ namespace mihemulator8080
                         CPU.programCounter = 0;
                         programCounter = Memory.RAMMemory[CPU.stackPointer + 1] << 8; //why +1 and not -1? explained next commentary
                         programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
-                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z=1({Convert.ToInt32(CPU.ZeroFlag)}) Jump to ret $ in SP->${programCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
+                        instructionText = $"{byte1txt}\t\tRZ\t\t\t;if Z=1({Convert.ToInt32(CPU.ZeroFlag)}) Jump ret SP ${programCounter.ToString("X4")}, SP+2" + "\t" + CPU.CPUStatus();
                         CPU.stackPointer += 2; //return the stack pointer back to original position
+                        stackSize += 2;
                     }
                     else
                     {
@@ -614,6 +619,7 @@ namespace mihemulator8080
                     programCounter = programCounter | Memory.RAMMemory[CPU.stackPointer]; //+1 to go up in the stack (grows downwards)
                     instructionText = $"{byte1txt}\t\tRET\t\t\t; Jump to ret $ in SP->${programCounter.ToString("X4")},  SP +2" + "\t" + CPU.CPUStatus();
                     CPU.stackPointer += 2; //return the stack pointer back to original position
+                    stackSize += 2;
                     break;
 
                 case 0xCD: //CALL   ${byte3}{byte2}
@@ -627,6 +633,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = tempBytesStorage[1]; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = tempBytesStorage[0];
                     CPU.stackPointer = CPU.stackPointer - 2;
+                    stackSize -= 2;
 
                     //This is the JMP
                     CPU.programCounter = opCodes.Byte3 << 8; // This is a JMP
@@ -643,6 +650,7 @@ namespace mihemulator8080
                     CPU.registerD = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerE = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
+                    stackSize += 2;
                     break;
 
                 case 0xD5: //PUSH   D - DE move to the stack //TODO: Finally found a bug here, I was using + 2!!!! check again if the order is correct, and matches with POP
@@ -650,6 +658,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerD; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerE;
                     CPU.stackPointer -= 2;
+                    stackSize -= 2;
                     break;
 
                 case 0xDA: //JC     ${byte3}{byte2} jump if carry true(1) //04*JAN debug here TODO TODO TODO 
@@ -669,6 +678,7 @@ namespace mihemulator8080
                     CPU.registerH = Memory.RAMMemory[CPU.stackPointer + 1];
                     CPU.registerL = Memory.RAMMemory[CPU.stackPointer];
                     CPU.stackPointer += 2;
+                    stackSize += 2;
                     break;
 
                 case 0xE6: //ANI    #${byte2} //TODO: Chec if we are implemeting this right
@@ -709,6 +719,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerH; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerL;
                     CPU.stackPointer -= 2;
+                    stackSize -= 2;
                     break;
 
                 case 0xF1: //POP    PSW
@@ -753,6 +764,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 2] = psw;
                     instructionText = $"{byte1txt}\t\tPUSH   PSW\t\t; Move flags(0x{psw.ToString("X2")})A(0x{CPU.registerA.ToString("X2")})->stack. SP-2\t" + CPU.CPUStatus();
                     CPU.stackPointer -= 2;
+                    stackSize -= 2;
                     break;
 
                 case 0xFE: //CPI    #${byte2} //compare immediate with accumulator A, substracting
