@@ -246,7 +246,7 @@ namespace mihemulator8080
                     //uint8_t x = state->a;
                     //state->a = ((x & 1) << 7) | (x >> 1);
                     //state->cc.cy = (1 == (x & 1));
-                    instructionText = $"{byte1txt}\t\tRRC\t\t\t; ***NOT CLEAR" + "\t\t\t\t" + CPU.CPUStatus();
+                    instructionText = $"{byte1txt}\t\tRRC\t\t\t; Rotate A Right" + "\t\t\t" + CPU.CPUStatus();
                     byteOperation = 0;
                     byteOperation = CPU.registerA;
                     CPU.registerA = (byte)((byteOperation & 1) << 7 | (byteOperation >> 1));
@@ -515,7 +515,7 @@ namespace mihemulator8080
 
                     break;
                 case 0xAF: // XRA    A
-                    instructionText = $"add text XRA A *******";
+                    instructionText = $"{byte1txt}\t\tXOR    A\t\t; A xor A - Update Flags ZSPCYAC" + "\t" + CPU.CPUStatus();
                     CPU.registerA = (byte)(CPU.registerA ^ CPU.registerA); //XOR
                     CPU.CarryFlag = false;
                     CPU.AuxCarryFlag = false;
@@ -573,7 +573,7 @@ namespace mihemulator8080
                     break;
 
                 case 0xC6: //ADI    #${byte2}
-                    instructionText = $"9**************add the text*****";
+                    instructionText = $"{byte1txt} {byte2txt}\t\tADI    A,#${byte2txt}\t\t; Add Byte2(0x{byte2txt}) to A(0x{CPU.registerA.ToString("X2")})" + "\t\t" + CPU.CPUStatus();
 
                     uInt16Operation = 0;
 
@@ -663,11 +663,11 @@ namespace mihemulator8080
                     CPU.programCounter = CPU.programCounter | opCodes.Byte2;
                     break;
 
-                case 0xD3: //OUT    #${byte2}
+                case 0xD3: //OUT    #${byte2} // ****************** WHAT TO DO HEERER !!!! !
                     instructionText = $"OUT    #${byte2txt} Out to device, sound???";
                     if (opCodes.Byte2 == 0x06)
                     {
-                        instructionText = $"{byte1txt} {byte2txt}\t\tOUT    #${byte2txt}\t\t; Feed the WatchDog with byte2({byte2txt})" + "\t" + CPU.CPUStatus();
+                        instructionText = $"{byte1txt} {byte2txt}\t\tOUT    #${byte2txt}\t\t; Feed the WatchDog with byte2??? read or write to reset?({byte2txt})" + "\t" + CPU.CPUStatus();
                         //CPU.programCounter = 0x2400;
                     }
                     break;
@@ -727,7 +727,7 @@ namespace mihemulator8080
                     //state->a = state->a & opcode[1];
                     //LogicFlagsA(state);
                     //state->pc++;
-                    instructionText = $"{byte1txt} {byte2txt}\t\tANI   #${byte2txt}\t\t; Investigate this ANI operation better" + "\t\t" + CPU.CPUStatus(); ;
+                    instructionText = $"{byte1txt} {byte2txt}\t\tANI    #${byte2txt}\t\t; AND immediate with A" + "\t\t\t" + CPU.CPUStatus(); ;
                     CPU.registerA = (byte)(CPU.registerA & opCodes.Byte2);
                     //state->cc.cy = state->cc.ac = 0;
                     //state->cc.z = (state->a == 0);
@@ -764,8 +764,8 @@ namespace mihemulator8080
                     stackSize -= 2;
                     break;
 
-                case 0xF1: //POP    PSW
-                    instructionText = $"*******add text for pop psw here";
+                case 0xF1: //POP    PSW (sp-2)->-flags; (sp-1)->A; sp -> sp - 2 ZSPCYAux
+                    instructionText = $"{byte1txt}\t\tPOP    PSW\t\t; Restore flags and A *******, SP-2\t" + CPU.CPUStatus();
                     //state->a = state->memory[state->sp + 1];
                     //uint8_t psw = state->memory[state->sp];
                     //state->cc.z = (0x01 == (psw & 0x01));
@@ -794,15 +794,14 @@ namespace mihemulator8080
                     break;
 
                 //TODO: This broke the welcome screen, probabl because there is a POP somewhere next
-                case 0xF5: //PUSH   PSW -  (sp-2)<-flags; (sp-1)<-A; sp <- sp - 2 ZSPCYAux
-                    byte psw = 0;
-                    psw = (byte)(
+                case 0xF5: //PUSH   PSW -  (sp-2)<-flags; (sp-1)<-A; sp <- sp - 2 ZSPCYAux                    
+                    byte psw = (byte)(
                         Convert.ToByte(CPU.ZeroFlag) |
                         Convert.ToByte(CPU.SignFlag) << 1 |
                         Convert.ToByte(CPU.ParityFlag) << 2 |
                         Convert.ToByte(CPU.CarryFlag) << 3 |
                         Convert.ToByte(CPU.AuxCarryFlag) << 4);
-                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerA; // is this the correct order? who knows
+                    Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerA; // is this the correct order? who knows. Yes it is correct according to PDF specification
                     Memory.RAMMemory[CPU.stackPointer - 2] = psw;
                     instructionText = $"{byte1txt}\t\tPUSH   PSW\t\t; Move flags(0x{psw.ToString("X2")})A(0x{CPU.registerA.ToString("X2")})->stack. SP-2\t" + CPU.CPUStatus();
                     CPU.stackPointer -= 2;
@@ -946,9 +945,41 @@ namespace mihemulator8080
                         {
                             comment = comment + ("           =");
                         }
-
+                        else if (instructionText.Contains("A:0x07"))
+                        {
+                            comment = comment + ("           H");
+                        }
+                        else if (instructionText.Contains("A:0x08"))
+                        {
+                            comment = comment + ("           I");
+                        }
+                        else if (instructionText.Contains("A:0x0F"))
+                        {
+                            comment = comment + ("           P");
+                        }
+                        else if (instructionText.Contains("A:0x0E"))
+                        {
+                            comment = comment + ("           O");
+                        }
+                        else if (instructionText.Contains("A:0x0D"))
+                        {
+                            comment = comment + ("           N");
+                        }
+                        else if (instructionText.Contains("A:0x13"))
+                        {
+                            comment = comment + ("           T");
+                        }
+                        else if (instructionText.Contains("A:0x03"))
+                        {
+                            comment = comment + ("           D");
+                        }
+                        else if (instructionText.Contains("A:0x00"))
+                        {
+                            comment = comment + ("           A");
+                        }
                         else
                         {
+                            comment = comment + ("           **NOTFOUND");
                             int a = 34; //brakpoit dummy.. sigh...
                         }
                         break;
@@ -958,7 +989,7 @@ namespace mihemulator8080
                         break;
 
                     case "1815":
-                        comment = "-----DrawAdvancedTable";
+                        comment = "-----DrawAdvancedTable -SCORE ADVANCE TABLE";
                         break;
 
                     case "143C":
@@ -989,6 +1020,12 @@ namespace mihemulator8080
                     case "0B24":
                         comment = "--Animate";
                         break;
+                    case "0a80":
+                        comment = "--Animate with ISR";
+                        break;
+                    case "183D":
+                        comment = "-----DrawAdvancedTable -SCORE ADVANCE TABLE midroutine";
+                        break;
 
 
 
@@ -1013,7 +1050,7 @@ namespace mihemulator8080
                         break;
 
                     case "09C5":
-                        comment = "------Bump to number characters";
+                        comment = "-----DrawHexByte - Short jump";
                         break;
 
                     case "1950":
@@ -1028,14 +1065,40 @@ namespace mihemulator8080
                     case "1947":
                         comment = "--DrawNumCredits";
                         break;
-
+                    case "0AEA":
+                        comment = " After initialitation --- splash screens";
+                        break;
+                    case "0B14":
+                        comment = " After initialitation --- splash screens midroutine";
+                        break;
+                    case "0AB1":
+                        comment = " -One Second Delay";
+                        break;
+                    case "0AD7":
+                        comment = " -- Wait on delay";
+                        break;
+                    case "0A93":
+                        comment = " - PrintMessageDel";
+                        break;
+                    case "0ACF":
+                        comment = " - Print Center Screen - SPACE INVADERS";
+                        break;
+                    case "0AAA":
+                        comment = " Out from call";
+                        break;
+                    case "0B17":
+                        comment = " Do splash animation";
+                        break;
+                    case "0B1E":
+                        comment = " Animate small alien";
+                        break;
 
 
 
 
                     case "0AA2": // hack to decrease the counter ISRdelay in address: 20C0
                         Memory.RAMMemory[0x20C0] = (byte)(Memory.RAMMemory[0x20C0] - 1);
-                        comment = "";
+                        comment = "Hack for wait seconds ISRDelay";
                         break;
 
 
@@ -1055,7 +1118,7 @@ namespace mihemulator8080
             //    sb.AppendLine(cyclesCounter.ToString() + "****************************************************");
             //    linesToAppendCounter++;
             //}
-            int writeEverynLines = 1; //Normal value is 500
+            int writeEverynLines = 500; //Normal value is 500
             if (linesToAppendCounter > writeEverynLines)
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))

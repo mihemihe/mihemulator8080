@@ -75,7 +75,7 @@ namespace mihemulator8080
 
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = new TimeSpan(4000); // only if IsFixedTimeStep is true
-            bool testROM = true;
+            bool testROM = false;
 
             if(testROM)
             {
