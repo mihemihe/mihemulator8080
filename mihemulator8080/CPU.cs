@@ -351,7 +351,7 @@ namespace mihemulator8080
                     CPU.stackPointer = CPU.stackPointer | opCodes.Byte2;
                     break;
                 case 0x32: //STA    ${byte3}{byte2}
-                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tSTA    ${byte3txt}{byte2txt}\t\t; Store A(0x{CPU.registerA.ToString("X2")}) to ${byte3txt}{byte2txt}" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt} {byte2txt} {byte3txt}\tSTA    ${byte3txt}{byte2txt}\t\t; Store A(0x{CPU.registerA.ToString("X2")}) to ${byte3txt}{byte2txt}" + "\t\t" + CPU.CPUStatus();
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
@@ -372,7 +372,7 @@ namespace mihemulator8080
                     break;
 
                 case 0x3A: //LDA    ${byte3}{byte2} 	A <- (adr)
-                    
+
                     memoryAddressImmediate = 0;
                     memoryAddressImmediate = opCodes.Byte3 << 8;
                     memoryAddressImmediate = memoryAddressImmediate | opCodes.Byte2;
@@ -406,6 +406,10 @@ namespace mihemulator8080
                 case 0x4F: //MOV    C,A
                     instructionText = $"{byte1txt}\t\tMOV    C,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to C(0x{CPU.registerC.ToString("X2")})(C Before)" + "\t" + CPU.CPUStatus();
                     CPU.registerC = CPU.registerA;
+                    break;
+
+                case 0x43: //MOV    B,E
+                    /////////////////////////////////instructionText = $"{byte1txt}\t\tMOV    C,A\t\t; Move A(0x{CPU.registerA.ToString("X2")}) to C(0x{CPU.registerC.ToString("X2")})(C Before)" + "\t" + CPU.CPUStatus();
                     break;
 
 
@@ -565,7 +569,7 @@ namespace mihemulator8080
                     Memory.RAMMemory[CPU.stackPointer - 1] = CPU.registerB; // is this the correct order? who knows
                     Memory.RAMMemory[CPU.stackPointer - 2] = CPU.registerC;
                     CPU.stackPointer -= 2;
-                    stackSize -=2;
+                    stackSize -= 2;
                     break;
 
                 case 0xC6: //ADI    #${byte2}
@@ -637,6 +641,8 @@ namespace mihemulator8080
                         CPU.programCounter = opCodes.Byte3 << 8; //equal to byte3 + 8 bits padded right
                         CPU.programCounter = CPU.programCounter | opCodes.Byte2; // fill the padded 8 bits right
                     }
+
+
                     break;
 
                 case 0xCD: //CALL   ${byte3}{byte2}
@@ -662,6 +668,7 @@ namespace mihemulator8080
                     if (opCodes.Byte2 == 0x06)
                     {
                         instructionText = $"{byte1txt} {byte2txt}\t\tOUT    #${byte2txt}\t\t; Feed the WatchDog with byte2({byte2txt})" + "\t" + CPU.CPUStatus();
+                        //CPU.programCounter = 0x2400;
                     }
                     break;
 
@@ -684,7 +691,7 @@ namespace mihemulator8080
 
 
                 case 0xD8: //RC - if carry true jump to top of stack address
-                    instructionText = $"{byte1txt}\t\tRC\t\t; POP top stack and jumps to it. SP+2" + "\t\t" + CPU.CPUStatus(); 
+                    instructionText = $"{byte1txt}\t\tRC\t\t; POP top stack and jumps to it. SP+2" + "\t\t" + CPU.CPUStatus();
                     // if cy=true then jump to address on top of stack
                     if (CPU.CarryFlag == true)
                     {
@@ -769,11 +776,11 @@ namespace mihemulator8080
                     //state->sp += 2;
 
                     // This is how the push is implemented
-//                    Convert.ToByte(CPU.ZeroFlag) |
-//Convert.ToByte(CPU.SignFlag) << 1 |
-//Convert.ToByte(CPU.ParityFlag) << 2 |
-//Convert.ToByte(CPU.CarryFlag) << 3 |
-//Convert.ToByte(CPU.AuxCarryFlag) << 4);
+                    //                    Convert.ToByte(CPU.ZeroFlag) |
+                    //Convert.ToByte(CPU.SignFlag) << 1 |
+                    //Convert.ToByte(CPU.ParityFlag) << 2 |
+                    //Convert.ToByte(CPU.CarryFlag) << 3 |
+                    //Convert.ToByte(CPU.AuxCarryFlag) << 4);
                     CPU.registerA = Memory.RAMMemory[stackPointer + 1];
                     byteOperation = 0;
                     byteOperation = Memory.RAMMemory[stackPointer];
@@ -848,7 +855,7 @@ namespace mihemulator8080
 
             if (fileDebug == true && cyclesCounter > -1)
             {
-                
+
                 switch (instructionLine.ToString("X4"))
                 {
                     case "1A32":
@@ -942,7 +949,7 @@ namespace mihemulator8080
 
                         else
                         {
-                            int a = 34;
+                            int a = 34; //brakpoit dummy.. sigh...
                         }
                         break;
 
@@ -1030,7 +1037,7 @@ namespace mihemulator8080
                         Memory.RAMMemory[0x20C0] = (byte)(Memory.RAMMemory[0x20C0] - 1);
                         comment = "";
                         break;
-                        
+
 
                     default:
                         //comment = "";
@@ -1048,8 +1055,8 @@ namespace mihemulator8080
             //    sb.AppendLine(cyclesCounter.ToString() + "****************************************************");
             //    linesToAppendCounter++;
             //}
-
-            if (linesToAppendCounter > 500)
+            int writeEverynLines = 1; //Normal value is 500
+            if (linesToAppendCounter > writeEverynLines)
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))
                 {

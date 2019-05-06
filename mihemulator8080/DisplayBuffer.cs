@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections;
-using System.Diagnostics;
 
 namespace mihemulator8080
 {
@@ -16,6 +15,7 @@ namespace mihemulator8080
         //plastic transparent overlay and a background picture.
         //Video hardware is very simple: 7168 bytes 1bpp bitmap (32 bytes per scanline).
 
+        //VIDEO
         public static Texture2D videoTexture;
         private const int X = 256;
         private const int Y = 224;
@@ -25,13 +25,26 @@ namespace mihemulator8080
         private static int pixel;
         private static Color colorBG, colorPixel;
 
+        //RAM
+        public static Texture2D RAMtexture;
+        private static Color[] pixelsArrayRAM;
+
+
         public static void Init(GraphicsDevice device, Color BG, Color cixel)
         {
+            //VIDEO
             videoTexture = new Texture2D(device, X, Y);
             pixelsArray = new Color[X * Y];
             pixel = 0;
             colorBG = BG;
             colorPixel = cixel;
+
+            //RAM
+            RAMtexture = new Texture2D(device, 256, 2048);
+            pixelsArrayRAM = new Color[256 *2048];
+
+
+
         }
 
         public static void ChangeColors(Color BG, Color cixel)
@@ -55,19 +68,9 @@ namespace mihemulator8080
                 eightPixels.CopyTo(bits, 0);
                 for (int bit = 0; bit < 8; bit++)
                 {
-                    //int randomValue = rnd.Next(1, 3);
-                    //pixelsArray[pixel] = (randomValue == 1) ? Color.White : Color.Red;
-                    if (CPU.cyclesCounter > 46150) //TODO Remove this debug
-                    {
-                        pixelsArray[pixel] = (bits[bit] == true) ? Color.White : colorBG;
 
-                    }
-                    else
-                    {
                         pixelsArray[pixel] = (bits[bit] == true) ? colorPixel : colorBG; //TODO remove this if, is just for debug
-                    }
-                    
-                    
+
 
                     pixel++;
                 }
@@ -77,6 +80,22 @@ namespace mihemulator8080
             videoTexture.SetData(pixelsArray);
 
             //Debug.WriteLine(watch.ElapsedTicks);
+        }
+
+        public static void GenerateRAMDisplay()
+        {
+            int pointerRAM = 0;
+            foreach (byte octet in Memory.RAMMemory)
+            {
+                BitArray octetToPixels = new BitArray(new byte[] { octet });
+                foreach (bool point in octetToPixels)
+                {
+                    pixelsArrayRAM[pointerRAM] = (point) ? Color.White : Color.Black;
+                    pointerRAM++;
+                }
+            }
+
+            RAMtexture.SetData(pixelsArrayRAM);
         }
     }
 }
