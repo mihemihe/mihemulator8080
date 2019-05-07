@@ -1118,7 +1118,7 @@ namespace mihemulator8080
             //    sb.AppendLine(cyclesCounter.ToString() + "****************************************************");
             //    linesToAppendCounter++;
             //}
-            int writeEverynLines = 500; //Normal value is 500
+            int writeEverynLines = 1; //Normal value is 500
             if (linesToAppendCounter > writeEverynLines)
             {
                 using (StreamWriter sw = File.AppendText(debugFilePath))

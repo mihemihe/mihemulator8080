@@ -75,11 +75,11 @@ namespace mihemulator8080
 
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = new TimeSpan(4000); // only if IsFixedTimeStep is true
-            bool testROM = false;
+            bool testROM = true;
 
             if(testROM)
             {
-                CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\TEST-ROM.json", SourceFileFormat.JSON_HEX);
+                CPU.instructionFecther.LoadSourceFile(@".\ROM\SpaceInvaders1978\TEST-ROM2.json", SourceFileFormat.JSON_HEX);
             }
             else
             {

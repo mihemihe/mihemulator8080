@@ -84,6 +84,9 @@
     <None Include="ROM\SpaceInvaders1978\TEST-ROM.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ROM\SpaceInvaders1978\TEST-ROM2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
